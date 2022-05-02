@@ -12,7 +12,6 @@ model Post {
   short_description     String                 @db.VarChar(255)
   long_description      String?
   controlled            Boolean                @default(false)
-  category_id           Int
   created_at            DateTime               @default(now())
   event_at              DateTime?
   id                    Int                    @id @default(autoincrement())
@@ -75,6 +74,7 @@ model Administrator {
 model User {
   id           Int     @id @default(autoincrement())
   phone_number String?
+  smartcity_id String?
   posts        Post[]
 }
 

@@ -10,17 +10,24 @@ const validate_createPost = ajv.compile(createPost_schema)
 exports.createPost= async(request, response) => {
     if(validate_createPost(request.body)){
         console.log("validated")
-        const {title, short_description, long_description, user_id, category} = request.body
+        var category = request.body;
+
+        if(category == "suche"){
+            category= "category.suche";
+        }
+        const {title, short_description, long_description, user_id} = request.body
+
         const Post = await prisma.post.create({
             data: {
                 title,
                 short_description,
                 long_description,
-                user_id
+                user_id,
+                //category //does not work with this line, how do I work with enums?
             },
 
         })
-        return response.status(200);
+        return response.status(200).send(Post);
     }
     return response.status(400).send({message: 'missing data'})
 }
