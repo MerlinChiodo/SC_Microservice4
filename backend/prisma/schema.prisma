@@ -8,24 +8,24 @@ datasource db {
 }
 
 model Post {
-  title             String
-  short_description String      @db.VarChar(255)
-  long_description  String?
-  controlled        Boolean     @default(false)
-  category_id       Int
-  created_at        DateTime    @default(now())
-  event_at          DateTime?
-  id                Int         @id @default(autoincrement())
-  public            Boolean     @default(true)
-  service           String?
-  user_id           Int?
-  category          Category    @relation(fields: [category_id], references: [id])
-  author            User?       @relation(fields: [user_id], references: [id])
-  pictures          Picture[]
-  calls             Post_Call[]
-  reports           Report[]
+  title                 String
+  short_description     String                 @db.VarChar(255)
+  long_description      String?
+  controlled            Boolean                @default(false)
+  category_id           Int
+  created_at            DateTime               @default(now())
+  event_at              DateTime?
+  id                    Int                    @id @default(autoincrement())
+  public                Boolean                @default(true)
+  service               String?
+  user_id               Int?
+  category              Category?
+  author                User?                  @relation(fields: [user_id], references: [id])
+  pictures              Picture[]
+  calls                 Post_Call[]
+  reports               Report[]
+  category_descriptions Category_Description[]
 
-  @@index([category_id], map: "Post_category_id_fkey")
   @@index([user_id], map: "Post_user_id_fkey")
 }
 
@@ -48,7 +48,7 @@ model Picture {
   @@index([post_id], map: "Picture_post_id_fkey")
 }
 
-model Category {
+model Category_Description {
   id    Int    @id @default(autoincrement())
   name  String
   posts Post[]
@@ -60,17 +60,11 @@ model Report {
   post_id     Int
   reasonId    Int
   reported_at DateTime      @default(now())
+  reason      Report_Reason
   post        Post          @relation(fields: [post_id], references: [id])
-  reason      Report_Reason @relation(fields: [reasonId], references: [id])
 
   @@index([post_id], map: "Report_post_id_fkey")
   @@index([reasonId], map: "Report_reasonId_fkey")
-}
-
-model Report_Reason {
-  id      Int      @id @default(autoincrement())
-  name    String
-  reports Report[]
 }
 
 model Administrator {
@@ -82,4 +76,17 @@ model User {
   id           Int     @id @default(autoincrement())
   phone_number String?
   posts        Post[]
+}
+
+enum Category {
+  SUCHE
+  BIETE
+  FRAGE
+  VERANSTALTUNG
+}
+
+enum Report_Reason {
+  UNANGEBRACHTES_BILD
+  UNANGEBRACHTER_INHALT
+  BELEIDIGEND
 }
