@@ -1,6 +1,7 @@
 const prisma = require('../lib/prisma.js')
 const Ajv = require('ajv');
 const ajv = new Ajv({allErrors:true})
+import {Category} from "@prisma/client"
 
 const createPost_schema = require('../json-schema/createPost_schema')
 const validate_createPost = ajv.compile(createPost_schema)
@@ -10,10 +11,10 @@ const validate_createPost = ajv.compile(createPost_schema)
 exports.createPost= async(request, response) => {
     if(validate_createPost(request.body)){
         console.log("validated")
-        var category = request.body;
-
-        if(category == "suche"){
-            category= "category.suche";
+        let categ = request.body;
+        let a: Category = a
+        if(categ == "suche"){
+            categ= Category.SUCHE;
         }
         const {title, short_description, long_description, user_id} = request.body
 
@@ -23,7 +24,7 @@ exports.createPost= async(request, response) => {
                 short_description,
                 long_description,
                 user_id,
-                //category //does not work with this line, how do I work with enums?
+                category: categ //does not work with this line, how do I work with enums?
             },
 
         })
