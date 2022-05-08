@@ -13,7 +13,7 @@ exports.createPost= async(request, response) => {
 
         const {title, short_description, long_description, user_id, category, category_subject} = request.body
 
-        
+
         const Post = await prisma.post.create({
             data: {
                 title,
