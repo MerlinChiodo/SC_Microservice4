@@ -18,7 +18,7 @@ const schema = {
         "category": {
             "type": "string"
         },
-        "category_description": {
+        "category_subject": {
             "type": "string"
         }
     },
