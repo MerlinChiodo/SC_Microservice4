@@ -14,6 +14,12 @@ const schema = {
         },
         "user_id": {
             "type": "integer"
+        },
+        "category": {
+            "type": "string"
+        },
+        "category_description": {
+            "type": "string"
         }
     },
     "required": [

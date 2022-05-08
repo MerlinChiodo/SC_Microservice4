@@ -23,7 +23,7 @@ model Post {
   pictures              Picture[]
   calls                 Post_Call[]
   reports               Report[]
-  category_descriptions Category_Description[]
+  category_subjects     Category_Subject?
 
   @@index([user_id], map: "Post_user_id_fkey")
 }
@@ -47,7 +47,8 @@ model Picture {
   @@index([post_id], map: "Picture_post_id_fkey")
 }
 
-model Category_Description {
+//für Suche/Biete, jobs, Musik, etc
+model Category_Subject {
   id    Int    @id @default(autoincrement())
   name  String
   posts Post[]
@@ -63,7 +64,6 @@ model Report {
   post        Post          @relation(fields: [post_id], references: [id])
 
   @@index([post_id], map: "Report_post_id_fkey")
-  @@index([reasonId], map: "Report_reasonId_fkey")
 }
 
 model Administrator {
@@ -78,8 +78,10 @@ model User {
   posts        Post[]
 }
 
+//Suche,Biete, Frage, Veranstaltung
+//enums haben nicht funktioniert
 model Category{
-    categoty String @id
+    category String @id
 }
 
 model Report_Reason{
