@@ -8,24 +8,26 @@ datasource db {
 }
 
 model Post {
-  title                 String
-  short_description     String                 @db.VarChar(255)
-  long_description      String?
-  controlled            Boolean                @default(false)
-  created_at            DateTime               @default(now())
-  event_at              DateTime?
-  id                    Int                    @id @default(autoincrement())
-  public                Boolean                @default(true)
-  service               String?
-  user_id               Int?
-  category              Category?
-  author                User?                  @relation(fields: [user_id], references: [id])
-  pictures              Picture[]
-  calls                 Post_Call[]
-  reports               Report[]
-  category_subjects     Category_Subject?
+  title             String
+  short_description String            @db.VarChar(255)
+  long_description  String?
+  controlled        Boolean           @default(false)
+  created_at        DateTime          @default(now())
+  event_at          DateTime?
+  id                Int               @id @default(autoincrement())
+  public            Boolean           @default(true)
+  service           String?
+  user_id           Int?
+  category          Category?         @relation(fields: [categoryCategory], references: [category])
+  author            User?             @relation(fields: [user_id], references: [id])
+  pictures          Picture[]
+  calls             Post_Call[]
+  reports           Report[]
+  category_subjects Category_Subject? @relation(fields: [category_SubjectId], references: [id])
 
   @@index([user_id], map: "Post_user_id_fkey")
+  categoryCategory   String?
+  category_SubjectId Int?
 }
 
 model Post_Call {
@@ -60,10 +62,11 @@ model Report {
   post_id     Int
   reasonId    Int
   reported_at DateTime      @default(now())
-  reason      Report_Reason
+  reason      Report_Reason @relation(fields: [report_ReasonReason], references: [reason])
   post        Post          @relation(fields: [post_id], references: [id])
 
   @@index([post_id], map: "Report_post_id_fkey")
+  report_ReasonReason String
 }
 
 model Administrator {
@@ -80,23 +83,25 @@ model User {
 
 //Suche,Biete, Frage, Veranstaltung
 //enums haben nicht funktioniert
-model Category{
-    category String @id
+model Category {
+  category String @id
+  Post     Post[]
 }
 
-model Report_Reason{
-    reason String @id
+model Report_Reason {
+  reason String   @id
+  Report Report[]
 }
 
 //enum Category {
-  //SUCHE
-  //BIETE
-  //FRAGE
-  //VERANSTALTUNG
+//SUCHE
+//BIETE
+//FRAGE
+//VERANSTALTUNG
 //}
 
 //enum Report_Reason {
-  //UNANGEBRACHTES_BILD
-  //UNANGEBRACHTER_INHALT
-  //BELEIDIGEND
-  //}
+//UNANGEBRACHTES_BILD
+//UNANGEBRACHTER_INHALT
+//BELEIDIGEND
+//}
