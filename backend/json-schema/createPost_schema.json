@@ -1,13 +1,8 @@
-const schema = {
-    "title": "event_noCalendar",
-    "description": "Schema for the events that are not appointed",
+{
+    "title": "createPost",
+    "description": "Schema for the method posts/createPost",
     "type": "object",
     "properties": {
-        "event_id" : {
-            "type": "integer",
-            "minimum": 0,
-            "maximum": 10000
-        },
         "title": {
             "type": "string"
         },
@@ -17,17 +12,19 @@ const schema = {
         "long_description": {
             "type": "string"
         },
-        "service": {
+        "user_id": {
             "type": "integer"
+        },
+        "category": {
+            "type": "string"
+        },
+        "category_subject": {
+            "type": "string"
         }
-        //picture
     },
     "required": [
-        "event_id",
         "title",
         "short_description",
-        "service"
+        "user_id"
     ]
 }
-
-module.exports = schema

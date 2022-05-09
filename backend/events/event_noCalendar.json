@@ -1,6 +1,6 @@
-const schema = {
-    "title": "event_Calendar",
-    "description": "Schema for the events that are appointed",
+{
+    "title": "event_noCalendar",
+    "description": "Schema for the events that are not appointed",
     "type": "object",
     "properties": {
         "event_id" : {
@@ -19,19 +19,14 @@ const schema = {
         },
         "service": {
             "type": "integer"
-        },
-        "event_at": {
-            "type": "date"
         }
-        //picture
+
     },
     "required": [
         "event_id",
         "title",
         "short_description",
-        "service",
-        "event_at"
+        "service"
     ]
 }
 
-module.exports = schema
