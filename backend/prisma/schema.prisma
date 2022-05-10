@@ -8,26 +8,28 @@ datasource db {
 }
 
 model Post {
-  title             String
-  short_description String            @db.VarChar(255)
-  long_description  String?
-  controlled        Boolean           @default(false)
-  created_at        DateTime          @default(now())
-  event_at          DateTime?
-  id                Int               @id @default(autoincrement())
-  public            Boolean           @default(true)
-  service           String?
-  user_id           Int?
-  category          Category?         @relation(fields: [categoryCategory], references: [category])
-  author            User?             @relation(fields: [user_id], references: [id])
-  pictures          Picture[]
-  calls             Post_Call[]
-  reports           Report[]
-  category_subjects Category_Subject? @relation(fields: [category_SubjectId], references: [id])
-
-  @@index([user_id], map: "Post_user_id_fkey")
-  categoryCategory   String?
+  title              String
+  short_description  String            @db.VarChar(255)
+  long_description   String?
+  controlled         Boolean           @default(false)
+  created_at         DateTime          @default(now())
+  event_at           DateTime?
+  id                 Int               @id @default(autoincrement())
+  public             Boolean           @default(true)
+  service            String?
+  user_id            Int?
+  category_id        Int?
   category_SubjectId Int?
+  category_subjects  Category_Subject? @relation(fields: [category_SubjectId], references: [id])
+  category           Category?         @relation(fields: [category_id], references: [id])
+  author             User?             @relation(fields: [user_id], references: [id])
+  pictures           Picture[]
+  calls              Post_Call[]
+  reports            Report[]
+
+  @@index([category_SubjectId], map: "Post_category_SubjectId_fkey")
+  @@index([category_id], map: "Post_category_id_fkey")
+  @@index([user_id], map: "Post_user_id_fkey")
 }
 
 model Post_Call {
@@ -49,7 +51,6 @@ model Picture {
   @@index([post_id], map: "Picture_post_id_fkey")
 }
 
-//für Suche/Biete, jobs, Musik, etc
 model Category_Subject {
   id    Int    @id @default(autoincrement())
   name  String
@@ -57,16 +58,17 @@ model Category_Subject {
 }
 
 model Report {
-  controlled  Boolean       @default(false)
-  id          Int           @id @default(autoincrement())
-  post_id     Int
-  reasonId    Int
-  reported_at DateTime      @default(now())
-  reason      Report_Reason @relation(fields: [report_ReasonReason], references: [reason])
-  post        Post          @relation(fields: [post_id], references: [id])
+  controlled          Boolean       @default(false)
+  id                  Int           @id @default(autoincrement())
+  post_id             Int
+  reasonId            Int
+  reported_at         DateTime      @default(now())
+  report_ReasonReason String
+  post                Post          @relation(fields: [post_id], references: [id])
+  reason              Report_Reason @relation(fields: [report_ReasonReason], references: [reason])
 
   @@index([post_id], map: "Report_post_id_fkey")
-  report_ReasonReason String
+  @@index([report_ReasonReason], map: "Report_report_ReasonReason_fkey")
 }
 
 model Administrator {
@@ -81,27 +83,13 @@ model User {
   posts        Post[]
 }
 
-//Suche,Biete, Frage, Veranstaltung
-//enums haben nicht funktioniert
 model Category {
-  category String @id
-  Post     Post[]
+  id   Int    @id @default(autoincrement())
+  name String
+  Post Post[]
 }
 
 model Report_Reason {
   reason String   @id
   Report Report[]
 }
-
-//enum Category {
-//SUCHE
-//BIETE
-//FRAGE
-//VERANSTALTUNG
-//}
-
-//enum Report_Reason {
-//UNANGEBRACHTES_BILD
-//UNANGEBRACHTER_INHALT
-//BELEIDIGEND
-//}
