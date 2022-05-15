@@ -9,18 +9,18 @@ datasource db {
 
 model Post {
   title             String
-  short_description String           @db.VarChar(255)
+  short_description String            @db.VarChar(255)
   long_description  String?
-  controlled        Boolean          @default(false)
-  created_at        DateTime         @default(now())
+  controlled        Boolean           @default(false)
+  created_at        DateTime          @default(now())
   event_at          DateTime?
-  id                Int              @id @default(autoincrement())
-  public            Boolean          @default(true)
+  id                Int               @id @default(autoincrement())
+  public            Boolean           @default(true)
   service           String?
   user_id           Int?
   category          Category?
-  category_subject  Category_Subject
-  author            User?            @relation(fields: [user_id], references: [id])
+  category_subject  Category_Subject?
+  author            User?             @relation(fields: [user_id], references: [id])
   pictures          Picture[]
   calls             Post_Call[]
   reports           Report[]
