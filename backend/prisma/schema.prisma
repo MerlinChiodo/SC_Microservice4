@@ -18,16 +18,13 @@ model Post {
   public             Boolean           @default(true)
   service            String?
   user_id            Int?
-  category_id        Int?
-  category_SubjectId Int?
-  category_subjects  Category_Subject? @relation(fields: [category_SubjectId], references: [id])
-  category           Category?         @relation(fields: [category_id], references: [id])
+  category_subject  Category_Subject
+  category           Category?
   author             User?             @relation(fields: [user_id], references: [id])
   pictures           Picture[]
   calls              Post_Call[]
   reports            Report[]
 
-  @@index([category_SubjectId], map: "Post_category_SubjectId_fkey")
   @@index([category_id], map: "Post_category_id_fkey")
   @@index([user_id], map: "Post_user_id_fkey")
 }
@@ -51,10 +48,17 @@ model Picture {
   @@index([post_id], map: "Picture_post_id_fkey")
 }
 
-model Category_Subject {
-  id    Int    @id @default(autoincrement())
-  name  String
-  posts Post[]
+enum Category_Subject {
+    KINDERZUBEHOER
+    BUCH
+    JOB
+    MUSIK
+    ELEKTRONIK
+    IMMOBILIE
+    TIER
+    KLEIDUNG
+    HAUSHALT
+
 }
 
 model Report {
@@ -63,12 +67,10 @@ model Report {
   post_id             Int
   reasonId            Int
   reported_at         DateTime      @default(now())
-  report_ReasonReason String
   post                Post          @relation(fields: [post_id], references: [id])
-  reason              Report_Reason @relation(fields: [report_ReasonReason], references: [reason])
+  reason              Report_Reason
 
   @@index([post_id], map: "Report_post_id_fkey")
-  @@index([report_ReasonReason], map: "Report_report_ReasonReason_fkey")
 }
 
 model Administrator {
@@ -79,17 +81,20 @@ model Administrator {
 model User {
   id           Int     @id @default(autoincrement())
   phone_number String?
-  smartcity_id String?
+  smartcity_id Int?
   posts        Post[]
 }
 
-model Category {
-  id   Int    @id @default(autoincrement())
-  name String
-  Post Post[]
+enum Category {
+    SUCHE
+    BIETE
+    FRAGE
+    VERANSTALTUNG
+    MITTEILUNG
 }
 
-model Report_Reason {
-  reason String   @id
-  Report Report[]
+enum Report_Reason {
+    UNANGEBRACHTES_BILD
+    UNANGEBRACHTER_INHALT
+    BELEIDIGEND
 }
