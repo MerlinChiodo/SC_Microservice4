@@ -50,6 +50,7 @@ model Picture {
 model Report {
   controlled  Boolean       @default(false)
   id          Int           @id @default(autoincrement())
+  description   String?
   post_id     Int
   reasonId    Int
   reason      Report_Reason
