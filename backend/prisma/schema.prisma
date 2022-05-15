@@ -12,14 +12,14 @@ model Post {
   short_description String            @db.VarChar(255)
   long_description  String?
   controlled        Boolean           @default(false)
-  created_at        DateTime          @default(now())
-  event_at          DateTime?
   id                Int               @id @default(autoincrement())
   public            Boolean           @default(true)
   service           String?
   user_id           Int?
   category          Category?
   category_subject  Category_Subject?
+  created_on        DateTime          @default(now())
+  event_on          DateTime?
   author            User?             @relation(fields: [user_id], references: [id])
   pictures          Picture[]
   calls             Post_Call[]
@@ -29,9 +29,9 @@ model Post {
 }
 
 model Post_Call {
-  called_at DateTime @default(now())
   id        Int      @id @default(autoincrement())
   post_id   Int
+  called_on DateTime @default(now())
   post      Post     @relation(fields: [post_id], references: [id])
 
   @@index([post_id], map: "Post_Call_post_id_fkey")
@@ -52,8 +52,8 @@ model Report {
   id          Int           @id @default(autoincrement())
   post_id     Int
   reasonId    Int
-  reported_at DateTime      @default(now())
   reason      Report_Reason
+  reported_on DateTime      @default(now())
   post        Post          @relation(fields: [post_id], references: [id])
 
   @@index([post_id], map: "Report_post_id_fkey")
