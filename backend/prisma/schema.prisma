@@ -8,22 +8,22 @@ datasource db {
 }
 
 model Post {
-  title              String
-  short_description  String            @db.VarChar(255)
-  long_description   String?
-  controlled         Boolean           @default(false)
-  created_at         DateTime          @default(now())
-  event_at           DateTime?
-  id                 Int               @id @default(autoincrement())
-  public             Boolean           @default(true)
-  service            String?
-  user_id            Int?
+  title             String
+  short_description String           @db.VarChar(255)
+  long_description  String?
+  controlled        Boolean          @default(false)
+  created_at        DateTime         @default(now())
+  event_at          DateTime?
+  id                Int              @id @default(autoincrement())
+  public            Boolean          @default(true)
+  service           String?
+  user_id           Int?
+  category          Category?
   category_subject  Category_Subject
-  category           Category?
-  author             User?             @relation(fields: [user_id], references: [id])
-  pictures           Picture[]
-  calls              Post_Call[]
-  reports            Report[]
+  author            User?            @relation(fields: [user_id], references: [id])
+  pictures          Picture[]
+  calls             Post_Call[]
+  reports           Report[]
 
   @@index([user_id], map: "Post_user_id_fkey")
 }
@@ -47,27 +47,14 @@ model Picture {
   @@index([post_id], map: "Picture_post_id_fkey")
 }
 
-enum Category_Subject {
-    KINDERZUBEHOER
-    BUCH
-    JOB
-    MUSIK
-    ELEKTRONIK
-    IMMOBILIE
-    TIER
-    KLEIDUNG
-    HAUSHALT
-
-}
-
 model Report {
-  controlled          Boolean       @default(false)
-  id                  Int           @id @default(autoincrement())
-  post_id             Int
-  reasonId            Int
-  reported_at         DateTime      @default(now())
-  post                Post          @relation(fields: [post_id], references: [id])
-  reason              Report_Reason
+  controlled  Boolean       @default(false)
+  id          Int           @id @default(autoincrement())
+  post_id     Int
+  reasonId    Int
+  reported_at DateTime      @default(now())
+  reason      Report_Reason
+  post        Post          @relation(fields: [post_id], references: [id])
 
   @@index([post_id], map: "Report_post_id_fkey")
 }
@@ -84,16 +71,28 @@ model User {
   posts        Post[]
 }
 
+enum Category_Subject {
+  KINDERZUBEHOER
+  BUCH
+  JOB
+  MUSIK
+  ELEKTRONIK
+  IMMOBILIE
+  TIER
+  KLEIDUNG
+  HAUSHALT
+}
+
 enum Category {
-    SUCHE
-    BIETE
-    FRAGE
-    VERANSTALTUNG
-    MITTEILUNG
+  SUCHE
+  BIETE
+  FRAGE
+  VERANSTALTUNG
+  MITTEILUNG
 }
 
 enum Report_Reason {
-    UNANGEBRACHTES_BILD
-    UNANGEBRACHTER_INHALT
-    BELEIDIGEND
+  UNANGEBRACHTES_BILD
+  UNANGEBRACHTER_INHALT
+  BELEIDIGEND
 }
