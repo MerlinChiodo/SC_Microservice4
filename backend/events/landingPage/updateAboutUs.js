@@ -5,7 +5,8 @@ const rabbitMQPassword = process.env.rabbitMQPassword
 const serverURL = process.env.serverURL
 
 exports.updateAboutUs = async (req, res) => {
-    amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${serverURL}:5672`, (connectError, connection) => {
+    console.log(`hi`)
+    amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${serverURL}`, (connectError, connection) => {
         if (connectError) {
             throw connectError
         }
@@ -14,6 +15,7 @@ exports.updateAboutUs = async (req, res) => {
                 throw channelError
             }
             const validate = ajv.getSchema("event_aboutUs")
+            console.log(`hi`)
             if (validate(req.body)) {
                 channel.publish('events', "public.forum", Buffer.from(JSON.stringify(req.body)))
                 console.log(`RabbitMQ: sent event: ${req.body}`)

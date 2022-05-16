@@ -27,6 +27,7 @@
         "title",
         "short_description",
         "service"
-    ]
+    ],
+    "additionalProperties": false
 }
 

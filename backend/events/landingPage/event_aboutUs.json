@@ -1,12 +1,11 @@
 {
-  "title": "aboutUs",
+  "title": "Change About Us",
+  "description": "Schema for the event to change the about us",
   "type": "object",
-  "description": "Schema for the event to send a new about us",
   "properties": {
     "event_id" : {
-      "type": "integer",
-      "minimum": 0,
-      "maximum": 10000
+      "const" : 4001,
+      "type": "integer"
     },
     "event_name": {
       "type": "string",
@@ -16,19 +15,20 @@
       "type": "string",
       "const": "forum"
     },
-    "about_us" : {
+    "date": {
       "type": "string"
     },
-    "picture_url": {
-      "type": "string",
-      "format": "uri",
-      "minLength": 1
+    "about_us":{
+      "type": "string"
     },
-    "date": {
-      "type": "string",
-      "format": "date"
+    "picture": {
+      "type": "string"
     }
   },
-  "required": ["event_id", "event_name","service_name", "about_us"],
-  "additionalProperties": false
+  "required": [
+    "event_id",
+    "event_name",
+    "service_name",
+    "date"
+  ]
 }

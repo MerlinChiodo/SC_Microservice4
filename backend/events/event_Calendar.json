@@ -21,7 +21,7 @@
             "type": "integer"
         },
         "event_at": {
-            "type": "date"
+            "type": "string"
         }
 
     },
@@ -32,5 +32,6 @@
         "service",
         "event_at"
     ],
+    "additionalProperties": false
 }
 

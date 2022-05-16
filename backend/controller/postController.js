@@ -54,7 +54,7 @@ exports.getPost = (request, response) => {
     try {
         const data = {
             id: request.params.id,
-            titel: "mh"
+            titel: "baba"
         }
         return response.json(data)
     } catch (error) {
