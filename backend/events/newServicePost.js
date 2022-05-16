@@ -22,7 +22,7 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${serverURL}:5672`,
             throw error1
         }
 
-        channel.consume('*', function (msg) {
+        channel.consume('forum', function (msg) {
             console.log(msg.content.toString())
 
             let newPost = JSON.parse(msg.content.toString())
