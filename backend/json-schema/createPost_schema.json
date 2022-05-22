@@ -16,10 +16,27 @@
             "type": "integer"
         },
         "category": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+                "SUCHE",
+                "BIETE",
+                "VERANSTALTUNG",
+                "FRAGE",
+                "MITTEILUNG"]
         },
         "category_subject": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+                "KINDERZUBEHOER",
+                "BUCH",
+                "JOB",
+                "MUSIK",
+                "ELEKTRONIK",
+                "IMMOBILIE",
+                "TIER",
+                "KLEIDUNG",
+                "HAUSHALT"]
+
         }
     },
     "required": [

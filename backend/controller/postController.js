@@ -2,9 +2,9 @@ const prisma = require('../lib/prisma.js')
 const Ajv = require('ajv');
 const ajv = new Ajv({allErrors:true})
 
+
 const createPost_schema = require('../json-schema/createPost_schema.json')
 const validate_createPost = ajv.compile(createPost_schema)
-
 
 
 exports.createPost= async(request, response) => {
