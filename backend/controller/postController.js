@@ -64,25 +64,25 @@ exports.getPost = (request, response) => {
 }
 
 exports.updatePost = (request, response) => {
-
+    return response.send('no implementation');
 };
 
 exports.deletePost = (request, response) => {
-
+    return response.send('no implementation');
 };
 
 exports.makePostPrivate= (request, response) => {
-
+    return response.send('no implementation');
 };
 
 exports.makePostPublic = (request, response) => {
-
+    return response.send('no implementation');
 };
 
 exports.addPictureToPost = (request, response) => {
-
+    return response.send('no implementation');
 };
 
 exports.removePictureFromPost = (request, response) => {
-
+    return response.send('no implementation');
 };

@@ -9,8 +9,12 @@ const indexRouter = require('./routes/index');
 const postsRouter = require('./routes/posts');
 const eventTestRouter = require('./routes/eventTest');
 const reportsRouter =  require('./routes/reports');
+const usersRouter =  require('./routes/users');
+const picturesRouter =  require('./routes/pictures');
+const administratorsRouter =  require('./routes/administrators');
 
-var app = express();
+
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,7 +30,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/posts', postsRouter);
 app.use('/eventTest', eventTestRouter);
-app.use('/report', reportsRouter);
+app.use('/reports', reportsRouter);
+app.use('/users', usersRouter);
+app.use('/pictures', picturesRouter);
+app.use('/administrators', administratorsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

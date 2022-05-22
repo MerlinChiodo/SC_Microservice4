@@ -1,21 +1,24 @@
 const prisma = require('../lib/prisma.js')
 
-exports.createAdministrator = (request, response) => {
+
+
+exports.createUser = (request, response) => {
     return response.send('no implementation');
 };
 
-exports.getAllAdministrators = (request, response) => {
+exports.getAllUsers = (request, response) => {
     return response.send('no implementation');
 };
 
-exports.getAdministrator = (request, response) => {
+exports.getUser = (request, response) => {
     return response.send('no implementation');
 };
 
-exports.updateAdministrator = (request, response) => {
+exports.updateUser = (request, response) => {
     return response.send('no implementation');
 };
 
-exports.deleteAdministrator = (request, response) => {
+exports.deleteUser = (request, response) => {
     return response.send('no implementation');
 };
+
