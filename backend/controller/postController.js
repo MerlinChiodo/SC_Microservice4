@@ -1,6 +1,7 @@
 const prisma = require('../lib/prisma.js')
 const Ajv = require('ajv');
 const ajv = new Ajv({allErrors:true})
+const moment = require('moment')
 
 
 const createPost_schema = require('../json-schema/createPost_schema.json')
@@ -10,6 +11,14 @@ const validate_createPost = ajv.compile(createPost_schema)
 exports.createPost= async(request, response) => {
     if(validate_createPost(request.body)){
         console.log("validated")
+        let event_on
+        try{
+            let momentDate = moment(request.body.event_on,'YYYY-MM-DDTHH:mm-ss')
+            event_on = momentDate.toDate()
+        }catch (e){
+            console.log(e)
+            return response.status(400).send({message: 'date wrong format'});
+        }
 
         const {title, short_description, long_description, user_id, category, category_subject} = request.body
 
@@ -21,7 +30,8 @@ exports.createPost= async(request, response) => {
                 long_description,
                 user_id,
                 category,
-                category_subject
+                category_subject,
+                event_on
             },
 
         })
