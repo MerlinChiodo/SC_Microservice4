@@ -62,3 +62,27 @@ exports.getPost = (request, response) => {
         return response.status(500).send(error.message)
     }
 }
+
+exports.updatePost = (request, response) => {
+
+};
+
+exports.deletePost = (request, response) => {
+
+};
+
+exports.makePostPrivate= (request, response) => {
+
+};
+
+exports.makePostPublic = (request, response) => {
+
+};
+
+exports.addPictureToPost = (request, response) => {
+
+};
+
+exports.removePictureFromPost = (request, response) => {
+
+};
