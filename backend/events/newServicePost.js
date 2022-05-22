@@ -1,5 +1,4 @@
 const amqp = require('amqplib/callback_api')
-const moment = require('moment')
 
 const rabbitMQUsername = process.env.rabbitMQUsername
 const rabbitMQPassword = process.env.rabbitMQPassword
@@ -30,18 +29,9 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${serverURL}:5672`,
             const validateNoCalendar = ajv.getSchema("event_NoCalendar")
 
             if (validateCalendar(newPost)) {
-                let event_on
-                try{
-                    let momentDate = moment(newPost.event_on,'YYYY-MM-DDTHH:mm-ss')
-                    event_on = momentDate.toDate()
-                }catch (e){
-                    console.log(e)
-                    return;
-                }
-
                 try{
                     console.log(newPost)
-
+                    //date not yet correctly validated
                     const {title, short_description, long_description, service} = newPost.body
 
 
@@ -50,8 +40,7 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${serverURL}:5672`,
                             title,
                             short_description,
                             long_description,
-                            service,
-                            event_on
+                            service
                         },
 
                     })
