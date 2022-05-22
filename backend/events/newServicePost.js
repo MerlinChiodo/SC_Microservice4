@@ -24,7 +24,7 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${serverURL}:5672`,
 
         channel.consume('forum', function (msg) {
             console.log(msg.content.toString())
-
+            console.log("bekommen")
             let newPost = JSON.parse(msg.content.toString())
             const validateCalendar = ajv.getSchema("event_Calendar")
             const validateNoCalendar = ajv.getSchema("event_NoCalendar")
