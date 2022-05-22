@@ -10,4 +10,5 @@ router.put('/:id', administratorController.updateAdministrator);
 router.delete('/:id', administratorController.deleteAdministrator);
 
 
+
 module.exports = router;
