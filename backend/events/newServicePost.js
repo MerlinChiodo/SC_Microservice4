@@ -22,9 +22,8 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${serverURL}:5672`,
             throw error1
         }
 
-        channel.consume('forum', function (msg) {
+        channel.consume('forum', async function (msg) {
             console.log(msg.content.toString())
-            console.log("bekommen")
             let newPost = JSON.parse(msg.content.toString())
             const validateCalendar = ajv.getSchema("event_Calendar")
             const validateNoCalendar = ajv.getSchema("event_NoCalendar")
@@ -32,12 +31,36 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${serverURL}:5672`,
             if (validateCalendar(newPost)) {
                 try{
                     console.log(newPost)
+                    //date not yet correctly validated
+                    const {title, short_description, long_description, service} = newPost.body
+
+
+                    const Post = await prisma.post.create({
+                        data: {
+                            title,
+                            short_description,
+                            long_description,
+                            service
+                        },
+
+                    })
                 } catch (e) {
                     return console.log(e)
                 }
             }else if(validateNoCalendar(newPost)){
                 try{
                     console.log(newPost)
+                    const {title, short_description, long_description, service} = newPost.body
+
+
+                    const Post = await prisma.post.create({
+                        data: {
+                            title,
+                            short_description,
+                            long_description,
+                            service
+                        },
+                    })
                 } catch (e) {
                     return console.log(e)
                 }
