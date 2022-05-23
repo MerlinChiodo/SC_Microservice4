@@ -2,7 +2,7 @@ const amqp = require('amqplib/callback_api');
 const Ajv = require('ajv');
 
 const schema_event_Calendar = require('./event_Calendar.json');
-const schema_event_NoCalendar = require('./event_NoCalendar.json');
+const schema_event_NoCalendar = require('./event_noCalendar.json');
 const schema_aboutUs = require("./landingPage/event_aboutUs.json")
 
 
