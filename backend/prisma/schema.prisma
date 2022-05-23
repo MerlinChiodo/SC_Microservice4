@@ -38,11 +38,10 @@ model Post_Call {
 }
 
 model Picture {
-  id        Int    @id @default(autoincrement())
-  path      String
-  mime_type String
-  post_id   Int
-  post      Post   @relation(fields: [post_id], references: [id])
+  id      Int    @id @default(autoincrement())
+  path    String
+  post_id Int?
+  post    Post?  @relation(fields: [post_id], references: [id])
 
   @@index([post_id], map: "Picture_post_id_fkey")
 }
@@ -50,11 +49,11 @@ model Picture {
 model Report {
   controlled  Boolean       @default(false)
   id          Int           @id @default(autoincrement())
-  description   String?
   post_id     Int
   reasonId    Int
   reason      Report_Reason
   reported_on DateTime      @default(now())
+  description String?
   post        Post          @relation(fields: [post_id], references: [id])
 
   @@index([post_id], map: "Report_post_id_fkey")
