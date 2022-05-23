@@ -1,7 +1,7 @@
  <template>
   <div>
-    <h1> send about Us event</h1>
-    <button @click="testAboutUs"> send predefined About Us event</button>
+    <h3> send about us event</h3>
+    <button @click="testAboutUs"> send </button>
   </div>
 </template>
 

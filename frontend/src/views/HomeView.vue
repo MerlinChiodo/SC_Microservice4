@@ -1,5 +1,5 @@
 
 <template>
-  <h1>Forum  </h1>
+  <h1>Willkommen </h1>
 
 </template>
