@@ -1,4 +1,6 @@
-const localhosturl = "http://localhost:3001/eventTest/";
+const backendurl = "http://localhost:3001/eventTest/";
+
+//const backendurl = "http://vps2290194.fastwebserver.de:9740/eventTest/";
 
 export async function testAboutUs() {
     const requestOptions = {
@@ -13,7 +15,7 @@ export async function testAboutUs() {
         }),
     };
     const response = await fetch(
-        localhosturl + "testAboutUs",
+        backendurl + "testAboutUs",
         requestOptions
     );
     const data = await response.json();
