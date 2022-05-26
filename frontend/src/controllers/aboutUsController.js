@@ -1,6 +1,9 @@
-const backendurl = location.host;
+//const backendurl = "http://localhost:3001/eventTest/";
+const backendurl = location.host + "/eventTest/";
+//const backendurl = "http://vps2290194.fastwebserver.de:9740/eventTest/";
 
 export async function testAboutUs() {
+    console.log(backendurl)
     const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -17,5 +20,4 @@ export async function testAboutUs() {
         requestOptions
     );
     const data = await response.json();
-    this.ticketResponse = data;
 }
