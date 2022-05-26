@@ -5,12 +5,8 @@ const rabbitMQPassword = process.env.rabbitMQPassword
 const serverURL = process.env.serverURL
 
 const {ajv} = require("../validation")
-//const prisma = require('../lib/prisma.js')
-const {PrismaClient} = require("@prisma/client")
+const prisma = require('../lib/prisma.js')
 
-const prisma = new PrismaClient({
-    log: ['query','info','warn','error'],
-})
 
 
 amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${serverURL}:5672`, function (error0, connection) {

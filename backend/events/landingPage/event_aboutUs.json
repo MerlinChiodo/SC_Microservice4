@@ -29,6 +29,7 @@
     "event_id",
     "event_name",
     "service_name",
-    "date"
+    "date",
+    "about_us"
   ]
 }

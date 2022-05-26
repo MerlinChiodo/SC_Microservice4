@@ -30,14 +30,14 @@ exports.createPost= async(request, response) => {
     return response.status(400).send({message: 'missing data'})
 }
 
-exports.getPostOverview =(request, response) => {
+exports.getPostOverview = (request, response) => {
 
     //let createPost_json = JSON.parse(re)
 
 
     try {
         const data = {
-            id: request.params.id,
+            id: parseInt(request.params.id, 10),
             titel: "titel"
         }
         return response.json(data)
@@ -53,7 +53,7 @@ exports.getPostOverview =(request, response) => {
 exports.getPost = (request, response) => {
     try {
         const data = {
-            id: request.params.id,
+            id: parseInt(request.params.id, 10),
             titel: "baba"
         }
         return response.json(data)
