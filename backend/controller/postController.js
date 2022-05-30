@@ -1,6 +1,8 @@
 const prisma = require('../lib/prisma.js')
 const Ajv = require('ajv');
 const ajv = new Ajv({allErrors:true})
+const addFormats = require('ajv-formats')
+addFormats(ajv)
 
 
 const createPost_schema = require('../json-schema/createPost_schema.json')
