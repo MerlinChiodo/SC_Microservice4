@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  title             String
+  short_description String            @db.VarChar(255)
+  long_description  String?
+  controlled        Boolean           @default(false)
+  id                Int               @id @default(autoincrement())
+  public            Boolean           @default(true)
+  service           String?
+  user_id           Int?
+  category          Category?
+  category_subject  Category_Subject?
+  created_on        DateTime          @default(now())
+  event_on          DateTime?
+  author            User?             @relation(fields: [user_id], references: [id])
+  pictures          Picture[]
+  calls             Post_Call[]
+  reports           Report[]
+
+  @@index([user_id], map: "Post_user_id_fkey")
+}
+
+model Post_Call {
+  id        Int      @id @default(autoincrement())
+  post_id   Int
+  called_on DateTime @default(now())
+  post      Post     @relation(fields: [post_id], references: [id])
+
+  @@index([post_id], map: "Post_Call_post_id_fkey")
+}
+
+model Picture {
+  id      Int    @id @default(autoincrement())
+  path    String
+  post_id Int?
+  post    Post?  @relation(fields: [post_id], references: [id])
+
+  @@index([post_id], map: "Picture_post_id_fkey")
+}
+
+model Report {
+  controlled  Boolean       @default(false)
+  id          Int           @id @default(autoincrement())
+  post_id     Int
+  reasonId    Int
+  reason      Report_Reason
+  reported_on DateTime      @default(now())
+  description String?
+  post        Post          @relation(fields: [post_id], references: [id])
+
+  @@index([post_id], map: "Report_post_id_fkey")
+}
+
+model Administrator {
+  id    Int    @id @default(autoincrement())
+  email String
+}
+
+model User {
+  id           Int     @id @default(autoincrement())
+  phone_number String?
+  smartcity_id Int?
+  posts        Post[]
+}
+
+enum Category_Subject {
+  KINDERZUBEHOER
+  BUCH
+  JOB
+  MUSIK
+  ELEKTRONIK
+  IMMOBILIE
+  TIER
+  KLEIDUNG
+  HAUSHALT
+}
+
+enum Category {
+  SUCHE
+  BIETE
+  FRAGE
+  VERANSTALTUNG
+  MITTEILUNG
+}
+
+enum Report_Reason {
+  UNANGEBRACHTES_BILD
+  UNANGEBRACHTER_INHALT
+  BELEIDIGEND
+}

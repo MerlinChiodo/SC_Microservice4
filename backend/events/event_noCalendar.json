@@ -1,0 +1,40 @@
+{
+    "title": "event_noCalendar",
+    "description": "Schema for the events that are not appointed",
+    "type": "object",
+    "properties": {
+        "event_id" : {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+        },
+        "event_name": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        },
+        "short_description": {
+            "type": "string"
+        },
+        "long_description": {
+            "type": "string"
+        },
+        "service": {
+            "type": "integer"
+        },
+        "picture_url": {
+            "type": "string",
+            "minLength": 1
+        }
+
+    },
+    "required": [
+        "event_id",
+        "title",
+        "short_description",
+        "service"
+    ],
+    "additionalProperties": false
+}
+

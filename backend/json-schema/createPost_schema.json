@@ -1,0 +1,47 @@
+{
+    "title": "createPost",
+    "description": "Schema for the method posts/createPost",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string"
+        },
+        "short_description": {
+            "type": "string"
+        },
+        "long_description": {
+            "type": "string"
+        },
+        "user_id": {
+            "type": "integer"
+        },
+        "category": {
+            "type": "string",
+            "enum": [
+                "SUCHE",
+                "BIETE",
+                "VERANSTALTUNG",
+                "FRAGE",
+                "MITTEILUNG"]
+        },
+        "category_subject": {
+            "type": "string",
+            "enum": [
+                "KINDERZUBEHOER",
+                "BUCH",
+                "JOB",
+                "MUSIK",
+                "ELEKTRONIK",
+                "IMMOBILIE",
+                "TIER",
+                "KLEIDUNG",
+                "HAUSHALT"]
+
+        }
+    },
+    "required": [
+        "title",
+        "short_description",
+        "user_id"
+    ]
+}
