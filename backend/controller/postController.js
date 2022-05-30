@@ -12,7 +12,9 @@ const validate_createPost = ajv.compile(createPost_schema)
 exports.createPost= async(request, response) => {
     if(validate_createPost(request.body)){
         console.log("validated")
-
+        let event_on = request.params.event_on
+        event_on = new Date(event_on)
+        console.log(event_on)
         const {title, short_description, long_description, user_id, category, category_subject} = request.body
 
 
@@ -23,7 +25,8 @@ exports.createPost= async(request, response) => {
                 long_description,
                 user_id,
                 category,
-                category_subject
+                category_subject,
+                event_on
             },
 
         })

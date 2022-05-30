@@ -15,6 +15,10 @@
         "user_id": {
             "type": "integer"
         },
+        "event_on": {
+            "type": "string",
+            "format": "date"
+        },
         "category": {
             "type": "string",
             "enum": [
