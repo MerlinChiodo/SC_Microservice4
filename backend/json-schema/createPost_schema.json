@@ -17,7 +17,7 @@
         },
         "event_on": {
             "type": "string",
-            "format": "date"
+            "format": "date-time"
         },
         "category": {
             "type": "string",

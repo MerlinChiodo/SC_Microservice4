@@ -11,14 +11,10 @@ const validate_createPost = ajv.compile(createPost_schema)
 
 exports.createPost= async(request, response) => {
     if(validate_createPost(request.body)){
-        console.log("validated")
-        let event_on = request.params.event_on
+        let {event_on} = request.body
         event_on = new Date(event_on)
-        console.log(event_on)
         const {title, short_description, long_description, user_id, category, category_subject} = request.body
 
-//"event_on": "1970-01-01T00:03-44"
-//"event_on": "01-01-1970 00:03:44"
         const Post = await prisma.post.create({
             data: {
                 title,
