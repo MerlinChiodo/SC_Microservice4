@@ -2,10 +2,10 @@ const amqp = require('amqplib/callback_api');
 const {ajv} = require("../validation")
 const rabbitMQUsername = process.env.rabbitMQUsername
 const rabbitMQPassword = process.env.rabbitMQPassword
-const serverURL = process.env.serverURL
+const rabbitMQServerURL = process.env.rabbitMQServerURL
 
 exports.updateAboutUs = async (req, res) => {
-    amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${serverURL}`, (connectError, connection) => {
+    amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${rabbitMQServerURL}`, (connectError, connection) => {
         if (connectError) {
             throw connectError
         }

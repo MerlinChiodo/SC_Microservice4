@@ -14,16 +14,16 @@
         "title": {
             "type": "string"
         },
-        "short_description": {
+        "text_short": {
             "type": "string"
         },
-        "long_description": {
+        "text_long": {
             "type": "string"
         },
-        "service": {
-            "type": "integer"
+        "service_name": {
+            "type": "string"
         },
-        "event_on": {
+        "date": {
             "type": "string",
             "format": "date-time"
         },
@@ -35,9 +35,9 @@
     "required": [
         "event_id",
         "title",
-        "short_description",
-        "service",
-        "event_at"
+        "text_short",
+        "service_name",
+        "date"
     ],
     "additionalProperties": false
 }

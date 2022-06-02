@@ -5,7 +5,7 @@
   "scripts": {
     "devstart": "nodemon ./bin/www",
     "start": "concurrently npm:run-*",
-    "serverstart": "node ./bin/www",
+    "run-serverstart": "node ./bin/www",
     "run-eventlistener": "node events/newServicePost.js"
   },
   "dependencies": {

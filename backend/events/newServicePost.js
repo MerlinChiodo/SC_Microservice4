@@ -2,14 +2,14 @@ const amqp = require('amqplib/callback_api')
 
 const rabbitMQUsername = process.env.rabbitMQUsername
 const rabbitMQPassword = process.env.rabbitMQPassword
-const serverURL = process.env.serverURL
+const rabbitMQServerURL = process.env.rabbitMQServerURL
+
 
 const {ajv} = require("./validation")
 const prisma = require('../lib/prisma.js')
 
 
-
-amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${serverURL}:5672`, function (error0, connection) {
+amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${rabbitMQServerURL}`, function (error0, connection) {
     if (error0) {
         throw error0
     }
@@ -26,17 +26,21 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${serverURL}:5672`,
 
             if (validateCalendar(newPost)) {
                 try{
-                    console.log(newPost)
+                    console.log("validated")
                     //date not yet correctly validated
-                    const {title, short_description, long_description, service} = newPost.body
-
+                    const {title, text_short, text_long, service_name, date} = newPost
+                    const long_description = text_long
+                    const short_description  = text_short
+                    const service = service_name
+                    const event_on = new Date(date)
 
                     const Post = await prisma.post.create({
                         data: {
                             title,
                             short_description,
                             long_description,
-                            service
+                            service,
+                            event_on
                         },
 
                     })
