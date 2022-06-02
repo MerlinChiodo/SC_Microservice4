@@ -25,26 +25,30 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${rabbitMQServerURL
             const validateNoCalendar = ajv.getSchema("event_NoCalendar")
 
             if (validateCalendar(newPost)) {
-                try{
-                    console.log("validated")
-                    const {title, short_description, long_description, service, picture_url} = newPost
-                    let {event_on} = newPost
-                    event_on = new Date(event_on)
+                const {event_name} = newPost
+                if(event_name === "newServicePost"){
+                    try{
+                        console.log("validated")
+                        const {title, short_description, long_description, service, picture_url} = newPost
+                        let {event_on} = newPost
+                        event_on = new Date(event_on)
 
-                    const Post = await prisma.post.create({
-                        data: {
-                            title,
-                            short_description,
-                            long_description,
-                            service,
-                            event_on,
-                            picture_url
-                        },
+                        const Post = await prisma.post.create({
+                            data: {
+                                title,
+                                short_description,
+                                long_description,
+                                service,
+                                event_on,
+                                picture_url
+                            },
 
-                    })
-                } catch (e) {
-                    return console.log(e)
+                        })
+                    } catch (e) {
+                        return console.log(e)
+                    }
                 }
+
             }else if(validateNoCalendar(newPost)){
                 try{
                     console.log(newPost)
