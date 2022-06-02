@@ -58,8 +58,17 @@ exports.getAllServicePosts = async(request, response) => {
             where: {
                 service: {
                     not: null
-                },
+                }
 
+            },
+            select: {
+                title: true,
+                short_description: true,
+                long_description: true,
+                service: true,
+                id: true,
+                event_on: true,
+                created_on: true
             },
         })
         return response.json(posts)
