@@ -1,9 +1,19 @@
-<script setup>
+<script >
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from '@/components/HelloWorld.vue'
+import MenuBar from './components/MenuBar.vue'
+
+export default {
+  components: {
+    MenuBar,
+  },
+};
 </script>
 
 <template>
+
+  <MenuBar/>
+
     <h1>Forum</h1>
     <div><RouterLink to="/testEvents">testEvent</RouterLink></div>
 
