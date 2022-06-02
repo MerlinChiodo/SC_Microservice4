@@ -9,21 +9,22 @@
             "maximum": 10000
         },
         "event_name": {
-            "type": "string"
+            "type": "string",
+            "const": "newServicePost"
         },
         "title": {
             "type": "string"
         },
-        "text_short": {
+        "short_description": {
             "type": "string"
         },
-        "text_long": {
+        "long_description": {
             "type": "string"
         },
-        "service_name": {
+        "service": {
             "type": "string"
         },
-        "date": {
+        "event_on": {
             "type": "string",
             "format": "date-time"
         },
@@ -34,10 +35,11 @@
     },
     "required": [
         "event_id",
+        "event_name",
         "title",
-        "text_short",
-        "service_name",
-        "date"
+        "short_description",
+        "service",
+        "event_on"
     ],
     "additionalProperties": false
 }

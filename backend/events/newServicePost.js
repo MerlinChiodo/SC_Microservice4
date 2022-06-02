@@ -27,12 +27,9 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${rabbitMQServerURL
             if (validateCalendar(newPost)) {
                 try{
                     console.log("validated")
-                    //date not yet correctly validated
-                    const {title, text_short, text_long, service_name, date} = newPost
-                    const long_description = text_long
-                    const short_description  = text_short
-                    const service = service_name
-                    const event_on = new Date(date)
+                    const {title, short_description, long_description, service, picture_url} = newPost
+                    let {event_on} = newPost
+                    event_on = new Date(event_on)
 
                     const Post = await prisma.post.create({
                         data: {
@@ -40,7 +37,8 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${rabbitMQServerURL
                             short_description,
                             long_description,
                             service,
-                            event_on
+                            event_on,
+                            picture_url
                         },
 
                     })
