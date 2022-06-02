@@ -4,7 +4,7 @@ const rabbitMQUsername = process.env.rabbitMQUsername
 const rabbitMQPassword = process.env.rabbitMQPassword
 const serverURL = process.env.serverURL
 
-const {ajv} = require("../validation")
+const {ajv} = require("./validation")
 const prisma = require('../lib/prisma.js')
 
 

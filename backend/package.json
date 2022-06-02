@@ -3,14 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "devstart": "nodemon ./bin/www"
+    "devstart": "nodemon ./bin/www",
+    "start": "concurrently npm:run-*",
+    "serverstart": "node ./bin/www",
+    "run-eventlistener": "node events/newServicePost.js"
   },
   "dependencies": {
     "@prisma/client": "^3.13.0",
     "ajv": "^8.11.0",
     "ajv-formats": "^2.1.1",
     "amqplib": "^0.8.0",
+    "concurrently": "^7.2.1",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",

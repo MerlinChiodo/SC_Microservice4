@@ -23,8 +23,9 @@
         "service": {
             "type": "integer"
         },
-        "event_at": {
-            "type": "string"
+        "event_on": {
+            "type": "string",
+            "format": "date-time"
         },
         "picture_url": {
             "type": "string",
