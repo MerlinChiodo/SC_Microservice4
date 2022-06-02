@@ -15,7 +15,7 @@ exports.createPost= async(request, response) => {
         event_on = new Date(event_on)
         const {title, short_description, long_description, user_id, category, category_subject} = request.body
 
-        const Post = await prisma.post.create({
+        const Post = await prisma.Post.create({
             data: {
                 title,
                 short_description,
@@ -51,6 +51,23 @@ exports.getPostOverview = (request, response) => {
     //response.send('Not implemented: getPostOverview')
 
 };
+
+exports.getAllServicePosts = async(request, response) => {
+    try {
+        const posts = await prisma.Post.findMany({
+            where: {
+                service: {
+                    not: null
+                },
+
+            },
+        })
+        return response.json(posts)
+    } catch (error) {
+        console.log(error)
+        return response.status(500).send(error.message)
+    }
+}
 
 exports.getPost = (request, response) => {
     try {

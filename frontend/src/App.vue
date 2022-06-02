@@ -11,11 +11,10 @@ export default {
 </script>
 
 <template>
-
   <MenuBar/>
 
     <h1>Forum</h1>
-    <div><RouterLink to="/testEvents">testEvent</RouterLink></div>
+    <!----<div><RouterLink to="/testEvents">testEvent</RouterLink></div>---->
 
   <RouterView />
 </template>

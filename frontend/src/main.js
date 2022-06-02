@@ -5,7 +5,7 @@ import App from './App.vue'
 import router from './router'
 import PrimeVue from 'primevue/config'
 
-import Menubar from 'primevue/menubar'
+//import Menubar from 'primevue/menubar'
 import TabMenu from 'primevue/tabmenu';
 
 const app = createApp(App)
