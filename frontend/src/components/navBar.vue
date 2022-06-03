@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "MenuBar",
+  name: "navBar",
   data() {
     return {
       items: [
@@ -19,6 +19,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>
