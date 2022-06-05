@@ -30,7 +30,7 @@ export default {
   },
   postService: null,
 
-  created() {
+  mounted() {
     this.posts = getAllServicePosts()
   },
   methods: {
