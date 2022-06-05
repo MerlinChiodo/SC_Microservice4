@@ -33,6 +33,12 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${rabbitMQServerURL
                         let {event_on} = newPost
                         event_on = new Date(event_on)
 
+                        const Picture = await prisma.picture.create({
+                            data: {
+                                picture_url
+                            }
+                        })
+
                         const Post = await prisma.post.create({
                             data: {
                                 title,
@@ -40,7 +46,7 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${rabbitMQServerURL
                                 long_description,
                                 service,
                                 event_on,
-                                picture_url
+                                Picture
                             },
 
                         })
