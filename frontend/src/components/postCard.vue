@@ -1,5 +1,5 @@
-
-
+<template>
+<DataView :value="posts" layout='list'>
   <template #list="slotProps">
     <div class="col-12">
       <div class="car-details">
@@ -15,6 +15,8 @@
       </div>
     </div>
   </template>
+</DataView>
+</template>
 
 <script>
 import {getAllServicePosts} from '../controllers/postController'

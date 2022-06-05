@@ -18,9 +18,6 @@ const landingPageRouter =  require('./routes/landingPage');
 
 const app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(cors({
@@ -37,7 +34,6 @@ app.use(cookieParser());
 })*/
 
 
-app.use('/', indexRouter);
 app.use('/posts', postsRouter);
 app.use('/eventTest', eventTestRouter);
 app.use('/reports', reportsRouter);

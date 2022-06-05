@@ -51,6 +51,18 @@ exports.getPostOverview = (request, response) => {
 
 };
 
+exports.getPost = (request, response) => {
+    try {
+        const data = {
+            id: parseInt(request.params.id, 10),
+            titel: "baba"
+        }
+        return response.json(data)
+    } catch (error) {
+        console.log(error)
+        return response.status(500).send(error.message)
+    }
+}
 exports.getAllServicePosts = async(request, response) => {
     try {
         const posts = await prisma.Post.findMany({
@@ -77,18 +89,7 @@ exports.getAllServicePosts = async(request, response) => {
     }
 }
 
-exports.getPost = (request, response) => {
-    try {
-        const data = {
-            id: parseInt(request.params.id, 10),
-            titel: "baba"
-        }
-        return response.json(data)
-    } catch (error) {
-        console.log(error)
-        return response.status(500).send(error.message)
-    }
-}
+
 
 exports.updatePost = (request, response) => {
     return response.send('no implementation');
