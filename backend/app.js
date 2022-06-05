@@ -13,6 +13,7 @@ const reportsRouter =  require('./routes/reports');
 const usersRouter =  require('./routes/users');
 const picturesRouter =  require('./routes/pictures');
 const administratorsRouter =  require('./routes/administrators');
+const landingPageRouter =  require('./routes/landingPage');
 
 
 const app = express();
@@ -43,6 +44,7 @@ app.use('/reports', reportsRouter);
 app.use('/users', usersRouter);
 app.use('/pictures', picturesRouter);
 app.use('/administrators', administratorsRouter);
+app.use('/landingPage', landingPageRouter);
 
 
 // catch 404 and forward to error handler

@@ -14,6 +14,7 @@ import "primevue/resources/themes/mdc-light-indigo/theme.css";
 import navBar from 'primevue/tabmenu';
 import inputText from 'primevue/inputtext';
 import textarea from 'primevue/textarea';
+import button from 'primevue/button';
 
 const app = createApp(App)
 
@@ -24,6 +25,7 @@ app.use(PrimeVue)
 app.component('TabMenu', navBar)
 app.component('InputText', inputText)
 app.component('Textarea', textarea)
+app.component('Button', button)
 
 app.mount('#app')
 
