@@ -1,3 +1,4 @@
+
 const amqp = require('amqplib/callback_api')
 
 const rabbitMQUsername = process.env.rabbitMQUsername
@@ -25,7 +26,7 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${rabbitMQServerURL
             const validateNoCalendar = ajv.getSchema("event_NoCalendar")
 
             if (validateCalendar(newPost)) {
-                const {event_name} = newPost
+                const event_name = newPost.event_name
                 if(event_name === "newServicePost"){
                     try{
                         console.log("validated")
@@ -33,44 +34,65 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${rabbitMQServerURL
                         let {event_on} = newPost
                         event_on = new Date(event_on)
 
-                        const Picture = await prisma.picture.create({
-                            data: {
-                                picture_url
-                            }
-                        })
 
-                        const Post = await prisma.post.create({
+
+                        const post = await prisma.post.create({
                             data: {
                                 title,
                                 short_description,
                                 long_description,
                                 service,
-                                event_on,
-                                Picture
+                                event_on
                             },
 
                         })
+                        if(picture_url) {
+                            const path = picture_url
+                            const post_id = post.id;
+                            const Picture = await prisma.picture.create({
+                                data: {
+                                    path,
+                                    post
+
+                                }
+                            })
+                        }
                     } catch (e) {
                         return console.log(e)
                     }
                 }
 
-            }else if(validateNoCalendar(newPost)){
-                try{
-                    console.log(newPost)
-                    const {title, short_description, long_description, service} = newPost.body
+            }else if(validateNoCalendar(newPost)) {
+                const event_name = newPost.event_name
+                if (event_name === "newServicePost") {
+                    try {
+                        console.log(newPost)
+                        const {title, short_description, long_description, service, picture_url} = newPost
 
 
-                    const Post = await prisma.post.create({
-                        data: {
-                            title,
-                            short_description,
-                            long_description,
-                            service
-                        },
-                    })
-                } catch (e) {
-                    return console.log(e)
+                        const post = await prisma.post.create({
+                            data: {
+                                title,
+                                short_description,
+                                long_description,
+                                service
+                            },
+                        })
+                        if (picture_url) {
+                            const path = picture_url
+                            const post_id = post.id;
+                            const Picture = await prisma.picture.create({
+                                data: {
+                                    path,
+                                    post_id
+
+                                }
+                            })
+                        }
+
+                    } catch (e) {
+                        return console.log(e)
+                    }
                 }
             }
 
