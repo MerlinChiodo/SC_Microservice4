@@ -52,7 +52,7 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${rabbitMQServerURL
                             const Picture = await prisma.picture.create({
                                 data: {
                                     path,
-                                    post
+                                    post_id
 
                                 }
                             })
