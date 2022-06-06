@@ -1,16 +1,16 @@
 
 const amqp = require('amqplib/callback_api')
 
-const rabbitMQUsername = process.env.rabbitMQUsername
-const rabbitMQPassword = process.env.rabbitMQPassword
-const rabbitMQServerURL = process.env.rabbitMQServerURL
+const RABBITMQUSERNAME = process.env.rabbitMQUsername
+const RABBITMQPASSWORD = process.env.rabbitMQPassword
+const RABBITMQSERVERURL = process.env.rabbitMQServerURL
 
 
 const {ajv} = require("./validation")
 const prisma = require('../lib/prisma.js')
 
 
-amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${rabbitMQServerURL}`, function (error0, connection) {
+amqp.connect(`amqp://${RABBITMQUSERNAME}:${RABBITMQPASSWORD}@${RABBITMQSERVERURL}`, function (error0, connection) {
     if (error0) {
         throw error0
     }
