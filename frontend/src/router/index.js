@@ -9,7 +9,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "news",
+      name: "News",
       component: News,
     },
     /*{
@@ -19,12 +19,12 @@ const router = createRouter({
     },*/
     {
       path: "/sendAboutUs",
-      name: "sendAboutUs",
+      name: "SendAboutUs",
       component: sendAboutUs
     },
     {
       path: "/postView:postid(.*)",
-      name: "postView",
+      name: "PostView",
       component: postView
     },
     {

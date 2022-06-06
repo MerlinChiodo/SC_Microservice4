@@ -5,10 +5,10 @@
 
 <script>
 
-import AboutUsForm from "../components/aboutUsForm.vue";
+import aboutUsForm from "../components/aboutUsForm.vue";
 export default {
   name: "SendAboutUs",
-  components: {AboutUsForm}
+  components: {aboutUsForm}
 }
 </script>
 
