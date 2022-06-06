@@ -1,10 +1,9 @@
 <template>
   <div class="card">
-    <DataView :value="posts" :layout="layout" :paginator="true" :rows="9" :sortOrder="sortOrder" :sortField="sortField">
+    <DataView :value="posts" :layout="layout" :paginator="true" :rows="9" >
       <template #header>
         <div class="grid grid-nogutter">
           <div class="col-6" style="text-align: left">
-            <Dropdown v-model="sortKey" :options="sortOptions" optionLabel="label" placeholder="Sortieren" @change="onSortChange($event)"/>
           </div>
           <div class="col-6" style="text-align: right">
             <DataViewLayoutOptions v-model="layout" />
@@ -15,14 +14,15 @@
       <template #list="slotProps">
         <div class="col-12">
           <div class="product-list-item">
-            <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.data.title"/>
+            <!--<img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.data.title"/>-->
             <div class="product-list-detail">
-              <div class="product-name">{{slotProps.data.title}}</div>
-              <div class="product-description">{{slotProps.data.short_description}}</div>
-              <i class="pi pi-tag product-category-icon"></i><span class="product-category">{{slotProps.data.service}}</span>
+              <span class="post-service">Serivce{{slotProps.data.service}}</span>
+              <div class="post-title">Titel: {{slotProps.data.title}}</div>
+              <div class="post-short_description">kurze Beschreibung: {{slotProps.data.short_description}}</div>
+
             </div>
             <div class="product-list-action">
-              <Button icon="pi pi-shopping-cart" label="Details" :disabled="slotProps.data.long_description === ''"></Button>
+              <Button label="Details" :disabled="slotProps.data.long_description === ''"></Button>
               <!--<span :class="'product-badge status-'+slotProps.data.inventoryStatus.toLowerCase()">{{slotProps.data.inventoryStatus}}</span>-->
             </div>
           </div>
@@ -31,22 +31,21 @@
 
       <template #grid="slotProps">
         <div class="col-12 md:col-4">
-          <div class="product-grid-item card">
-            <div class="product-grid-item-top">
+          <div class="post-grid-item card">
+            <div class="post-grid-item-top">
               <div>
-                <i class="pi pi-tag product-category-icon"></i>
-                <span class="product-category">{{slotProps.data.service}}</span>
+                <span class="post-service">Service: {{slotProps.data.service}}</span>
               </div>
               <!--<span :class="'product-badge status-'+slotProps.data.inventoryStatus.toLowerCase()">{{slotProps.data.inventoryStatus}}</span>-->
             </div>
-            <div class="product-grid-item-content">
-              <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.data.title"/>
-              <div class="product-name">{{slotProps.data.title}}</div>
-              <div class="product-description">{{slotProps.data.short_description}}</div>
+            <div class="post-grid-item-content">
+              <!--<img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.data.title"/>-->
+              <div class="post-title">Titel: {{slotProps.data.title}}</div>
+
             </div>
-            <div class="product-grid-item-bottom">
-              <span class="product-price">${{slotProps.data.price}}</span>
-              <Button icon="pi pi-shopping-cart" :disabled="slotProps.data.long_description === ''"></Button>
+            <div class="post-grid-item-bottom">
+              <div class="post-short_description">kurze Beschreibung: {{slotProps.data.short_description}}</div>
+              <Button  label="Details" :disabled="slotProps.data.long_description === ''"></Button>
             </div>
           </div>
         </div>
@@ -144,5 +143,19 @@ export default {
 </script>
 
 <style scoped>
-
+.post-grid-item{
+  margin: 5px;
+  border: 4px solid black;
+  border-radius: 10px;
+  padding: 3px;
+}
+.post-title{
+  font-size: 30px;
+}
+.post-grid-item-content{
+  margin: 5px;
+}
+.post-service{
+  text-decoration: underline;
+}
 </style>

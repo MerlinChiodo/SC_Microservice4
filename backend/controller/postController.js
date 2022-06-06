@@ -81,6 +81,9 @@ exports.getAllServicePosts = async(request, response) => {
                 event_on: true,
                 created_on: true
             },
+            orderBy: {
+                created_on: "desc"
+            }
         })
         return response.json(posts)
     } catch (error) {
