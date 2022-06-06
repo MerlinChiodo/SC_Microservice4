@@ -51,13 +51,16 @@ exports.getPostOverview = (request, response) => {
 
 };
 
-exports.getPost = (request, response) => {
+
+exports.getPost = async(request, response) => {
     try {
-        const data = {
-            id: parseInt(request.params.id, 10),
-            titel: "baba"
-        }
-        return response.json(data)
+        const postid = parseInt(request.params.id, 10)
+        const servicePost = await prisma.Post.findUnique({
+            where: {
+                id: postid
+            }
+        })
+        return response.json(servicePost)
     } catch (error) {
         console.log(error)
         return response.status(500).send(error.message)

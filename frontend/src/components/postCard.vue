@@ -22,7 +22,7 @@
             </div>
             <div class="post-grid-item-bottom">
               <div class="post-short_description">kurze Beschreibung: {{slotProps.data.short_description}}</div>
-              <Button  label="Details" :disabled="slotProps.data.long_description === ''"></Button>
+              <Button  label="Details" :disabled="slotProps.data.long_description === ''" @click="routeToPostView(slotProps.data.id)"></Button>
             </div>
           </div>
         </div>
@@ -47,21 +47,6 @@ export default {
     this.getServicePosts();
   },
   methods: {
-    onSortChange(event){
-      const value = event.value.value;
-      const sortValue = event.value;
-
-      if (value.indexOf('!') === 0) {
-        this.sortOrder = -1;
-        this.sortField = value.substring(1, value.length);
-        this.sortKey = sortValue;
-      }
-      else {
-        this.sortOrder = 1;
-        this.sortField = value;
-        this.sortKey = sortValue;
-      }
-    },
     getServicePosts(){
       const options = {
         method: 'GET'
@@ -72,7 +57,10 @@ export default {
             this.posts = data
           })
           .catch(error => {console.log(error)});
-    }
+    },
+    routeToPostView(id) { // this pushes it to the component that has the display view details i.e DisplayDetailView.vue
+      this.$router.push(`/postView${id}`)
+      }
   }
 }
 
