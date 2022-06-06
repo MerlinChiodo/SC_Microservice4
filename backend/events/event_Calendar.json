@@ -29,8 +29,7 @@
             "format": "date-time"
         },
         "picture_url": {
-            "type": "string",
-            "minLength": 1
+            "type": "string"
         }
     },
     "required": [
