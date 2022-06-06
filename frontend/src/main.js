@@ -20,6 +20,7 @@ import button from 'primevue/button';
 import dataView from 'primevue/dataview';
 import dataViewLayoutOptions from 'primevue/dataviewlayoutoptions';
 import panel from 'primevue/panel';
+import dropdown from 'primevue/dropdown';
 
 const app = createApp(App)
 
@@ -34,6 +35,7 @@ app.component('Button', button)
 app.component('DataView', dataView)
 app.component('DataViewLayoutOptions', dataViewLayoutOptions)
 app.component('Panel', panel)
+app.component('Dropdown', dropdown)
 
 app.mount('#app')
 
