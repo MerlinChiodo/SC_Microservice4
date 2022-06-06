@@ -9,7 +9,8 @@
             "maximum": 10000
         },
         "event_name": {
-            "type": "string"
+            "type": "string",
+            "const": "newServicePost"
         },
         "title": {
             "type": "string"
@@ -21,22 +22,23 @@
             "type": "string"
         },
         "service": {
-            "type": "integer"
-        },
-        "event_at": {
             "type": "string"
         },
-        "picture_url": {
+        "event_on": {
             "type": "string",
-            "minLength": 1
+            "format": "date-time"
+        },
+        "picture_url": {
+            "type": "string"
         }
     },
     "required": [
         "event_id",
+        "event_name",
         "title",
         "short_description",
         "service",
-        "event_at"
+        "event_on"
     ],
     "additionalProperties": false
 }

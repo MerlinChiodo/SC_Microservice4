@@ -1,15 +1,16 @@
+
 const amqp = require('amqplib/callback_api')
 
-const rabbitMQUsername = process.env.rabbitMQUsername
-const rabbitMQPassword = process.env.rabbitMQPassword
-const serverURL = process.env.serverURL
+const RABBITMQUSERNAME = process.env.rabbitMQUsername
+const RABBITMQPASSWORD = process.env.rabbitMQPassword
+const RABBITMQSERVERURL = process.env.rabbitMQServerURL
 
-const {ajv} = require("../validation")
+
+const {ajv} = require("./validation")
 const prisma = require('../lib/prisma.js')
 
 
-
-amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${serverURL}:5672`, function (error0, connection) {
+amqp.connect(`amqp://${RABBITMQUSERNAME}:${RABBITMQPASSWORD}@${RABBITMQSERVERURL}`, function (error0, connection) {
     if (error0) {
         throw error0
     }
@@ -25,40 +26,73 @@ amqp.connect(`amqp://${rabbitMQUsername}:${rabbitMQPassword}@${serverURL}:5672`,
             const validateNoCalendar = ajv.getSchema("event_NoCalendar")
 
             if (validateCalendar(newPost)) {
-                try{
-                    console.log(newPost)
-                    //date not yet correctly validated
-                    const {title, short_description, long_description, service} = newPost.body
+                const event_name = newPost.event_name
+                if(event_name === "newServicePost"){
+                    try{
+                        console.log("validated")
+                        const {title, short_description, long_description, service, picture_url} = newPost
+                        let {event_on} = newPost
+                        event_on = new Date(event_on)
 
 
-                    const Post = await prisma.post.create({
-                        data: {
-                            title,
-                            short_description,
-                            long_description,
-                            service
-                        },
 
-                    })
-                } catch (e) {
-                    return console.log(e)
+                        const post = await prisma.post.create({
+                            data: {
+                                title,
+                                short_description,
+                                long_description,
+                                service,
+                                event_on
+                            },
+
+                        })
+                        if(picture_url) {
+                            const path = picture_url
+                            const post_id = post.id;
+                            const Picture = await prisma.picture.create({
+                                data: {
+                                    path,
+                                    post_id
+
+                                }
+                            })
+                        }
+                    } catch (e) {
+                        return console.log(e)
+                    }
                 }
-            }else if(validateNoCalendar(newPost)){
-                try{
-                    console.log(newPost)
-                    const {title, short_description, long_description, service} = newPost.body
+
+            }else if(validateNoCalendar(newPost)) {
+                const event_name = newPost.event_name
+                if (event_name === "newServicePost") {
+                    try {
+                        console.log(newPost)
+                        const {title, short_description, long_description, service, picture_url} = newPost
 
 
-                    const Post = await prisma.post.create({
-                        data: {
-                            title,
-                            short_description,
-                            long_description,
-                            service
-                        },
-                    })
-                } catch (e) {
-                    return console.log(e)
+                        const post = await prisma.post.create({
+                            data: {
+                                title,
+                                short_description,
+                                long_description,
+                                service
+                            },
+                        })
+                        if (picture_url) {
+                            const path = picture_url
+                            const post_id = post.id;
+                            const Picture = await prisma.picture.create({
+                                data: {
+                                    path,
+                                    post_id
+
+                                }
+                            })
+                        }
+
+                    } catch (e) {
+                        return console.log(e)
+                    }
                 }
             }
 
