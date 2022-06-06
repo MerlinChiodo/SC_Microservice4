@@ -1,5 +1,6 @@
 <template>
-<about-us-form></about-us-form>
+  <h1>About Us</h1>
+  <about-us-form></about-us-form>
 </template>
 
 <script>

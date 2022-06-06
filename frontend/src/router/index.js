@@ -11,11 +11,11 @@ const router = createRouter({
       name: "news",
       component: News,
     },
-    {
+    /*{
       path: "/testEvents",
       name: "testEvents",
       component: testEvents
-    },
+    },*/
     {
       path: "/sendAboutUs",
       name: "sendAboutUs",

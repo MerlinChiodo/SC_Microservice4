@@ -1,4 +1,5 @@
 <template>
+  <h1>Neues aus der Smart-City!</h1>
   <post-card></post-card>
 </template>
 

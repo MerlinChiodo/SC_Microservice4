@@ -11,9 +11,10 @@ export default {
 </script>
 
 <template>
+  <h1>Forum</h1>
   <TabMenu/>
 
-    <h1>Forum</h1>
+
     <!----<div><RouterLink to="/testEvents">testEvent</RouterLink></div>---->
 
   <RouterView />
