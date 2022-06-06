@@ -1,7 +1,11 @@
 <template>
-  <h1>detailedPost {{this.postid}}</h1>
-  <div>{{this.post.title}}</div>
-  <div>{{this.post.short_description}}</div>
+  <div class="post">
+    <div class="service">{{this.post.service}}</div>
+    <h1>{{this.post.title}}</h1>
+    <div  v-if="this.post.event_on">Termin: {{this.post.event_on}}</div>
+    <div class="short_description">{{this.post.short_description}}</div>
+    <div v-if="this.post.long_description" class="long_description">{{this.post.long_description}}</div>
+  </div>
 </template>
 
 <script>
@@ -44,4 +48,11 @@ export default {
 
 <style scoped>
 
+.post{
+  margin: 10px;
+}
+
+.short_description{
+  font-weight: bold
+}
 </style>
