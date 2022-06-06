@@ -32,7 +32,8 @@
 </template>
 
 <script>
-const backendurl = "http://localhost:3001/";
+//const backendurl = "http://localhost:3001/";
+const backendurl = "http://" + location.host + "/" ;
 export default {
 
   data() {
@@ -63,42 +64,6 @@ export default {
       }
   }
 }
-
-
-/*<script>
-const backendurl = "http://localhost:3001/";
-import {getAllServicePosts} from '../controllers/postController'
-export default {
-  name: "postCard",
-  data() {
-    return {
-      posts: [],
-      layout: 'list'
-    }
-  },
-  postService: null,
-
-  mounted: function(){
-    this.getServicePosts();
-
-    //this.posts = getAllServicePosts()
-
-  },
-  methods: {
-    getServicePosts(){
-      const options = {
-        method: 'GET'
-      };
-      fetch(backendurl + "posts/getAllServicePosts", options)
-          .then((response) => response.json())
-          .then((data) => {
-            this.posts = data
-          })
-          .catch(error => {console.log(error)});
-    }
-    }
-
-}*/
 </script>
 
 <style scoped>

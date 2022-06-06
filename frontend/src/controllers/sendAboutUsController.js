@@ -1,5 +1,5 @@
-const backendurl = "http://localhost:3001/";
-//const backendurl = "http://" + location.host ;
+//const backendurl = "http://localhost:3001/";
+const backendurl = "http://" + location.host + "/" ;
 //const backendurl = "http://vps2290194.fastwebserver.de:9740/eventTest/";
 
 export async function sendAboutUsEvent(date,about_us, picture, url) {
