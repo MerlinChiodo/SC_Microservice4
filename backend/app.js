@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require(`cors`);
+const history = require('connect-history-api-fallback');
 
 
 const indexRouter = require('./routes/index');
@@ -43,7 +44,7 @@ app.use('/administrators', administratorsRouter);
 app.use('/landingPage', landingPageRouter);
 
 
-
+app.use(history())
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 module.exports = app;
