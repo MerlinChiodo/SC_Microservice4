@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import testEvents from "../views/testEvents.vue"
-import sendAboutUs from "../views/sendAboutUs.vue";
+import sendAboutUs from "../views/SendAboutUs.vue";
 import News from "../views/News.vue";
 import postView from "../views/PostView.vue";
 
