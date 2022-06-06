@@ -50,9 +50,11 @@ export default {
 
 .post{
   margin: 10px;
+
 }
 
 .short_description{
-  font-weight: bold
+  font-weight: bold;
+  margin-bottom: 30px;
 }
 </style>
