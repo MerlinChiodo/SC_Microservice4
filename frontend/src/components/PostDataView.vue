@@ -32,10 +32,10 @@
 </template>
 
 <script>
-//const backendurl = "http://localhost:3001/";
-const backendurl = "http://" + location.host + "/" ;
+const backendurl = "http://localhost:3001/";
+//const backendurl = "http://" + location.host + "/" ;
 export default {
-
+  name: "PostDataView",
   data() {
     return {
       posts: null,
