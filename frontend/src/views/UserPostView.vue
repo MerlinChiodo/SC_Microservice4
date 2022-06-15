@@ -57,19 +57,5 @@ export default {
 </script>
 
 <style scoped>
-.post-grid-item{
-  margin: 5px;
-  border: 4px solid black;
-  border-radius: 10px;
-  padding: 3px;
-}
-.post-title{
-  font-size: 30px;
-}
-.post-grid-item-content{
-  margin: 5px;
-}
-.post-service{
-  text-decoration: underline;
-}
+
 </style>
