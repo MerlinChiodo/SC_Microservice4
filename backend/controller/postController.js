@@ -94,6 +94,40 @@ exports.getAllServicePosts = async(request, response) => {
         return response.status(500).send(error.message)
     }
 }
+exports.getAllUserPosts = async(request, response) => {
+    try {
+        const posts = await prisma.Post.findMany({
+            where: {
+                service: null,
+                public: true,
+                user_id:{
+                    not: null
+                }
+
+            },
+            select: {
+                title: true,
+                short_description: true,
+                long_description: true,
+                id: true,
+                event_on: true,
+                created_on: true,
+                category: true,
+                category_subject: true,
+                user_id: true,
+                pictures: true,
+
+            },
+            orderBy: {
+                created_on: "desc"
+            }
+        })
+        return response.json(posts)
+    } catch (error) {
+        console.log(error)
+        return response.status(500).send(error.message)
+    }
+}
 
 
 

@@ -40,10 +40,9 @@ export default {
     return {
       posts: null,
       layout: 'grid',
-      
+
     }
   },
-
   mounted: function(){
     this.getServicePosts();
   },
@@ -55,6 +54,7 @@ export default {
       fetch(backendurl + "posts/getAllServicePosts", options)
           .then((response) => response.json())
           .then((data) => {
+            console.log("hi")
             this.posts = data
           })
           .catch(error => {console.log(error)});

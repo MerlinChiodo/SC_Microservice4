@@ -1,6 +1,22 @@
 <template>
-  <div v-if="post">
-    {{post.title}}
+<div>
+  <Card style="width: 25em">
+    <template #header>
+      <!--<img src="post.picture" style="height: 15rem" />-->
+    </template>
+    <template #title>
+      {{ post.title }}
+    </template>
+    <template #subtitle>
+      <!--{{ post.Category }}-->
+    </template>
+    <template #content>
+      <p>{{post.short_description}}</p>
+    </template>
+    <template #footer>
+      <Button  label="Details"  style="margin-left: .5em" />
+    </template>
+  </Card>
   </div>
 </template>
 
