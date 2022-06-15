@@ -22,7 +22,8 @@
 
 <script>
 import UserPostCard from '../components/UserPostCard.vue'
-const backendurl = "http://" + location.host + "/" ;
+//const backendurl = "http://" + location.host + "/" ;
+const backendurl = "http://localhost:3001/";
 
 export default {
   name: "UserPostView",

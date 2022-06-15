@@ -73,7 +73,6 @@ exports.getAllServicePosts = async(request, response) => {
                 service: {
                     not: null
                 }
-
             },
             select: {
                 title: true,
