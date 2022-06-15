@@ -9,7 +9,8 @@
     </template>
     <template #subtitle>
       {{ post.category }}
-      {{ post.category_subject }}
+      <div v-if="checkShowCategorySubject(post.category)">{{ post.category_subject }}</div>
+
     </template>
     <template #content>
       <p>{{post.short_description}}</p>
@@ -27,6 +28,16 @@ export default {
   props: {
     post: Object
   },
+
+  methods: {
+    checkShowCategorySubject: function (value) {
+      if(value === 'SUCHE' || value == 'BIETE') {
+        return true;
+      }
+      return false;
+    }
+  },
+
 }
 </script>
 
