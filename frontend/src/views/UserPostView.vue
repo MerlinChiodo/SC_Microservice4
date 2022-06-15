@@ -13,7 +13,7 @@
 
       <template #grid="slotProps">
         <div class="col-12 md:col-4">
-          <user-post-card  :post="slotProps" />
+          <user-post-card  :post="slotProps.data" />
         </div>
       </template>
     </DataView>
