@@ -29,6 +29,10 @@ app.use(createPinia())
 app.use(router)
 app.use(PrimeVue)
 
+
+app.provide("backendurl", "http://localhost:3001/");
+// app.provide("backendurl", "http://" + location.host + "/");
+
 app.component('TabMenu', navBar)
 app.component('InputText', inputText)
 app.component('Textarea', textarea)

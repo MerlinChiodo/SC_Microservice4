@@ -10,9 +10,10 @@
 
 <script>
 //const backendurl = "http://localhost:3001/";
-const backendurl = "http://" + location.host + "/" ;
+//const backendurl = "http://" + location.host + "/" ;
 export default {
   name: "PostView",
+  inject: ["backendurl"],
   data() {
     return {
       postid: null,
@@ -33,7 +34,7 @@ export default {
       const options = {
         method: 'GET'
       };
-      fetch(backendurl + `posts/${this.$route.params.postid}`, options)
+      fetch(this.backendurl + `posts/${this.$route.params.postid}`, options)
           .then((response) => response.json())
           .then((data) => {
             this.post = data

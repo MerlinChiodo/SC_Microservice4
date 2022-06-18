@@ -9,8 +9,6 @@
       <template #header>
 
       </template>
-
-
       <template #grid="slotProps">
         <div class="col-12 md:col-4">
           <user-post-card  :post="slotProps.data" />
@@ -23,12 +21,12 @@
 <script>
 import UserPostCard from '../components/UserPostCard.vue'
 //const backendurl = "http://" + location.host + "/" ;
-const backendurl = "http://localhost:3001/";
+//const backendurl = "http://localhost:3001/";
 
 export default {
   name: "UserPostView",
   components: {UserPostCard},
-
+  inject: ["backendurl"],
   data() {
     return {
       posts: null,
@@ -44,7 +42,7 @@ export default {
       const options = {
         method: 'GET'
       };
-      fetch(backendurl + "posts/getAllUserPosts", options)
+      fetch(this.backendurl + "posts/getAllUserPosts", options)
           .then((response) => response.json())
           .then((data) => {
             console.log("hi")
