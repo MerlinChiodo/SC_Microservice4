@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template>
-  <h1>Forum</h1>
+  <h1 class="heading">Forum</h1>
   <TabMenu/>
 
 
@@ -21,5 +21,12 @@ export default {
 </template>
 
 <style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+.heading{
+  margin-left: 10px;
+}
 
 </style>
