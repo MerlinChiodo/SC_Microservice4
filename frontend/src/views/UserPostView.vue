@@ -11,8 +11,9 @@
       </template>
       <template #grid="slotProps">
         <div class="col-12 md:col-4">
-          <user-post-card  :post="slotProps.data" />
-        </div>
+
+          <user-post-card class="postCard" :post="slotProps.data" />
+          </div>
       </template>
     </DataView>
   </div>
@@ -55,5 +56,10 @@ export default {
 </script>
 
 <style scoped>
+
+.postCard{
+  margin : 10px;
+}
+
 
 </style>
