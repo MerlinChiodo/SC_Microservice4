@@ -17,7 +17,7 @@
     </template>
     <template #footer>
       <Button  label="Details"  @click="routeToPostView(post.id)"></Button>
-      <span v-if="saved" class="unsaveButton"><Button icon="pi pi-times-circle" class="p-button-rounded p-button-danger" @click="unsavePost(post.id)"/></span>
+      <span v-if="saved" class="unsaveButton"><Button icon="pi pi-times-circle" class="p-button-rounded p-button-danger" @click="unsavePost(post.id,1)"/></span>
       <span v-else class="saveButton"><Button icon="pi pi-save" class="p-button-rounded p-button-success" @click="savePost(post.id, 1)"/></span>
 
     </template>
@@ -58,7 +58,18 @@ export default {
             });
       },
 
-    unsavePost: function(postId){
+    unsavePost: function(postId, userId){
+      const options = {
+        method: 'PUT'
+      };
+      fetch( `${this.backendurl}users/unsavePost/${userId}/${postId}`, options)
+          .then((response) => response.json())
+          .then((data) => {
+
+          })
+          .catch(error => {
+            console.log(error)
+          });
 
     },
     checkIfpostSaved(postId){

@@ -66,11 +66,9 @@ export default {
           .catch(error => {console.log(error)});
     },
     checkIfpostSaved(post){
-      if(this.savedPosts != null) {
-        if (this.savedPosts.indexOf(post) === -1) {
+        if (this.savedPosts.find(currentPost => currentPost.id == post.id)) {
           return true
         }
-      }
       return false
     },
   }

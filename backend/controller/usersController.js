@@ -49,8 +49,8 @@ exports.getAllSavedPosts = async(request, response) => {
 
 exports.savePost = async(request, response) => {
     try {
-        const postid = parseInt(request.params.postId, 10)
         const userid = parseInt(request.params.userId, 10)
+        const postid = parseInt(request.params.postId, 10)
         const user = await prisma.User.update({
             where: {
                 id: userid
