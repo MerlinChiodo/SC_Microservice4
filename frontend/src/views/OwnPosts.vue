@@ -40,9 +40,7 @@ export default {
       fetch(`${this.backendurl}users/getAllOwnPosts/${userId}`, options)
           .then((response) => response.json())
           .then((data) => {
-
             this.posts = data
-            console.log(this.posts)
           })
           .catch(error => {
             console.log(error)

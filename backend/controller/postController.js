@@ -136,8 +136,20 @@ exports.updatePost = (request, response) => {
     return response.send('no implementation');
 };
 
-exports.deletePost = (request, response) => {
-    return response.send('no implementation');
+exports.deletePost = async(request, response) => {
+    const postId = parseInt(request.params.id, 10)
+    try {
+        const post = await prisma.Post.delete({
+            where: {
+                id: postId,
+
+                }
+        })
+        return response.json(post)
+    } catch (error) {
+        console.log(error)
+        return response.status(500).send(error.message)
+    }
 };
 
 exports.makePostPrivate= (request, response) => {

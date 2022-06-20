@@ -16,7 +16,8 @@
         <p>{{post.short_description}}</p>
       </template>
       <template #footer>
-        <Button  label="Details"  @click="routeToPostView(post.id)"></Button>
+        <Button  label="Bearbeiten"  @click="routeToPostView(post.id)"></Button>
+        <span class="deleteButton"><Button icon="pi pi-trash" class="p-button-rounded p-button-danger" @click="deletePost(post.id)"/></span>
 
 
       </template>
@@ -41,17 +42,24 @@ export default {
       }
       return false;
     },
+    deletePost: function(postId){
+      const options = {
+        method: 'DELETE'
+      };
+      fetch( `${this.backendurl}posts/${postId}`, options)
+          .then((response) => response.json())
+          .then((data) => {
+          })
+          .catch(error => {
+            console.log(error)
+          });
+    }
   }
 }
 </script>
 
 <style scoped>
-.saveButton{
-  float: right;
-
-}
-
-.unsaveButton{
+.deleteButton{
   float: right;
 
 }
