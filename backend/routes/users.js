@@ -10,6 +10,7 @@ router.put('/:id', usersController.updateUser);
 router.delete('/:id', usersController.deleteUser);
 router.get('/getAllSavedPosts/:id', usersController.getAllSavedPosts);
 router.put('/savePost/:userId/:postId', usersController.savePost);
+router.put('/unsavePost/:userId/:postId', usersController.unsavePost);
 
 
 module.exports = router;
