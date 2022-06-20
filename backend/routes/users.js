@@ -8,6 +8,7 @@ router.get('/', usersController.getAllUsers);
 router.get('/:id', usersController.getUser);
 router.put('/:id', usersController.updateUser);
 router.delete('/:id', usersController.deleteUser);
+router.get('/getAllOwnPosts/:id', usersController.getAllOwnPosts);
 router.get('/getAllSavedPosts/:id', usersController.getAllSavedPosts);
 router.put('/savePost/:userId/:postId', usersController.savePost);
 router.put('/unsavePost/:userId/:postId', usersController.unsavePost);

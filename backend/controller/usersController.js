@@ -11,6 +11,37 @@ exports.getAllUsers = (request, response) => {
     return response.send('no implementation');
 };
 
+exports.getAllOwnPosts = async(request, response) => {
+    try {
+        const userid = parseInt(request.params.id, 10)
+        const posts = await prisma.Post.findMany({
+            where: {
+                user_id: userid,
+            },
+            select: {
+                title: true,
+                short_description: true,
+                long_description: true,
+                id: true,
+                event_on: true,
+                created_on: true,
+                category: true,
+                category_subject: true,
+                user_id: true,
+                pictures: true,
+
+            },
+            orderBy: {
+                created_on: "desc"
+            }
+        })
+        return response.json(posts)
+    } catch (error) {
+        console.log(error)
+        return response.status(500).send(error.message)
+    }
+};
+
 exports.getAllSavedPosts = async(request, response) => {
     try {
         const userid = parseInt(request.params.id, 10)

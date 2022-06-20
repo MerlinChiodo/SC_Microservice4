@@ -1,8 +1,4 @@
-<!--<template>
 
-<user-post-card  :post="post" />
-
-</template>-->
 <template>
   <h1>Neues von den Smart-Bewohnern!</h1>
   <div class="card">
@@ -63,6 +59,7 @@ export default {
           .then((response) => response.json())
           .then((data) => {
             this.posts = data
+            console.log(data)
           })
           .catch(error => {console.log(error)});
     },
