@@ -26,8 +26,7 @@
 </template>
 
 <script>
-import {createPost} from '../controllers/PostController'
-import {sendAboutUsEvent} from "../controllers/sendAboutUsController";
+import {createPost} from '../controllers/postController.js'
 export default {
   name: "newPostForm",
   inject: ["backendurl", "tempUser"],
