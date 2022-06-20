@@ -12,7 +12,7 @@
       <template #grid="slotProps">
         <div class="col-12 md:col-4">
 
-          <user-post-card class="postCard" :post="slotProps.data" />
+          <user-post-card class="postCard" :post="slotProps.data" :saved="checkIfpostSaved(slotProps.data)"/>
           </div>
       </template>
     </DataView>
@@ -64,7 +64,15 @@ export default {
             this.posts = data
           })
           .catch(error => {console.log(error)});
-    }
+    },
+    checkIfpostSaved(post){
+      if(this.savedPosts != null) {
+        if (this.savedPosts.indexOf(post) === -1) {
+          return true
+        }
+      }
+      return false
+    },
   }
 }
 </script>

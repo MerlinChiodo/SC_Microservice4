@@ -17,9 +17,8 @@
     </template>
     <template #footer>
       <Button  label="Details"  @click="routeToPostView(post.id)"></Button>
-      <span v-if="checkIfpostSaved(post.id)" class="saveButton"><Button icon="pi pi-save" class="p-button-rounded p-button-success" @click="savePost(post.id, 1)"/></span>
-      <span v-else class="unsaveButton"><Button icon="pi pi-times-circle" class="p-button-rounded p-button-danger" @click="unsavePost(post.id)"/></span>
-
+      <span v-if="saved" class="unsaveButton"><Button icon="pi pi-times-circle" class="p-button-rounded p-button-danger" @click="unsavePost(post.id)"/></span>
+      <span v-else class="saveButton"><Button icon="pi pi-save" class="p-button-rounded p-button-success" @click="savePost(post.id, 1)"/></span>
 
     </template>
   </Card>
@@ -31,7 +30,8 @@ export default {
   inject: ["backendurl"],
   props: {
     post: Object,
-    User: Object
+    User: Object,
+    saved: Boolean
   },
   mounted: function(){
 
@@ -74,6 +74,11 @@ export default {
 
 <style scoped>
 .saveButton{
+  float: right;
+
+}
+
+.unsaveButton{
   float: right;
 
 }
