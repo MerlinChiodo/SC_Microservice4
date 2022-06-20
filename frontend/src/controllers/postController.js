@@ -4,19 +4,33 @@ const backendurl = "http://localhost:3001/";
 
 export async function createPost(user_id, title, short_description, long_description, event_on, category, category_subject) {
     //console.log(backendurl)
-    const requestOptions = {
+    var requestOptions= {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            "user_id" : user_id,
-            "title" : title,
-            "short_description": short_description,
-            "long_description" : long_description,
-            "event_on": event_on,
-            "category": category,
-            "category_subject": category_subject
-        }),
+        body: {
+            "user_id" : user_id
+        },
     };
+    if(short_description !== ""){
+        requestOptions.body.short_description=short_description
+    }
+    if(title !== ""){
+        requestOptions.body.title=title
+    }
+    if(long_description !== ""){
+        requestOptions.body.long_description=long_description
+    }
+    if(event_on !== ""){
+        requestOptions.body.event_on=event_on
+    }
+    if(category !== ""){
+        requestOptions.body.category=category
+        if(category_subject !== ""){
+            requestOptions.body.category_subject=category_subject
+        }
+    }
+    requestOptions.body=JSON.stringify(requestOptions.body)
+
     const response = await fetch(
         backendurl + "posts",
         requestOptions
