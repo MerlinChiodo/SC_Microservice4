@@ -63,7 +63,7 @@ exports.savePost = async(request, response) => {
                 }
             }
         })
-        return response.json(posts)
+        return response.json(user)
     } catch (error) {
         console.log(error)
         return response.status(500).send(error.message)

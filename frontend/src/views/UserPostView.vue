@@ -1,65 +1,71 @@
-<!--<template>
-
-<user-post-card  :post="post" />
-
-</template>-->
 <template>
-  <div class="card">
-    <DataView  :value="posts" :layout="layout" :paginator="true" :rows="9" >
-      <template #header>
-
-      </template>
-      <template #grid="slotProps">
-        <div class="col-12 md:col-4">
-
-          <user-post-card class="postCard" :post="slotProps.data" />
-          </div>
-      </template>
-    </DataView>
+  <div v-if="post" class="post">
+    <div>
+      <div class="category">{{this.post.category}}</div>
+      <div v-if="checkShowCategorySubject(post.category)">{{ post.category_subject }}</div>
+    </div>
+    <h1>{{this.post.title}}</h1>
+    <div  v-if="this.post.event_on">Termin: {{this.post.event_on}}</div>
+    <div class="short_description">{{this.post.short_description}}</div>
+    <div v-if="this.post.long_description" class="long_description">{{this.post.long_description}}</div>
   </div>
 </template>
 
 <script>
-import UserPostCard from '../components/UserPostCard.vue'
-//const backendurl = "http://" + location.host + "/" ;
 //const backendurl = "http://localhost:3001/";
-
+//const backendurl = "http://" + location.host + "/" ;
 export default {
   name: "UserPostView",
-  components: {UserPostCard},
   inject: ["backendurl"],
   data() {
     return {
-      posts: null,
-      layout: 'grid'
+      postid: null,
+      post: null
     }
   },
 
+  created() {
+    //this.postid = this.$route.params.postid
+    this.getData();
+
+  },
   mounted: function(){
-    this.getUserPosts();
+
   },
   methods: {
-    getUserPosts(){
+    getData() {
       const options = {
         method: 'GET'
       };
-      fetch(this.backendurl + "posts/getAllUserPosts", options)
+      fetch(this.backendurl + `posts/${this.$route.params.postid}`, options)
           .then((response) => response.json())
           .then((data) => {
-            console.log("hi")
-            this.posts = data
+            this.post = data
           })
-          .catch(error => {console.log(error)});
-    }
+          .catch(error => {
+            console.log(error)
+          });
+    },
+    checkShowCategorySubject: function (value) {
+      if (value === 'SUCHE' || value == 'BIETE') {
+        return true;
+      }
+      return false;
+    },
+
   }
 }
 </script>
 
 <style scoped>
 
-.postCard{
-  margin : 10px;
+.post{
+  margin: 10px;
+
 }
 
-
+.short_description{
+  font-weight: bold;
+  margin-bottom: 30px;
+}
 </style>

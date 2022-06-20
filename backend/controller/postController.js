@@ -66,6 +66,8 @@ exports.getPost = async(request, response) => {
         return response.status(500).send(error.message)
     }
 }
+
+
 exports.getAllServicePosts = async(request, response) => {
     try {
         const posts = await prisma.Post.findMany({
