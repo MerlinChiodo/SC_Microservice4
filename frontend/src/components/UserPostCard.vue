@@ -2,7 +2,7 @@
 <div>
   <Card style="width: 25em" class="card">
     <template #header>
-      <img src="post.picture" style="height: 15rem" alt="kein Bild"/>
+      <!--<img src="post.picture" style="height: 15rem" alt="kein Bild"/>-->
     </template>
     <template #title>
       {{ post.title }}
