@@ -73,9 +73,6 @@ export default {
           });
 
     },
-    checkIfpostSaved(postId){
-      return true
-    },
     routeToPostView(id) { // this pushes it to the component that has the display view details i.e DisplayDetailView.vue
       this.$router.push(`/UserPostView${id}`)
     }

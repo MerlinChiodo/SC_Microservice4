@@ -6,6 +6,7 @@ import postView from "../views/PostView.vue";
 import UserPostView from "../views/UserPostView.vue";
 import BlackBoard from "../views/BlackBoard.vue";
 import OwnPosts from "../views/OwnPosts.vue"
+import savedPosts from "../views/savedPosts.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
       path: "/meinePosts",
       name: "OwnPosts",
       component: OwnPosts
+    },
+    {
+    path: "/vermerktePosts",
+    name: "savedPosts",
+    component: savedPosts
     },
     {
       path: '/about',
