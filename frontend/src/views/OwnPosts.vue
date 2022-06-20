@@ -1,5 +1,6 @@
 <template>
   <h1>Neues von Dir!</h1>
+  <Button label="neuen Post verfassen" icon="pi pi-pencil" class="p-button p-button-success" @click="routeToCreateNewPost"/>
   <div class="card">
     <DataView  :value="posts" :layout="layout" :paginator="true" :rows="9" >
       <template #header>
@@ -45,7 +46,10 @@ export default {
           .catch(error => {
             console.log(error)
           });
-      }
+      },
+    routeToCreateNewPost(){
+      this.$router.push(`/neuerPost`)
+    }
     }
 }
 </script>

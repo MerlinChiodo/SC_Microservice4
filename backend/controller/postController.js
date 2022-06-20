@@ -10,6 +10,7 @@ const validate_createPost = ajv.compile(createPost_schema)
 
 
 exports.createPost= async(request, response) => {
+    //console.log(request.body)
     if(validate_createPost(request.body)){
         let {event_on} = request.body
         event_on = new Date(event_on)

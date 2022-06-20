@@ -22,6 +22,7 @@ import dataViewLayoutOptions from 'primevue/dataviewlayoutoptions';
 import panel from 'primevue/panel';
 import dropdown from 'primevue/dropdown';
 import Card from 'primevue/card';
+import Calendar from 'primevue/calendar';
 
 const app = createApp(App)
 
@@ -43,6 +44,7 @@ app.component('DataViewLayoutOptions', dataViewLayoutOptions)
 app.component('Panel', panel)
 app.component('Dropdown', dropdown)
 app.component('Card', Card)
+app.component('Calendar', Calendar)
 
 app.mount('#app')
 
