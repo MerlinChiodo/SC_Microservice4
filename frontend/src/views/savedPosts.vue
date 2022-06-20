@@ -1,5 +1,5 @@
 <template>
-  <h1>Bekanntes</h1>
+  <h1>Bekanntes aus der Smart-City!</h1>
   <div class="card">
     <DataView  :value="savedPosts" :layout="layout" :paginator="true" :rows="9" >
       <template #header>
