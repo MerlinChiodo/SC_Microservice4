@@ -4,6 +4,7 @@
 
 </template>-->
 <template>
+  <h1>Neues von den Smart-Bewohnern!</h1>
   <div class="card">
     <DataView  :value="posts" :layout="layout" :paginator="true" :rows="9" >
       <template #header>
@@ -27,7 +28,7 @@ import UserPostCard from '../components/UserPostCard.vue'
 export default {
   name: "BlackBoard",
   components: {UserPostCard},
-  inject: ["backendurl"],
+  inject: ["backendurl", "tempUser"],
   data() {
     return {
       posts: null,
@@ -38,7 +39,7 @@ export default {
 
   mounted: function(){
     this.getUserPosts();
-    this.getSavedPosts(1);
+    this.getSavedPosts(this.tempUser);
   },
   methods: {
     getSavedPosts: function(userId){

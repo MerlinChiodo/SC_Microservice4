@@ -17,8 +17,8 @@
     </template>
     <template #footer>
       <Button  label="Details"  @click="routeToPostView(post.id)"></Button>
-      <span v-if="saved" class="unsaveButton"><Button icon="pi pi-times-circle" class="p-button-rounded p-button-danger" @click="unsavePost(post.id,1)"/></span>
-      <span v-else class="saveButton"><Button icon="pi pi-save" class="p-button-rounded p-button-success" @click="savePost(post.id, 1)"/></span>
+      <span v-if="saved" class="unsaveButton"><Button icon="pi pi-times-circle" class="p-button-rounded p-button-danger" @click="unsavePost(post.id,this.tempUser)"/></span>
+      <span v-else class="saveButton"><Button icon="pi pi-save" class="p-button-rounded p-button-success" @click="savePost(post.id, this.tempUser)"/></span>
 
     </template>
   </Card>
@@ -27,7 +27,8 @@
 
 <script>
 export default {
-  inject: ["backendurl"],
+  inject: ["backendurl", "tempUser"],
+
   props: {
     post: Object,
     User: Object,
