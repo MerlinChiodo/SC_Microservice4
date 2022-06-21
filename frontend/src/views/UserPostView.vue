@@ -1,6 +1,9 @@
 <template>
   <div v-if="post" class="post">
-    <div class="service">{{this.post.service}}</div>
+    <div>
+      <div class="category">{{this.post.category}}</div>
+      <div v-if="checkShowCategorySubject(post.category)">{{ post.category_subject }}</div>
+    </div>
     <h1>{{this.post.title}}</h1>
     <div  v-if="this.post.event_on">Termin: {{this.post.event_on}}</div>
     <div class="short_description">{{this.post.short_description}}</div>
@@ -12,7 +15,7 @@
 //const backendurl = "http://localhost:3001/";
 //const backendurl = "http://" + location.host + "/" ;
 export default {
-  name: "PostView",
+  name: "UserPostView",
   inject: ["backendurl"],
   data() {
     return {
@@ -42,7 +45,13 @@ export default {
           .catch(error => {
             console.log(error)
           });
-    }
+    },
+    checkShowCategorySubject: function (value) {
+      if (value === 'SUCHE' || value == 'BIETE') {
+        return true;
+      }
+      return false;
+    },
 
   }
 }

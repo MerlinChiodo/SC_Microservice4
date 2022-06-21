@@ -1,13 +1,13 @@
 <template>
   <h1>Neues aus der Smart-City!</h1>
-  <post-card></post-card>
+  <post-data-view></post-data-view>
 </template>
 
 <script>
-import postCard from "../components/postCard.vue";
+import PostDataView from "../components/PostDataView.vue";
 export default {
   name: "News",
-  components: {postCard}
+  components: {PostDataView}
 }
 </script>
 

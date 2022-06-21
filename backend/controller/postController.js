@@ -10,6 +10,7 @@ const validate_createPost = ajv.compile(createPost_schema)
 
 
 exports.createPost= async(request, response) => {
+    //console.log(request.body)
     if(validate_createPost(request.body)){
         let {event_on} = request.body
         event_on = new Date(event_on)
@@ -66,6 +67,8 @@ exports.getPost = async(request, response) => {
         return response.status(500).send(error.message)
     }
 }
+
+
 exports.getAllServicePosts = async(request, response) => {
     try {
         const posts = await prisma.Post.findMany({
@@ -73,7 +76,6 @@ exports.getAllServicePosts = async(request, response) => {
                 service: {
                     not: null
                 }
-
             },
             select: {
                 title: true,
@@ -94,6 +96,40 @@ exports.getAllServicePosts = async(request, response) => {
         return response.status(500).send(error.message)
     }
 }
+exports.getAllUserPosts = async(request, response) => {
+    try {
+        const posts = await prisma.Post.findMany({
+            where: {
+                service: null,
+                public: true,
+                user_id:{
+                    not: null
+                }
+
+            },
+            select: {
+                title: true,
+                short_description: true,
+                long_description: true,
+                id: true,
+                event_on: true,
+                created_on: true,
+                category: true,
+                category_subject: true,
+                user_id: true,
+                pictures: true,
+
+            },
+            orderBy: {
+                created_on: "desc"
+            }
+        })
+        return response.json(posts)
+    } catch (error) {
+        console.log(error)
+        return response.status(500).send(error.message)
+    }
+}
 
 
 
@@ -101,8 +137,20 @@ exports.updatePost = (request, response) => {
     return response.send('no implementation');
 };
 
-exports.deletePost = (request, response) => {
-    return response.send('no implementation');
+exports.deletePost = async(request, response) => {
+    const postId = parseInt(request.params.id, 10)
+    try {
+        const post = await prisma.Post.delete({
+            where: {
+                id: postId,
+
+                }
+        })
+        return response.json(post)
+    } catch (error) {
+        console.log(error)
+        return response.status(500).send(error.message)
+    }
 };
 
 exports.makePostPrivate= (request, response) => {

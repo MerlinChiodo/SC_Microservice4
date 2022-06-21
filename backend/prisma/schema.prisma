@@ -20,10 +20,11 @@ model Post {
   category_subject  Category_Subject?
   created_on        DateTime          @default(now())
   event_on          DateTime?
-  author            User?             @relation(fields: [user_id], references: [id])
+  author            User?             @relation("ownPosts", fields: [user_id], references: [id])
   pictures          Picture[]
   calls             Post_Call[]
   reports           Report[]
+  savedBy           User[]            @relation("savedPosts")
 
   @@index([user_id], map: "Post_user_id_fkey")
 }
@@ -68,7 +69,8 @@ model User {
   id           Int     @id @default(autoincrement())
   phone_number String?
   smartcity_id Int?
-  posts        Post[]
+  posts        Post[]  @relation("ownPosts")
+  savedPosts   Post[]  @relation("savedPosts")
 }
 
 enum Category_Subject {

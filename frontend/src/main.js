@@ -21,12 +21,19 @@ import dataView from 'primevue/dataview';
 import dataViewLayoutOptions from 'primevue/dataviewlayoutoptions';
 import panel from 'primevue/panel';
 import dropdown from 'primevue/dropdown';
+import Card from 'primevue/card';
+import Calendar from 'primevue/calendar';
 
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
 app.use(PrimeVue)
+
+
+//app.provide("backendurl", "http://localhost:3001/");
+app.provide("tempUser", 1)
+app.provide("backendurl", "http://" + location.host + "/");
 
 app.component('TabMenu', navBar)
 app.component('InputText', inputText)
@@ -36,6 +43,8 @@ app.component('DataView', dataView)
 app.component('DataViewLayoutOptions', dataViewLayoutOptions)
 app.component('Panel', panel)
 app.component('Dropdown', dropdown)
+app.component('Card', Card)
+app.component('Calendar', Calendar)
 
 app.mount('#app')
 

@@ -33,17 +33,17 @@
 
 <script>
 //const backendurl = "http://localhost:3001/";
-const backendurl = "http://" + location.host + "/" ;
+//const backendurl = "http://" + location.host + "/" ;
 export default {
-
+  name: "PostDataView",
+  inject: ["backendurl"],
   data() {
     return {
       posts: null,
       layout: 'grid',
-      
+
     }
   },
-
   mounted: function(){
     this.getServicePosts();
   },
@@ -52,7 +52,7 @@ export default {
       const options = {
         method: 'GET'
       };
-      fetch(backendurl + "posts/getAllServicePosts", options)
+      fetch(this.backendurl + "posts/getAllServicePosts", options)
           .then((response) => response.json())
           .then((data) => {
             this.posts = data
