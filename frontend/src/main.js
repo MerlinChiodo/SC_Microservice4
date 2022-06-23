@@ -23,6 +23,7 @@ import panel from 'primevue/panel';
 import dropdown from 'primevue/dropdown';
 import Card from 'primevue/card';
 import Calendar from 'primevue/calendar';
+import Dropdown from 'primevue/dropdown';
 
 const app = createApp(App)
 
@@ -31,9 +32,9 @@ app.use(router)
 app.use(PrimeVue)
 
 
-//app.provide("backendurl", "http://localhost:3001/");
+app.provide("backendurl", "http://localhost:3001/");
 app.provide("tempUser", 1)
-app.provide("backendurl", "http://" + location.host + "/");
+//app.provide("backendurl", "http://" + location.host + "/");
 
 app.component('TabMenu', navBar)
 app.component('InputText', inputText)
