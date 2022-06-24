@@ -34,7 +34,7 @@ export default {
   },
   methods :{
     routeToPostView(id) { // this pushes it to the component that has the display view details i.e DisplayDetailView.vue
-      this.$router.push(`/UserPostView${id}`)
+      this.$router.push(`/PostBearbeiten${id}`)
     },
     checkShowCategorySubject: function (value) {
       if (value === 'SUCHE' || value == 'BIETE') {
