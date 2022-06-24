@@ -30,8 +30,8 @@
     <label for="category">Kategorie</label><br>
     <Dropdown id="category" v-model="category" :options="categories" optionLabel="label" optionValue="value"  />
   </div>
-  <div v-if="category!=''">
-    <label for="category_subject">Um was gehts genau?</label><br>
+  <div v-if="category=='SUCHE'||category=='BIETE'">
+    <label for="category_subject">Um was geht es genau?</label><br>
     <Dropdown id="category_subject" v-model="category_subject" :options="categories_Subjects" optionLabel="label" optionValue="value"  />
   </div>
   <Button label="Post erstellen" @click="createPost (this.tempUser, title, shortDescription,longDescription, event_on, category, category_subject)"/>
