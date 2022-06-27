@@ -7,11 +7,20 @@ export default {
   components: {
     TabMenu,
   },
+  inject: ["smartAuthUrl", "backendurl"],
+  methods: {
+    login() {
+      window.location.href =
+          this.smartAuthUrl +
+          `external?redirect_success=${this.backendurl}&redirect_error=${this.backendurl}`;
+    }
+  }
 };
 </script>
 
 <template>
   <h1 class="heading">Forum</h1>
+  <Button label="Zum Login"  class="p-button p-button-success" @click="login"/>
   <TabMenu/>
 
 
