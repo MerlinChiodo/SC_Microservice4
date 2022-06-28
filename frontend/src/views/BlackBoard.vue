@@ -18,6 +18,7 @@
 
 <script>
 import UserPostCard from '../components/UserPostCard.vue'
+import {useCurrentUserStore} from "../stores/currentUser";
 //const backendurl = "http://" + location.host + "/" ;
 //const backendurl = "http://localhost:3001/";
 
@@ -27,7 +28,8 @@ export default {
   inject: ["backendurl"],
   data() {
     return {
-      posts: null,
+      currentUser: useCurrentUserStore(),
+      posts: [],
       savedPosts: [],
       layout: 'grid'
     }
@@ -35,7 +37,9 @@ export default {
 
   mounted: function(){
     this.getUserPosts();
-    this.getSavedPosts(this.tempUser);
+    if(this.currentUser.id) {
+      this.getSavedPosts(this.currentUser.id);
+    }
   },
   methods: {
     getSavedPosts: function(userId){
