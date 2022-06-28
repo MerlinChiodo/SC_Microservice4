@@ -35,9 +35,9 @@ app.use(VueCookies);
 
 
 
-app.provide("backendurl", "http://localhost:3001/");
+//app.provide("backendurl", "http://localhost:3001/");
 app.provide("frontendurl", "http://localhost:3000/");
-//app.provide("backendurl", "http://" + location.host + "/");
+app.provide("backendurl", "http://" + location.host + "/");
 app.provide("smartAuthUrl", "http://vps2290194.fastwebserver.de:9760/");
 
 app.component('TabMenu', navBar)

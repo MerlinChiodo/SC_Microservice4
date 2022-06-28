@@ -54,7 +54,7 @@ export default {
     }
 
     if (token) {
-      const response = await fetch(`http://www.supersmartcity.de:9760/verify`, {
+      const response = await fetch(`${this.smartAuthUrl}verify`, {
         method: 'POST',
         body: encodeURIComponent('code') + '=' + encodeURIComponent(token),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
