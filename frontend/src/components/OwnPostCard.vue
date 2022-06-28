@@ -28,7 +28,7 @@
 <script>
 export default {
   name: "OwnPostCard",
-  inject: ["backendurl", "tempUser"],
+  inject: ["backendurl"],
   props: {
     post: Object
   },
