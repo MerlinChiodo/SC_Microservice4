@@ -19,7 +19,7 @@ export default {
       console.log
       window.location.href =
           this.smartAuthUrl +
-          `external?redirect_success=${this.frontendurl}&redirect_error=${this.frontendurl}`;
+          `external?redirect_success=${}&redirect_error=${this.frontendurl}`;
     },
     logout () {
       this.currentUser.id= null
