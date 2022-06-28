@@ -23,7 +23,11 @@ export default {
     },
     logout () {
       this.token=null
-      this.currentUser.$reset()
+      this.currentUser.id= null
+      this.currentUser.smartcity_id=null
+      localStorage.removeItem("user_session_token")
+      this.currentUser.user= null
+      this.currentUser.isUserLoggedIn = false
       location.reload()
     },
   }

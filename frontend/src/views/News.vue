@@ -1,6 +1,7 @@
 <template>
   <h1>Neues aus der Smart-City!</h1>
   {{this.currentUser.smartcity_id}}
+  {{this.currentUser.id}}
   {{this.currentUser.isUserLoggedIn}}
   <post-data-view></post-data-view>
 </template>
@@ -11,11 +12,41 @@ import {useCurrentUserStore} from "../stores/currentUser";
 export default {
   name: "News",
   components: {PostDataView},
-  inject:["smartAuthUrl"],
+  inject:["smartAuthUrl", "backendurl"],
   data() {
     return {
       currentUser: useCurrentUserStore(),
       token : null
+    }
+  },
+  methods: {
+    async getUser(smartcity_id){
+      const options = {
+        method: 'GET'
+      };
+      fetch(this.backendurl + `users/getUserWithSmartcityId/${this.currentUser.smartcity_id}`, options)
+          .then((response) => response.json())
+          .then((data) => {
+            this.currentUser.id = data.id
+            return data.id
+          })
+          .catch(error => {console.log(error)});
+    },
+    async createUser(smartcity_id){
+      const options = {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify( {
+          "smartcity_id" : smartcity_id
+        })
+      };
+      fetch(this.backendurl + `users/createUser`, options)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data.id)
+        this.currentUser.id = data.id
+      })
+          .catch(error => {console.log(error)})
     }
   },
   async beforeMount () {
@@ -39,8 +70,17 @@ export default {
         this.currentUser.user_session_token = data.user_session_token;
         this.currentUser.smartcity_id = data.citizen_id;
         this.currentUser.user = data.info;
-
         this.currentUser.isUserLoggedIn = true;
+
+        if(!this.currentUser.id){
+        const id = await this.getUser(this.currentUser.smartcity_id)
+        console.log(this.currentUser.id)
+        if(id) {
+          console.log("existierte noch nicht")
+          this.createUser(this.currentUser.smartcity_id)
+          console.log(this.currentUser.id)
+        }
+        }
       }
     }
 
