@@ -1,7 +1,5 @@
 <template>
   <h1>Neues aus der Smart-City!</h1>
-  {{this.currentUser.smartcity_id}}
-  {{this.currentUser.id}}
   <post-data-view></post-data-view>
 </template>
 
