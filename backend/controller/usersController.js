@@ -33,10 +33,7 @@ exports.getUserWithSmartcityId = async(request, response) => {
 
             }
         })
-        if(user){
             return response.json(user)
-        }
-        return response.status(404).json(user)
 
     } catch (error) {
         console.log(error)

@@ -5,7 +5,7 @@ export const useCurrentUserStore = defineStore({
     state: () => ({
         id: null,
         smartcity_id: null,
-        user_session_token: localStorage.getItem("user_session_token"),
+        user_session_token: null,
         user: null
     })
 })

@@ -11,7 +11,6 @@ export default {
   data() {
     return {
       currentUser: useCurrentUserStore(),
-      token : null
     }
   },
   inject: ["smartAuthUrl", "frontendurl"],
@@ -23,12 +22,12 @@ export default {
           `external?redirect_success=${this.frontendurl}&redirect_error=${this.frontendurl}`;
     },
     logout () {
-      this.token=null
       this.currentUser.id= null
       this.currentUser.smartcity_id=null
+      this.currentUser.user_session_token = null
       localStorage.removeItem("user_session_token")
       this.currentUser.user= null
-      location.reload()
+      this.$router.push(`/`)
     },
   }
 }

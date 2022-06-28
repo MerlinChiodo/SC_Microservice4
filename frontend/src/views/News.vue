@@ -15,23 +15,21 @@ export default {
   data() {
     return {
       currentUser: useCurrentUserStore(),
-      token : null
     }
   },
   methods: {
-    async getUser(smartcity_id){
+     getUser(smartcity_id){
       const options = {
         method: 'GET'
       };
-      fetch(this.backendurl + `users/getUserWithSmartcityId/${this.currentUser.smartcity_id}`, options)
+      return fetch(this.backendurl + `users/getUserWithSmartcityId/${smartcity_id}`, options)
           .then((response) => response.json())
           .then((data) => {
-            this.currentUser.id = data.id
-            return data.id
+            return data
           })
           .catch(error => {console.log(error)});
     },
-    async createUser(smartcity_id){
+    createUser(smartcity_id){
       const options = {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -42,45 +40,50 @@ export default {
       fetch(this.backendurl + `users/createUser`, options)
           .then((response) => response.json())
           .then((data) => {
-            console.log(data.id)
         this.currentUser.id = data.id
       })
           .catch(error => {console.log(error)})
     }
   },
-  async beforeMount () {
-    console.log(this.currentUser.smartcity_id)
+  async mounted () {
+    let token
     if (this.$route.query.token) {
-      this.token = this.$route.query.token;
+      token = this.$route.query.token;
     } else if (this.currentUser.user_session_token) {
-      this.token = this.currentUser.user_session_token;
+      token = this.currentUser.user_session_token;
     }
-    console.log(this.token)
-    if (this.token !== null) {
-      console.log("vor fetch")
+
+    if (token) {
       const response = await fetch(`http://www.supersmartcity.de:9760/verify`, {
         method: 'POST',
-        body: encodeURIComponent('code') + '=' + encodeURIComponent(this.token),
+        body: encodeURIComponent('code') + '=' + encodeURIComponent(token),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       })
       const data = await response.json()
       if (response.status == 200) {
-        localStorage.setItem("user_session_token", data.user_session_token);
         this.currentUser.user_session_token = data.user_session_token;
         this.currentUser.smartcity_id = data.citizen_id;
         this.currentUser.user = data.info;
 
 
-        if(!this.currentUser.id){
-        const id = await this.getUser(this.currentUser.smartcity_id)
-        console.log(id)
-        if(id) {
-          console.log("existierte noch nicht")
-          this.createUser(this.currentUser.smartcity_id)
-          console.log(this.currentUser.id)
-        }
+        this.getUser(this.currentUser.smartcity_id).then((data) => {
+          if (data) {
 
-        }
+            this.currentUser.id = data.id
+          } else {
+            //if user is not found, create new User in database
+            this.createUser(this.currentUser.smartcity_id).then((data) => {
+              if(this.currentUser.id ==null){
+                localStorage.removeItem("user_session_token");
+                this.currentUser.user_session_token =null;
+                this.currentUser.smartcity_id = null;
+                this.currentUser.user = null;
+                this.token = null;
+              }
+                }
+            )
+          }
+        })
       }
     }
 
