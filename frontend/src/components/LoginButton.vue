@@ -1,5 +1,5 @@
 <template>
-  <Button v-if="currentUser.isUserLoggedIn ==false" label="Zum Login"  class="p-button p-button-success" @click="login"/>
+  <Button v-if="currentUser.isUserLoggedIn ===false" label="Zum Login"  class="p-button p-button-success" @click="login"/>
   <Button v-else label="Logout"  class="p-button p-button-success" @click="logout"/>
 </template>
 
@@ -16,13 +16,14 @@ export default {
   inject: ["smartAuthUrl", "frontendurl"],
   methods: {
     login() {
+      console.log
       window.location.href =
           this.smartAuthUrl +
           `external?redirect_success=${this.frontendurl}&redirect_error=${this.frontendurl}`;
     },
     logout () {
       this.token=null
-      this.currentUser.$reset
+      this.currentUser.$reset()
       location.reload()
     },
   }
