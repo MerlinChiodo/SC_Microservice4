@@ -24,7 +24,7 @@ import UserPostCard from '../components/UserPostCard.vue'
 export default {
   name: "BlackBoard",
   components: {UserPostCard},
-  inject: ["backendurl", "tempUser"],
+  inject: ["backendurl"],
   data() {
     return {
       posts: null,
