@@ -30,16 +30,18 @@
     <label for="category_subject">Um was geht es genau?</label><br>
     <Dropdown id="category_subject" v-model="category_subject" :options="categories_Subjects" optionLabel="label" optionValue="value"  />
   </div>
-  <Button label="Post erstellen" @click="createPost (this.tempUser, title, shortDescription,longDescription, event_on, category, category_subject)"/>
+  <Button label="Post erstellen" @click="createPost (currentUser.id, title, shortDescription,longDescription, event_on, category, category_subject)"/>
 </template>
 
 <script>
 import {createPost} from '../controllers/postController.js'
+import {useCurrentUserStore} from "../stores/currentUser";
 export default {
   name: "newPostForm",
-  inject: ["backendurl", "tempUser"],
+  inject: ["backendurl"],
   data() {
     return {
+      currentUser: useCurrentUserStore(),
       title: "",
       longDescription: "",
       shortDescription: "",

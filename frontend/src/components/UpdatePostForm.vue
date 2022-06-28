@@ -35,11 +35,13 @@
 
 <script>
 import {updatePost} from '../controllers/postController.js'
+import {useCurrentUserStore} from "../stores/currentUser";
 export default {
   name: "UpdatePostForm.vue",
-  inject: ["backendurl", "tempUser"],
+  inject: ["backendurl"],
   data() {
     return {
+      currentUser: useCurrentUserStore(),
       postId: null,
       title: "",
       longDescription: "",

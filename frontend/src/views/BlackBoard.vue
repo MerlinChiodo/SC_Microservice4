@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       posts: null,
-      savedPosts: null,
+      savedPosts: [],
       layout: 'grid'
     }
   },

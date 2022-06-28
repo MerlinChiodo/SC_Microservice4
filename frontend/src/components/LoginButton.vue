@@ -1,6 +1,7 @@
 <template>
-  <Button v-if="currentUser.isUserLoggedIn ===false" label="Zum Login"  class="p-button p-button-success" @click="login"/>
-  <Button v-else label="Logout"  class="p-button p-button-success" @click="logout"/>
+
+  <Button v-if="currentUser.id" label="Logout"  class="p-button p-button-success" @click="logout"/>
+  <Button v-else label="Zum Login"  class="p-button p-button-success" @click="login"/>
 </template>
 
 <script>
@@ -27,7 +28,6 @@ export default {
       this.currentUser.smartcity_id=null
       localStorage.removeItem("user_session_token")
       this.currentUser.user= null
-      this.currentUser.isUserLoggedIn = false
       location.reload()
     },
   }

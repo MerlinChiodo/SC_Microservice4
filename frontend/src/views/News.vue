@@ -2,7 +2,6 @@
   <h1>Neues aus der Smart-City!</h1>
   {{this.currentUser.smartcity_id}}
   {{this.currentUser.id}}
-  {{this.currentUser.isUserLoggedIn}}
   <post-data-view></post-data-view>
 </template>
 
@@ -70,16 +69,17 @@ export default {
         this.currentUser.user_session_token = data.user_session_token;
         this.currentUser.smartcity_id = data.citizen_id;
         this.currentUser.user = data.info;
-        this.currentUser.isUserLoggedIn = true;
+
 
         if(!this.currentUser.id){
         const id = await this.getUser(this.currentUser.smartcity_id)
-        console.log(this.currentUser.id)
+        console.log(id)
         if(id) {
           console.log("existierte noch nicht")
           this.createUser(this.currentUser.smartcity_id)
           console.log(this.currentUser.id)
         }
+
         }
       }
     }
