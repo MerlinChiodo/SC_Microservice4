@@ -133,8 +133,49 @@ exports.getAllUserPosts = async(request, response) => {
 
 
 
-exports.updatePost = (request, response) => {
-    return response.send('no implementation');
+exports.updatePost = async(request, response) => {
+    console.log(request.body.id)
+    const postId = request.body.id
+    let savedCategory
+    let savedCategorySubject
+    console.log(request.body.category)
+    if(request.body.category === "" ||request.body.category == null){
+        savedCategory = null
+        savedCategorySubject = null
+    } else{
+        savedCategory = request.body.category
+        if(request.body.category_subject !== "" ||request.body.category_subject !== null ){
+            savedCategorySubject = request.body.category_subject
+        }
+        else{
+            savedCategorySubject = null
+        }
+
+    }
+
+    try{
+        const post = await prisma.Post.update({
+            data: {
+                title: request.body.title,
+                short_description: request.body.short_description,
+                long_description: request.body.long_description,
+                category: savedCategory,
+                category_subject:savedCategorySubject,
+                event_on: request.body.event_on
+            },
+
+            where: {
+
+                id: postId,
+
+            },
+        })
+        return response.json(post)
+    }
+    catch (error) {
+    console.log(error)
+    return response.status(500).send(error.message)
+}
 };
 
 exports.deletePost = async(request, response) => {

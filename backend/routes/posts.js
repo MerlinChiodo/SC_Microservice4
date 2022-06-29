@@ -8,7 +8,7 @@ router.get('/getAllServicePosts', postController.getAllServicePosts);
 router.get('/getAllUserPosts', postController.getAllUserPosts);
 router.get('/:id', postController.getPost);
 router.get('/postOverview/:id', postController.getPostOverview);
-router.put('/:id', postController.updatePost);
+router.put('/updatePost', postController.updatePost);
 router.delete('/:id', postController.deletePost);
 router.put('/makePostPrivate/:id', postController.makePostPrivate);
 router.put('/makePostPublic/:id', postController.makePostPublic);

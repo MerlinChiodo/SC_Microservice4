@@ -3,9 +3,44 @@ const postController = require("./postController");
 
 
 
-exports.createUser = (request, response) => {
-    return response.send('no implementation');
+exports.createUser = async(request, response) => {
+
+    try {
+        const {smartcity_id} = request.body
+        const user = await prisma.User.create({
+            data: {
+                smartcity_id
+            }
+        })
+        return response.status(200).send(user);
+    }catch (error) {
+        console.log(error)
+        response.status(500).send(error.message)
+    }
+
+
 };
+
+exports.getUserWithSmartcityId = async(request, response) => {
+    try {
+        const smartcity_id = parseInt(request.params.smartcity_id, 10)
+        const user = await prisma.User.findUnique({
+            where: {
+                smartcity_id
+            },
+            select: {
+                id: true,
+
+            }
+        })
+            return response.json(user)
+
+    } catch (error) {
+        console.log(error)
+        return response.status(500).send(error.message)
+    }
+};
+
 
 exports.getAllUsers = (request, response) => {
     return response.send('no implementation');

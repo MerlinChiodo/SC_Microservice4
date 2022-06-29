@@ -1,5 +1,11 @@
 <template>
-  <TabMenu :model="items" />
+  <TabMenu :model="items" >
+    <router-view/>
+
+  </TabMenu>
+
+
+
 </template>
 
 <script>
@@ -19,6 +25,7 @@ export default {
   }
 }
 </script>
+
 
 <style>
 

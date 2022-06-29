@@ -8,6 +8,7 @@ import BlackBoard from "../views/BlackBoard.vue";
 import OwnPosts from "../views/OwnPosts.vue"
 import savedPosts from "../views/savedPosts.vue"
 import NewPost from "../views/NewPost.vue"
+import UpdatePostView from "../views/UpdatePostView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,6 +58,11 @@ const router = createRouter({
     name: "NewPost",
     component: NewPost
 },
+    {
+      path: "/PostBearbeiten:postid(.*)",
+      name: "UpdatePost",
+      component: UpdatePostView
+    },
     {
       path: '/about',
       name: 'about',

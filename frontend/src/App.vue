@@ -1,17 +1,21 @@
 <script >
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from '@/components/HelloWorld.vue'
+
 import TabMenu from './components/navBar.vue'
+import LoginButton from './components/LoginButton.vue'
 
 export default {
   components: {
-    TabMenu,
-  },
+    TabMenu, LoginButton
+  }
+
 };
 </script>
 
 <template>
   <h1 class="heading">Forum</h1>
+<LoginButton/>
   <TabMenu/>
 
 

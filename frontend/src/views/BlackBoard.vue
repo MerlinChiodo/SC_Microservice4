@@ -18,24 +18,28 @@
 
 <script>
 import UserPostCard from '../components/UserPostCard.vue'
+import {useCurrentUserStore} from "../stores/currentUser";
 //const backendurl = "http://" + location.host + "/" ;
 //const backendurl = "http://localhost:3001/";
 
 export default {
   name: "BlackBoard",
   components: {UserPostCard},
-  inject: ["backendurl", "tempUser"],
+  inject: ["backendurl"],
   data() {
     return {
-      posts: null,
-      savedPosts: null,
+      currentUser: useCurrentUserStore(),
+      posts: [],
+      savedPosts: [],
       layout: 'grid'
     }
   },
 
   mounted: function(){
     this.getUserPosts();
-    this.getSavedPosts(this.tempUser);
+    if(this.currentUser.id) {
+      this.getSavedPosts(this.currentUser.id);
+    }
   },
   methods: {
     getSavedPosts: function(userId){

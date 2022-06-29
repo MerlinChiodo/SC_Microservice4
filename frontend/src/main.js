@@ -4,6 +4,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import PrimeVue from 'primevue/config'
+import VueCookies from "vue-cookies";
 
 //import "primevue/resources/themes/md-light-deeppurple/theme.css";
 import "primevue/resources/primevue.min.css";
@@ -23,17 +24,22 @@ import panel from 'primevue/panel';
 import dropdown from 'primevue/dropdown';
 import Card from 'primevue/card';
 import Calendar from 'primevue/calendar';
+import Dropdown from 'primevue/dropdown';
 
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
 app.use(PrimeVue)
+app.use(VueCookies);
+
 
 
 //app.provide("backendurl", "http://localhost:3001/");
-app.provide("tempUser", 1)
+//app.provide("frontendurl", "http://localhost:3000/");
+app.provide("frontendurl", "http://vps2290194.fastwebserver.de:9740/");
 app.provide("backendurl", "http://" + location.host + "/");
+app.provide("smartAuthUrl", "http://vps2290194.fastwebserver.de:9760/");
 
 app.component('TabMenu', navBar)
 app.component('InputText', inputText)

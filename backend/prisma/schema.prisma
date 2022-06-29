@@ -68,7 +68,7 @@ model Administrator {
 model User {
   id           Int     @id @default(autoincrement())
   phone_number String?
-  smartcity_id Int?
+  smartcity_id Int?    @unique
   posts        Post[]  @relation("ownPosts")
   savedPosts   Post[]  @relation("savedPosts")
 }

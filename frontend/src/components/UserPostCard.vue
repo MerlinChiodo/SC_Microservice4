@@ -17,22 +17,30 @@
     </template>
     <template #footer>
       <Button  label="Details"  @click="routeToPostView(post.id)"></Button>
-      <span v-if="saved" class="unsaveButton"><Button icon="pi pi-times-circle" class="p-button-rounded p-button-danger" @click="unsavePost(post.id,this.tempUser)"/></span>
-      <span v-else class="saveButton"><Button icon="pi pi-save" class="p-button-rounded p-button-success" @click="savePost(post.id, this.tempUser)"/></span>
-
+      <span v-if="currentUser.id">
+        <span v-if="saved" class="unsaveButton"><Button icon="pi pi-times-circle" class="p-button-rounded p-button-danger" @click="unsavePost(post.id,currentUser.id)"/></span>
+        <span v-else class="saveButton"><Button icon="pi pi-save" class="p-button-rounded p-button-success" @click="savePost(post.id, currentUser.id)"/></span>
+      </span>
     </template>
   </Card>
   </div>
 </template>
 
 <script>
+import {useCurrentUserStore} from "../stores/currentUser";
+
 export default {
-  inject: ["backendurl", "tempUser"],
+  inject: ["backendurl"],
 
   props: {
     post: Object,
     User: Object,
     saved: Boolean
+  },
+  data(){
+    return{
+      currentUser: useCurrentUserStore()
+    }
   },
   mounted: function(){
 

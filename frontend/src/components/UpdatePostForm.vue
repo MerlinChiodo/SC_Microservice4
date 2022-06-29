@@ -26,22 +26,23 @@
     <label for="category">Kategorie</label><br>
     <Dropdown id="category" v-model="category" :options="categories" optionLabel="label" optionValue="value"  />
   </div>
-  <div v-if="category=='SUCHE'||category=='BIETE'">
-    <label for="category_subject">Um was geht es genau?</label><br>
+  <div v-if="checkShowCategorySubject(category)">
+    <label for="category_subject">Um was gehts genau?</label><br>
     <Dropdown id="category_subject" v-model="category_subject" :options="categories_Subjects" optionLabel="label" optionValue="value"  />
   </div>
-  <Button label="Post erstellen" @click="createPost (currentUser.id, title, shortDescription,longDescription, event_on, category, category_subject)"/>
+  <Button label="Post ändern" @click="updatePost (postId, title, shortDescription,longDescription, event_on, category, category_subject)"/>
 </template>
 
 <script>
-import {createPost} from '../controllers/postController.js'
+import {updatePost} from '../controllers/postController.js'
 import {useCurrentUserStore} from "../stores/currentUser";
 export default {
-  name: "newPostForm",
+  name: "UpdatePostForm.vue",
   inject: ["backendurl"],
   data() {
     return {
       currentUser: useCurrentUserStore(),
+      postId: null,
       title: "",
       longDescription: "",
       shortDescription: "",
@@ -55,7 +56,7 @@ export default {
         {label: "FRAGE",value: "FRAGE"},
         {label: "VERANSTALTUNG",value: "VERANSTALTUNG"},
         {label: "MITTEILUNG",value: "MITTEILUNG"}
-          ],
+      ],
       categories_Subjects: [
         {label: "", value: ""},
         {label: "BUCH", value: "BUCH"},
@@ -70,8 +71,37 @@ export default {
       ]
     };
   },
+  beforeMount() {
+    this.getData();
+
+  },
   methods: {
-    createPost
+    updatePost,
+    getData() {
+      const options = {
+        method: 'GET'
+      };
+      fetch(this.backendurl + `posts/${this.$route.params.postid}`, options)
+          .then((response) => response.json())
+          .then((data) => {
+            this.postId = data.id
+            this.title= data.title
+                this.longDescription= data.long_description
+                this.shortDescription= data.short_description
+                this.event_on= data.event_on
+                this.category= data.category
+                this.category_subject= data.category_subject
+          })
+          .catch(error => {
+            console.log(error)
+          });
+    },
+    checkShowCategorySubject: function (value) {
+      if (value === 'SUCHE' || value == 'BIETE') {
+        return true;
+      }
+      return false;
+    },
   },
 }
 </script>
