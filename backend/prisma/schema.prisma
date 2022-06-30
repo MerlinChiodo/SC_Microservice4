@@ -10,7 +10,7 @@ datasource db {
 model Post {
   title             String
   short_description String            @db.VarChar(255)
-  long_description  String?
+  long_description  String?           @db.VarChar(5000)
   controlled        Boolean           @default(false)
   id                Int               @id @default(autoincrement())
   public            Boolean           @default(true)
