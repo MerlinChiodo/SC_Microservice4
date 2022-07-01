@@ -30,7 +30,7 @@
     <label for="category_subject">Um was geht es genau?</label><br>
     <Dropdown id="category_subject" v-model="category_subject" :options="categories_Subjects" optionLabel="label" optionValue="value"  />
   </div>
-  <Button label="Post erstellen" @click="createPost (currentUser.id, title, shortDescription,longDescription, event_on, category, category_subject)"/>
+  <Button label="Post erstellen" @click="finishPostCreation (currentUser.id, title, shortDescription,longDescription, event_on, category, category_subject)"/>
 </template>
 
 <script>
@@ -71,7 +71,14 @@ export default {
     };
   },
   methods: {
-    createPost
+    createPost,
+    finishPostCreation : function (user_id, title, short_description, long_description, event_on, category, category_subject){
+      createPost(user_id, title, short_description, long_description, event_on, category, category_subject).then(data =>{
+        this.$router.push(`/meinePosts`)
+      })
+
+
+}
   },
 }
 </script>
