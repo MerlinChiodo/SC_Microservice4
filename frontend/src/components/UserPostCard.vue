@@ -37,6 +37,7 @@ export default {
     User: Object,
     saved: Boolean
   },
+  emits: ["notify"],
   data(){
     return{
       currentUser: useCurrentUserStore()
@@ -61,6 +62,7 @@ export default {
         fetch( `${this.backendurl}users/savePost/${userId}/${postId}`, options)
             .then((response) => response.json())
             .then((data) => {
+              this.$emit('notify', true)
             })
             .catch(error => {
               console.log(error)
@@ -74,7 +76,7 @@ export default {
       fetch( `${this.backendurl}users/unsavePost/${userId}/${postId}`, options)
           .then((response) => response.json())
           .then((data) => {
-
+            this.$emit('notify', true)
           })
           .catch(error => {
             console.log(error)

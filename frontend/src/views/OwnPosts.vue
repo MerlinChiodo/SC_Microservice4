@@ -12,7 +12,7 @@
         <template #grid="slotProps">
           <div class="col-12 md:col-4">
 
-            <own-post-card class="postCard" :post="slotProps.data" />
+            <own-post-card v-on:notify="getOwnPosts(this.currentUser.id)" class="postCard" :post="slotProps.data" />
           </div>
         </template>
       </DataView>

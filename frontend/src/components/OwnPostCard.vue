@@ -32,6 +32,7 @@ export default {
   props: {
     post: Object
   },
+  emits: ["notify"],
   methods :{
     routeToPostView(id) { // this pushes it to the component that has the display view details i.e DisplayDetailView.vue
       this.$router.push(`/PostBearbeiten${id}`)
@@ -49,6 +50,7 @@ export default {
       fetch( `${this.backendurl}posts/${postId}`, options)
           .then((response) => response.json())
           .then((data) => {
+            this.$emit("notify")
           })
           .catch(error => {
             console.log(error)
