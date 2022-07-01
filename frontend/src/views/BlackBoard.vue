@@ -9,7 +9,7 @@
       <template #grid="slotProps">
         <div class="col-12 md:col-4">
 
-          <user-post-card v-on:notify="getSavedPosts(this.currentUser.id)" class="postCard" :post="slotProps.data" :saved="checkIfpostSaved(slotProps.data)"/>
+          <user-post-card v-on:notify="getSavedPosts(this.currentUser.id)" class="col-12 md:col-4 h-full w-full flex"  :post="slotProps.data" :saved="checkIfpostSaved(slotProps.data)"/>
           </div>
       </template>
     </DataView>

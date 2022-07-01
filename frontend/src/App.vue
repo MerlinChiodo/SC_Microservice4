@@ -27,6 +27,11 @@ export default {
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
+  text-align: center;
+  /*color: #2c397f;
+  background-color: #d1d5ed;
+  background-color:#acb4df;
+  background-color: #f5f6fb;*/
 }
 
 .heading{
