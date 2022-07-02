@@ -14,7 +14,7 @@ exports.createPictures = async (request, response) => {
 
     for(let i = 0; i < request.files.length; i++) {
         const pictureName = request.files[i].filename
-        const path = pictureName
+        const path = "/uploads/" + pictureName
 
         try{
             const picture = await prisma.Picture.create({
@@ -38,17 +38,7 @@ exports.getAllPictures = async(request, response) => {
                 post_id: postId
             }
         })
-        let preparedPictures = []
-        for (let i in pictures){
-            preparedPictures.push({
-                path: `http://localhost:3001/pictures/${pictures[i].id}`,
-                thumbnailImageSrc:`http://localhost:3001/pictures/pictures/${pictures[i].id}`,
-                alt: `Description for Image ${i+1}`,
-                title: `Title ${i+1}`
-            })
-        }
-        console.log(preparedPictures)
-        return response.status(200).json(preparedPictures)
+        return response.status(200).json(pictures)
     } catch (error) {
         console.log(error)
         return response.status(500).send(error.message)

@@ -1,15 +1,8 @@
 <template>
   <div id="wrapper">
-  <div><label for="pictureUpload">Füge deinem Post Bilder hinzu</label><br>
-    <FileUpload id="pictureUpload" name="pictures" :url="this.backendurl + 'pictures/createPictures/' +this.postId"  :multiple="true" accept="image/*" >
-      <template #empty>
-        <p>Drag and drop files to here to upload.</p>
-      </template>
-    </FileUpload>
-  </div>
-  <div v-if="this.pictures[0]">
-    <Image :src="this.pictures[0].path" alt="Image" width="800" />
-  </div>
+    <div v-if="this.pictures[0]">
+      <Image :src="this.pictures[0].path" alt="Image" width="800" />
+    </div>
   <div>
     <span >
       <label for="title">Überschrift</label><br>
@@ -41,6 +34,14 @@
     <label for="category_subject">Um was gehts genau?</label><br>
     <Dropdown id="category_subject" v-model="category_subject" :options="categories_Subjects" optionLabel="label" optionValue="value"  />
   </div>
+    <div><label for="pictureUpload">Füge deinem Post Bilder hinzu</label><br>
+      <FileUpload id="pictureUpload" name="pictures" :url="this.backendurl + 'pictures/createPictures/' +this.postId"  :multiple="true" accept="image/*" >
+        <template #empty>
+          <p>Drag and drop files to here to upload.</p>
+        </template>
+      </FileUpload>
+    </div>
+
   <Button label="Post ändern" @click="updatePost (postId, title, shortDescription,longDescription, event_on, category, category_subject)"/>
   </div>
 </template>
@@ -119,18 +120,14 @@ export default {
       fetch(this.backendurl + `pictures/getAllPictures/${this.$route.params.postid}`, options)
       .then((response) => response.json())
     .then((data) => {
-      this.pictures = data
 
-      /*for(let i in picturesData){
+      for(let i in data){
         this.pictures.push({
-              "path": this.backendurl + `pictures/${picturesData[i].id}`,
-              "thumbnailImageSrc": this.backendurl + `pictures/${picturesData[i].id}`,
-              "alt": `Description for Image ${i+1}`,
-              "title": `Title ${i+1}`
+              "path": this.backendurl + `pictures/${data[i].id}`
             }
           )
 
-      }*/
+      }
       console.log(this.pictures)
 
 
@@ -155,12 +152,5 @@ export default {
   max-width:80rem;
 }
 
-div{
-  margin-top:10px;
-  margin-bottom:10px
-}
-span{
-  margin-top:10px;
-  margin-bottom:10px
-}
+
 </style>

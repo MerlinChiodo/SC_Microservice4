@@ -2,29 +2,21 @@
   <div class="card">
     <DataView :value="posts" :layout="layout" :paginator="true" :rows="9" >
       <template #header>
-
+        <!--<div class="col-6" style="text-align: left">
+          <label for="category">Kategorie</label><br>
+          <Dropdown id="category" v-model="category" :options="categories" optionLabel="label" optionValue="value" @change="filterPosts()"/>
+          <div v-if="category=='SUCHE'||category=='BIETE'">
+            <label for="category_subject">Um was geht es genau?</label><br>
+            <Dropdown id="category_subject" v-model="category_subject" :options="categories_Subjects" optionLabel="label" optionValue="value"  @change="filterPosts()" />
+          </div>
+        </div>-->
       </template>
 
 
       <template #grid="slotProps">
         <div class="col-12 md:col-4">
-          <div class="post-grid-item card">
-            <div class="post-grid-item-top">
-              <div>
-                <span class="post-service">Service: {{slotProps.data.service}}</span>
-              </div>
-              <!--<span :class="'product-badge status-'+slotProps.data.inventoryStatus.toLowerCase()">{{slotProps.data.inventoryStatus}}</span>-->
-            </div>
-            <div class="post-grid-item-content">
-              <!--<img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.data.title"/>-->
-              <div class="post-title">Titel: {{slotProps.data.title}}</div>
 
-            </div>
-            <div class="post-grid-item-bottom">
-              <div class="post-short_description">kurze Beschreibung: {{slotProps.data.short_description}}</div>
-              <Button  label="Details" :disabled="slotProps.data.long_description === ''" @click="routeToPostView(slotProps.data.id)"></Button>
-            </div>
-          </div>
+          <ServicePostCard v-on:notify="getServicePosts()" class="col-12 md:col-4 h-full w-full flex" :post="slotProps.data" />
         </div>
       </template>
     </DataView>
@@ -34,12 +26,19 @@
 <script>
 //const backendurl = "http://localhost:3001/";
 //const backendurl = "http://" + location.host + "/" ;
+import ServicePostCard from '../components/ServicePostCard.vue'
+import {useCurrentUserStore} from "../stores/currentUser";
+
 export default {
   name: "PostDataView",
   inject: ["backendurl"],
+  components: {ServicePostCard},
   data() {
     return {
-      posts: null,
+      currentUser: useCurrentUserStore(),
+      posts: [],
+      displayedPosts: [],
+      savedPosts: [],
       layout: 'grid',
 
     }
@@ -56,8 +55,27 @@ export default {
           .then((response) => response.json())
           .then((data) => {
             this.posts = data
+            this.displayedPosts = data
           })
           .catch(error => {console.log(error)});
+    },
+    getSavedPosts: function(userId){
+      const options = {
+        method: 'GET'
+      };
+      fetch( `${this.backendurl}users/getAllSavedPosts/${userId}`, options)
+          .then((response) => response.json())
+          .then((data) => {
+            this.savedPosts = data
+          })
+          .catch(error => {
+            console.log(error)
+          });
+    },    checkIfpostSaved(post){
+      if (this.savedPosts.find(currentPost => currentPost.id == post.id)) {
+        return true
+      }
+      return false
     },
     routeToPostView(id) { // this pushes it to the component that has the display view details i.e DisplayDetailView.vue
       this.$router.push(`/postView${id}`)

@@ -19,7 +19,7 @@
         <template #grid="slotProps">
           <div class="col-12 md:col-4">
 
-            <own-post-card v-on:notify="getOwnPosts(this.currentUser.id)" class="postCard" :post="slotProps.data" />
+            <own-post-card v-on:notify="getOwnPosts(this.currentUser.id)" class="col-12 md:col-4 h-full w-full flex" :post="slotProps.data" />
           </div>
         </template>
       </DataView>
