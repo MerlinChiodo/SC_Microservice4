@@ -1,10 +1,14 @@
 <template>
+  <div id="wrapper">
   <div><label for="pictureUpload">Füge deinem Post Bilder hinzu</label><br>
     <FileUpload id="pictureUpload" name="pictures" :url="this.backendurl + 'pictures/createPictures/' +this.postId"  :multiple="true" accept="image/*" >
       <template #empty>
         <p>Drag and drop files to here to upload.</p>
       </template>
     </FileUpload>
+  </div>
+  <div v-if="this.pictures[0]">
+    <Image :src="this.pictures[0].path" alt="Image" width="800" />
   </div>
   <div>
     <span >
@@ -25,7 +29,7 @@
   <Textarea v-model="longDescription" rows="5" cols="30" :autoResize="true" id="longDescription"/>
   </span>
   </div>
-  <div class="field col-12 md:col-4">
+  <div >
     <label for="event_on">Termin</label><br>
     <Calendar id="event_on" v-model="event_on" autocomplete="off" />
   </div>
@@ -38,6 +42,7 @@
     <Dropdown id="category_subject" v-model="category_subject" :options="categories_Subjects" optionLabel="label" optionValue="value"  />
   </div>
   <Button label="Post ändern" @click="updatePost (postId, title, shortDescription,longDescription, event_on, category, category_subject)"/>
+  </div>
 </template>
 
 <script>
@@ -48,6 +53,7 @@ export default {
   inject: ["backendurl"],
   data() {
     return {
+      test: "test",
       currentUser: useCurrentUserStore(),
       postId: null,
       title: "",
@@ -56,6 +62,7 @@ export default {
       event_on: "",
       category: "",
       category_subject: "",
+      pictures: [],
       categories: [
         {label: "", value: ""},
         {label: "SUCHE", value: "SUCHE"},
@@ -78,8 +85,10 @@ export default {
       ]
     };
   },
-  beforeMount() {
-    this.getData();
+  async beforeMount() {
+    await this.getData();
+    await this.getPictures();
+    console.log("hi" ,this.pictures)
 
   },
   methods: {
@@ -103,8 +112,35 @@ export default {
             console.log(error)
           });
     },
+    getPictures (){
+      const options = {
+        method: 'GET'
+      };
+      fetch(this.backendurl + `pictures/getAllPictures/${this.$route.params.postid}`, options)
+      .then((response) => response.json())
+    .then((data) => {
+      this.pictures = data
+
+      /*for(let i in picturesData){
+        this.pictures.push({
+              "path": this.backendurl + `pictures/${picturesData[i].id}`,
+              "thumbnailImageSrc": this.backendurl + `pictures/${picturesData[i].id}`,
+              "alt": `Description for Image ${i+1}`,
+              "title": `Title ${i+1}`
+            }
+          )
+
+      }*/
+      console.log(this.pictures)
+
+
+    })
+    .catch(error => {
+      console.log(error)
+    });
+    },
     checkShowCategorySubject: function (value) {
-      if (value === 'SUCHE' || value == 'BIETE') {
+      if (value === 'SUCHE' || value === 'BIETE') {
         return true;
       }
       return false;
@@ -114,6 +150,11 @@ export default {
 </script>
 
 <style scoped>
+#wrapper{
+  margin:auto;
+  max-width:80rem;
+}
+
 div{
   margin-top:10px;
   margin-bottom:10px

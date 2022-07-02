@@ -25,6 +25,8 @@ import dropdown from 'primevue/dropdown';
 import Card from 'primevue/card';
 import Calendar from 'primevue/calendar';
 import FileUpload from 'primevue/fileupload';
+import Image from 'primevue/image';
+import Galleria from 'primevue/galleria';
 
 const app = createApp(App)
 
@@ -52,6 +54,9 @@ app.component('Dropdown', dropdown)
 app.component('Card', Card)
 app.component('Calendar', Calendar)
 app.component('FileUpload', FileUpload)
+app.component('Image', Image)
+app.component('Galleria', Galleria)
+
 
 app.mount('#app')
 
