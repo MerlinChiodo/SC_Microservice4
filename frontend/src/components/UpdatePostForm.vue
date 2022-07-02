@@ -1,4 +1,11 @@
 <template>
+  <div><label for="pictureUpload">Füge deinem Post Bilder hinzu</label><br>
+    <FileUpload id="pictureUpload" name="pictures[]" url="backendurl + 'pictures'" @upload="onUpload" :multiple="false" accept="image/*" >
+      <template #empty>
+        <p>Drag and drop files to here to upload.</p>
+      </template>
+    </FileUpload>
+  </div>
   <div>
     <span >
       <label for="title">Überschrift</label><br>
