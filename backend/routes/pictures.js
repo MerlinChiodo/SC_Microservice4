@@ -23,7 +23,7 @@ let upload = multer({
     }
 })
 
-router.post('/createPictures/:postId', upload.array('picture'), pictureController.createPictures);
+router.post('/createPictures/:postId', upload.array('pictures'), pictureController.createPictures);
 router.get('/', pictureController.getAllPictures);
 router.get('/:id', pictureController.getPicture);
 router.put('/:id', pictureController.updatePicture);

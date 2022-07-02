@@ -1,6 +1,6 @@
 <template>
   <div><label for="pictureUpload">Füge deinem Post Bilder hinzu</label><br>
-    <FileUpload id="pictureUpload" name="pictures[]" url="backendurl + 'pictures'" @upload="onUpload" :multiple="false" accept="image/*" >
+    <FileUpload id="pictureUpload" name="pictures" :url="this.backendurl + 'pictures/createPictures/' +this.postId"  :multiple="true" accept="image/*" >
       <template #empty>
         <p>Drag and drop files to here to upload.</p>
       </template>

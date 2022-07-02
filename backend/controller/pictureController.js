@@ -1,6 +1,7 @@
 const prisma = require('../lib/prisma.js')
 
 exports.createPictures = async (request, response) => {
+    console.log("in createPictures")
     let post_id
     try{
         post_id = parseInt(request.params.postId, 10)
@@ -26,7 +27,7 @@ exports.createPictures = async (request, response) => {
             console.log(e);
         }
     }
-    return res.status(200).json(pictures);
+    return response.status(200).json(pictures);
 };
 
 exports.getAllPictures = (request, response) => {
