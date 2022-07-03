@@ -11,8 +11,9 @@
       <div class="flex justify-content-around flex-wrap align-items-center justify-content-start">
         <div class="align-items-center justify-content-around">
       <h3>{{this.post.title}}</h3>
-      <div class="text-color-secondary text-xl">{{ this.post.service }}</div>
-      <div  class="text-color-secondary text-xl" v-if="this.post.event_on">Termin: {{this.post.event_on.slice(0,this.post.event_on.search("T"))}}</div>
+          <div class="text-color-secondary text-xl">{{ this.post.service }}</div>
+      <div  class="text-color-secondary text-xl" v-if="this.post.event_on">Wann?: {{this.post.event_on.slice(0,this.post.event_on.search("T"))}}</div>
+          <div class="m-4 text-base font-bold">{{post.short_description}}</div>
         </div>
         <div v-if="this.pictures">
           <div v-if="this.pictures[this.pictures.length-1] && this.pictures[this.pictures.length-1].path.substring(0,4) ==='http'">
@@ -28,7 +29,6 @@
 
     </template>
     <template #content>
-      <p class="short_description">{{post.short_description}}</p>
       <p>{{post.long_description}}</p>
     </template>
   </Card>
@@ -114,10 +114,6 @@ export default {
 
 }
 
-.short_description{
-  font-weight: bold;
-  margin-bottom: 30px;
-}
 
 #wrapper{
   margin:auto;
