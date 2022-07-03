@@ -2,7 +2,7 @@
 <template>
   <div id="wrapper">
   <h1>Neues von den Smart-Bewohnern!</h1>
-  <div class="card">
+  <div v-if="displayedPosts[0]">
     <DataView :value="displayedPosts" :layout="layout" :paginator="true" :rows="9" >
       <template #header>
         <div class="col-6" style="text-align: left">
@@ -67,7 +67,7 @@ export default {
     }
   },
 
-  mounted: function(){
+  beforeMount: async function(){
     this.getUserPosts();
     if(this.currentUser.id) {
       this.getSavedPosts(this.currentUser.id);
@@ -95,8 +95,34 @@ export default {
           .then((response) => response.json())
           .then((data) => {
             this.posts = data
-            this.displayedPosts = data
-            console.log(data)
+            for(let i in this.posts){
+              this.getPictures(this.posts[i].id).then(data=> {
+                this.posts[i].pictures = []
+                for (let j in data){
+                  if(data[j].path.substring(0,4)==="http" ){
+                    this.posts[i].pictures.push({
+                      "path": data[j].path
+                    })
+                  }
+                  else if(data[j].path.charAt(data[j].path.length-4)!== "."){
+                    this.posts[i].pictures.push({
+                      "path": data[j].path
+                    })
+                  }
+                  else {
+                    this.posts[i].pictures.push({
+                      "path": this.backendurl + `pictures/${data[j].id}`
+                    })
+                  }
+                }
+              })
+                  .catch(error => {console.log(error)})
+            }
+          })
+          .then(data=> {
+            this.displayedPosts = this.posts
+            console.log(this.posts)
+            console.log(this.displayedPosts)
           })
           .catch(error => {console.log(error)});
     },
@@ -136,6 +162,16 @@ export default {
       }else{
         this.displayedPosts = temPosts
       }
+    },
+    getPictures (id){
+      const options = {
+        method: 'GET'
+      };
+      return fetch(this.backendurl + `pictures/getAllPictures/${id}`, options)
+          .then((response) => response.json())
+          .catch(error => {
+            console.log(error)
+          });
     }
   }
 }

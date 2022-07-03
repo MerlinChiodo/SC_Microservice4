@@ -85,12 +85,37 @@ export default {
           .then((response) => response.json())
           .then((data) => {
             this.posts = data
-            this.displayedPosts = data
+            for(let i in this.posts){
+              this.getPictures(this.posts[i].id).then(data=> {
+                this.posts[i].pictures = []
+                for (let j in data){
+                  if(data[j].path.substring(0,4)==="http" ){
+                    this.posts[i].pictures.push({
+                      "path": data[j].path
+                    })
+                  }
+                  else if(data[j].path.charAt(data[j].path.length-4)!== "."){
+                    this.posts[i].pictures.push({
+                      "path": data[j].path
+                    })
+                  }
+                  else {
+                    this.posts[i].pictures.push({
+                      "path": this.backendurl + `pictures/${data[j].id}`
+                    })
+                  }
+                }
+              })
+                  .catch(error => {console.log(error)})
+            }
           })
-          .catch(error => {
-            console.log(error)
-          });
-      },
+          .then(data=> {
+            this.displayedPosts = this.posts
+            console.log(this.posts)
+            console.log(this.displayedPosts)
+          })
+          .catch(error => {console.log(error)});
+    },
     routeToCreateNewPost(){
       this.$router.push(`/neuerPost`)
     },
@@ -124,8 +149,18 @@ export default {
       }else{
         this.displayedPosts = temPosts
       }
+    },
+    getPictures (id){
+      const options = {
+        method: 'GET'
+      };
+      return fetch(this.backendurl + `pictures/getAllPictures/${id}`, options)
+          .then((response) => response.json())
+          .catch(error => {
+            console.log(error)
+          });
     }
-    }
+  }
 }
 </script>
 

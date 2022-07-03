@@ -16,7 +16,7 @@ export default {
 <template>
   <h1 class="heading">Forum</h1>
 <LoginButton/>
-  <TabMenu/>
+  <TabMenu />
 
 
     <!----<div><RouterLink to="/testEvents">testEvent</RouterLink></div>---->

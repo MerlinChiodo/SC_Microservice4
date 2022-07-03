@@ -14,7 +14,7 @@ exports.createPictures = async (request, response) => {
 
     for(let i = 0; i < request.files.length; i++) {
         const pictureName = request.files[i].filename
-        const path = "/uploads/" + pictureName
+        const path = pictureName
 
         try{
             const picture = await prisma.Picture.create({

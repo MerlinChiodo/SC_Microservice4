@@ -1,7 +1,7 @@
 <template>
 
-    <div v-if="this.pictures[0]">
-      <Image :src="this.pictures[0].path" alt="Image" width="800" />
+    <div v-if="this.pictures[this.pictures.length-1]">
+      <Image :src="this.pictures[this.pictures.length-1].path" alt="Image" width="800" />
     </div>
   <div>
     <span >

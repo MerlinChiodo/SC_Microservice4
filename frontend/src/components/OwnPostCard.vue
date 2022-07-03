@@ -2,9 +2,9 @@
   <div>
     <Card style="width: 25em" class="card">
       <template #header>
-        <div style="width:80%; margin:auto; margin-top:0.5em">
-          <div v-if="this.pictures[0] && this.pictures[0].path.substring(0,4) ==='http'">
-            <Image :src="this.pictures[0].path" alt="Image"  />
+        <div v-if="post.pictures" style="width:80%; margin:auto; margin-top:0.5em">
+          <div v-if="post.pictures[post.pictures.length-1] && post.pictures[post.pictures.length-1].path.substring(0,4) ==='http'">
+            <Image :src="post.pictures[post.pictures.length-1].path" alt="Image"  />
           </div>
           <div v-else>
             <Image src="https://www.primefaces.org/wp-content/uploads/2020/02/primefacesorg-primevue-2020.png" alt="Image"  />
@@ -46,7 +46,6 @@ export default {
   },
   emits: ["notify"],
   beforeMount() {
-    this.getPictures()
   },
   methods :{
     routeToPostView(id) { // this pushes it to the component that has the display view details i.e DisplayDetailView.vue
@@ -66,25 +65,6 @@ export default {
           .then((response) => response.json())
           .then((data) => {
             this.$emit("notify")
-          })
-          .catch(error => {
-            console.log(error)
-          });
-    },
-    getPictures (){
-      const options = {
-        method: 'GET'
-      };
-      fetch(this.backendurl + `pictures/getAllPictures/${this.post.id}`, options)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data)
-            for(let i in data){
-              this.pictures.push({
-                    "path": this.backendurl + `pictures/${data[i].id}`
-                  }
-              )
-            }
           })
           .catch(error => {
             console.log(error)
