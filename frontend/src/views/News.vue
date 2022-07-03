@@ -94,6 +94,6 @@ export default {
 <style scoped>
 #wrapper{
   margin:auto;
-  max-width:80%;
+  max-width:90%;
 }
 </style>

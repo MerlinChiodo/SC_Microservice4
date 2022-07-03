@@ -182,7 +182,7 @@ export default {
 
 #wrapper{
   margin:auto;
-  max-width:100rem;
+  max-width:90%;
 }
 
 
