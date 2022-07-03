@@ -1,6 +1,6 @@
 <template>
   <div id="wrapper">
-  <h1>Erstelle einen neuen Post!</h1>
+  <h1>Bearbeite deinen Post!</h1>
   <update-post-form/>
   </div>
 </template>
