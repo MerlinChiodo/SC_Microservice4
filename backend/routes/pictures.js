@@ -11,7 +11,7 @@ let upload = multer({
             cb(null, path.join(__dirname, '../uploads/'))
         },
         filename: (req, file, cb) => {
-            cb(null, file.originalname);
+            cb(null, req.params.postId.toString() + "_" + file.originalname);
         }
     }),
     fileFilter: (req, file, cb) => {

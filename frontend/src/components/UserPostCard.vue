@@ -4,10 +4,10 @@
     <template #header>
       <div v-if="post.pictures" style="width:80%; margin:auto; margin-top:0.5em">
         <div v-if="post.pictures[post.pictures.length-1] && post.pictures[post.pictures.length-1].path.substring(0,4) ==='http'">
-        <Image :src="post.pictures[post.pictures.length-1].path" alt="Image"  />
+        <Image :src="post.pictures[post.pictures.length-1].path" alt=""  />
       </div>
         <div v-else>
-          <Image src="https://www.primefaces.org/wp-content/uploads/2020/02/primefacesorg-primevue-2020.png" alt="Image"  />
+          <Image :src="this.defaultPicture" alt=""  />
         </div>
       </div>
       <!--<img src="post.picture" style="height: 15rem" alt="kein Bild"/>-->
@@ -38,7 +38,7 @@
 import {useCurrentUserStore} from "../stores/currentUser";
 
 export default {
-  inject: ["backendurl"],
+  inject: ["backendurl", "defaultPicture"],
 
   props: {
     post: Object,
