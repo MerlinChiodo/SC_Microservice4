@@ -3,7 +3,7 @@
     <Card style="width: 25em" class="card">
       <template #header>
         <div style="width:80%; margin:auto; margin-top:0.5em">
-          <div v-if="this.pictures[0]">
+          <div v-if="this.pictures[0] && this.pictures[0].path.substring(0,4) ==='http'">
             <Image :src="this.pictures[0].path" alt="Image"  />
           </div>
           <div v-else>

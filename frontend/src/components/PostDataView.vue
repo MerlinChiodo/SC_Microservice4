@@ -16,7 +16,7 @@
       <template #grid="slotProps">
         <div class="col-12 md:col-4">
 
-          <ServicePostCard v-on:notify="getServicePosts()" class="col-12 md:col-4 h-full w-full flex" :post="slotProps.data" />
+          <ServicePostCard v-on:notify="getServicePosts()" class="col-12 md:col-4 h-full w-full flex" :post="slotProps.data" :saved="checkIfpostSaved(slotProps.data)"/>
         </div>
       </template>
     </DataView>

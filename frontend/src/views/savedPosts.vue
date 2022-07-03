@@ -13,7 +13,11 @@
         </div>
       </template>
       <template #grid="slotProps">
-        <div class="col-12 md:col-4">
+        <div v-if="slotProps.data.service" class="col-12 md:col-4">
+
+          <ServicePostCard v-on:notify="getSavedPosts(currentUser.id)" class="col-12 md:col-4 h-full w-full flex" :post="slotProps.data" :saved="true"/>
+        </div>
+        <div v-else class="col-12 md:col-4">
 
           <user-post-card v-on:notify="getSavedPosts(currentUser.id)" class="col-12 md:col-4 h-full w-full flex" :post="slotProps.data" :saved="true"/>
         </div>
@@ -30,10 +34,11 @@
 <script>
 import UserPostCard from "../components/UserPostCard.vue";
 import {useCurrentUserStore} from "../stores/currentUser";
+import ServicePostCard from "../components/ServicePostCard.vue";
 
 export default {
   name: "savedPosts",
-  components: {UserPostCard},
+  components: {ServicePostCard, UserPostCard},
   inject: ["backendurl"],
   data() {
     return {
@@ -68,6 +73,7 @@ export default {
   mounted: function(){
     if(this.currentUser.id) {
       this.getSavedPosts(this.currentUser.id)
+
     }
   },
   methods: {
