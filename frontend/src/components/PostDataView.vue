@@ -16,7 +16,7 @@
       <template #grid="slotProps">
         <div class="col-12 md:col-4">
 
-          <ServicePostCard v-on:notify="getServicePosts()" class="col-12 md:col-4 h-full w-full flex" :post="slotProps.data" :saved="checkIfpostSaved(slotProps.data)"/>
+          <ServicePostCard v-on:notify="getSavedPosts(this.currentUser.id)" class="col-12 md:col-4 h-full w-full flex" :post="slotProps.data" :saved="checkIfpostSaved(slotProps.data)"/>
         </div>
       </template>
     </DataView>
@@ -45,6 +45,9 @@ export default {
   },
   mounted: function(){
     this.getServicePosts();
+    if(this.currentUser.id) {
+      this.getSavedPosts(this.currentUser.id);
+    }
   },
   methods: {
     getServicePosts(){
@@ -71,8 +74,9 @@ export default {
           .catch(error => {
             console.log(error)
           });
-    },    checkIfpostSaved(post){
-      if (this.savedPosts.find(currentPost => currentPost.id == post.id)) {
+    },
+    checkIfpostSaved(post){
+      if (this.savedPosts.find(currentPost => currentPost.id === post.id)) {
         return true
       }
       return false
