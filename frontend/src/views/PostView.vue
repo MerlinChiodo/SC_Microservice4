@@ -4,17 +4,22 @@
 
 
     <template #header>
-      <div v-if="this.pictures">
-        <div v-if="this.pictures[this.pictures.length-1] && this.pictures[this.pictures.length-1].path.substring(0,4) ==='http'">
-          <Image height="250" :src="this.pictures[this.pictures.length-1].path"  preview/>
-        </div>
-      </div>
+
     </template>
 
     <template #title>
+      <div class="flex justify-content-around flex-wrap align-items-center justify-content-start">
+        <div class="align-items-center justify-content-around">
       <h3>{{this.post.title}}</h3>
-      {{ this.post.service }}
-      <div  v-if="this.post.event_on">Termin: {{this.post.event_on}}</div>
+      <div class="text-color-secondary text-xl">{{ this.post.service }}</div>
+      <div  class="text-color-secondary text-xl" v-if="this.post.event_on">Termin: {{this.post.event_on.slice(0,this.post.event_on.search("T"))}}</div>
+        </div>
+        <div v-if="this.pictures">
+          <div v-if="this.pictures[this.pictures.length-1] && this.pictures[this.pictures.length-1].path.substring(0,4) ==='http'">
+            <Image height="250" :src="this.pictures[this.pictures.length-1].path"  preview/>
+          </div>
+        </div>
+      </div>
     </template>
     <template #subtitle>
 
