@@ -18,6 +18,9 @@
           <div v-if="this.pictures[this.pictures.length-1] && this.pictures[this.pictures.length-1].path.substring(0,4) ==='http'">
             <Image height="250" :src="this.pictures[this.pictures.length-1].path"  preview/>
           </div>
+          <div v-else>
+            <Image :src="this.defaultPicture" alt="" height="250" preview/>
+          </div>
         </div>
       </div>
     </template>
@@ -37,7 +40,7 @@
 //const backendurl = "http://" + location.host + "/" ;
 export default {
   name: "PostView",
-  inject: ["backendurl"],
+  inject: ["backendurl", "defaultPicture"],
   data() {
     return {
       post: null,

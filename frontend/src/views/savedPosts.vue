@@ -2,6 +2,7 @@
   <div id="wrapper">
   <h1>Bekanntes aus der Smart-City!</h1>
   <div v-if="currentUser.id" class="card">
+    <div v-if="posts[0]">
     <DataView  :value="displayedPosts" :layout="layout" :paginator="true" :rows="9" >
       <template #header>
         <div class="flex">
@@ -30,7 +31,8 @@
         </div>
       </template>
     </DataView>
-    <div>Du hast noch keine gespeicherten Posts</div>
+    </div>
+    <div v-else>Keine vorgemerkten Posts</div>
   </div>
 
   <div v-else>
