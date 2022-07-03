@@ -4,7 +4,7 @@
       <template #header>
         <div v-if="post.pictures" style="width:80%; margin:auto; margin-top:0.5em">
           <div v-if="post.pictures[post.pictures.length-1] && post.pictures[post.pictures.length-1].path.substring(0,4) ==='http'">
-            <Image :src="post.pictures[post.pictures.length-1].path" alt="Image"  />
+            <Image :src="post.pictures[post.pictures.length-1].path"  />
           </div>
           <div v-else>
             <Image src="https://www.primefaces.org/wp-content/uploads/2020/02/primefacesorg-primevue-2020.png" alt="Image"  />
@@ -54,7 +54,6 @@ export default {
     },
 
     methods: {
-
       checkShowCategorySubject: function (value) {
         if (value === 'SUCHE' || value == 'BIETE') {
           return true;
@@ -90,7 +89,7 @@ export default {
 
       },
       routeToPostView(id) { // this pushes it to the component that has the display view details i.e DisplayDetailView.vue
-        this.$router.push(`/UserPostView${id}`)
+        this.$router.push(`/PostView${id}`)
       }
     },
 

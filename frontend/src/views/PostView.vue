@@ -1,12 +1,29 @@
 <template>
-  <div id="wrapper">
   <div v-if="post" class="post">
-    <div class="service">{{this.post.service}}</div>
-    <h1>{{this.post.title}}</h1>
-    <div  v-if="this.post.event_on">Termin: {{this.post.event_on}}</div>
-    <div class="short_description">{{this.post.short_description}}</div>
-    <div v-if="this.post.long_description" class="long_description">{{this.post.long_description}}</div>
-  </div>
+  <Card id="wrapper" class="card">
+
+
+    <template #header>
+      <div v-if="this.pictures">
+        <div v-if="this.pictures[this.pictures.length-1] && this.pictures[this.pictures.length-1].path.substring(0,4) ==='http'">
+          <Image height="250" :src="this.pictures[this.pictures.length-1].path"  preview/>
+        </div>
+      </div>
+    </template>
+
+    <template #title>
+      <h3>{{this.post.title}}</h3>
+      {{ this.post.service }}
+      <div  v-if="this.post.event_on">Termin: {{this.post.event_on}}</div>
+    </template>
+    <template #subtitle>
+
+    </template>
+    <template #content>
+      <p class="short_description">{{post.short_description}}</p>
+      <p>{{post.long_description}}</p>
+    </template>
+  </Card>
   </div>
 </template>
 
@@ -18,8 +35,8 @@ export default {
   inject: ["backendurl"],
   data() {
     return {
-      postid: null,
-      post: null
+      post: null,
+      pictures: []
     }
   },
 
@@ -40,7 +57,39 @@ export default {
           .then((response) => response.json())
           .then((data) => {
             this.post = data
+            this.getPictures(this.post.id).then(data=>{
+              for (let j in data){
+                if(data[j].path.substring(0,4)==="http" ){
+                  this.pictures.push({
+                    "path": data[j].path
+                  })
+                }
+                else if(data[j].path.charAt(data[j].path.length-4)!== "."){
+                  this.pictures.push({
+                    "path": data[j].path
+                  })
+                }
+                else {
+                  this.pictures.push({
+                    "path": this.backendurl + `pictures/${data[j].id}`
+                  })
+                }
+              }
+            })
+              .catch(error => {
+                console.log(error)
+              });
           })
+          .catch(error => {
+            console.log(error)
+          });
+    },
+    getPictures (id){
+      const options = {
+        method: 'GET'
+      };
+      return fetch(this.backendurl + `pictures/getAllPictures/${id}`, options)
+          .then((response) => response.json())
           .catch(error => {
             console.log(error)
           });
@@ -64,6 +113,6 @@ export default {
 
 #wrapper{
   margin:auto;
-  max-width:80rem;
+  max-width:80%;
 }
 </style>
