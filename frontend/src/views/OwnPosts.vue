@@ -1,4 +1,5 @@
 <template>
+  <div id="wrapper">
   <h1>Neues von Dir!</h1>
   <div v-if="currentUser.id">
     <span >
@@ -27,6 +28,7 @@
   </div>
   <div v-else>
     <h2>Aber wer bist du? Log dich ein!</h2>
+  </div>
   </div>
 </template>
 
@@ -128,7 +130,8 @@ export default {
 </script>
 
 <style scoped>
-.postCard{
-  margin : 10px;
+#wrapper{
+  margin:auto;
+  max-width:100rem;
 }
 </style>

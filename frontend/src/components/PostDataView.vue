@@ -1,15 +1,12 @@
 <template>
-  <div class="card">
-    <DataView :value="posts" :layout="layout" :paginator="true" :rows="9" >
+  <div v-if="displayedPosts[0]">
+    <DataView :value="displayedPosts" :layout="layout" :paginator="true" :rows="9" >
       <template #header>
-        <!--<div class="col-6" style="text-align: left">
-          <label for="category">Kategorie</label><br>
-          <Dropdown id="category" v-model="category" :options="categories" optionLabel="label" optionValue="value" @change="filterPosts()"/>
-          <div v-if="category=='SUCHE'||category=='BIETE'">
-            <label for="category_subject">Um was geht es genau?</label><br>
-            <Dropdown id="category_subject" v-model="category_subject" :options="categories_Subjects" optionLabel="label" optionValue="value"  @change="filterPosts()" />
-          </div>
-        </div>-->
+        <div class="col-6" style="text-align: left">
+          <label for="service">Service</label><br>
+          <Dropdown id="service" v-model="service" :options="services" optionLabel="label" optionValue="value" @change="filterPosts()"/>
+
+        </div>
       </template>
 
 
@@ -40,10 +37,21 @@ export default {
       displayedPosts: [],
       savedPosts: [],
       layout: 'grid',
+      service: "",
+      services: [
+        {label: "", value: ""},
+        {label: "STADTBUS", value: "STADTBUS"},
+        {label: "KITA",value: "KITA"}  ,
+        {label: "FINANZAMT",value: "FINANZAMT"},
+        {label: "BÜRGERBÜRO",value: "BÜRGERBÜRO"},
+        {label: "FITNESSSTUDIO",value: "FITNESSSTUDIO"},
+        {label: "SMARTAUTH",value: "SMARTAUTH"},
+        {label: "INTEGRATION",value: "INTEGRATION"},
+      ]
 
     }
   },
-  mounted: function(){
+   beforeMount: async function(){
     this.getServicePosts();
     if(this.currentUser.id) {
       this.getSavedPosts(this.currentUser.id);
@@ -58,7 +66,34 @@ export default {
           .then((response) => response.json())
           .then((data) => {
             this.posts = data
-            this.displayedPosts = data
+            for(let i in this.posts){
+              this.getPictures(this.posts[i].id).then(data=> {
+                this.posts[i].pictures = []
+                for (let j in data){
+                  if(data[j].path.substring(0,4)==="http" ){
+                    this.posts[i].pictures.push({
+                      "path": data[j].path
+                    })
+                  }
+                  else if(data[j].path.charAt(data[j].path.length-4)!== "."){
+                    this.posts[i].pictures.push({
+                      "path": data[j].path
+                    })
+                  }
+                  else {
+                    this.posts[i].pictures.push({
+                      "path": this.backendurl + `pictures/${data[j].id}`
+                    })
+                  }
+              }
+              })
+                  .catch(error => {console.log(error)})
+            }
+          })
+          .then(data=> {
+            this.displayedPosts = this.posts
+            console.log(this.posts)
+            console.log(this.displayedPosts)
           })
           .catch(error => {console.log(error)});
     },
@@ -83,25 +118,38 @@ export default {
     },
     routeToPostView(id) { // this pushes it to the component that has the display view details i.e DisplayDetailView.vue
       this.$router.push(`/postView${id}`)
+      },
+    filterPosts(){
+      let temPosts = []
+      if(this.service ===""){
+        temPosts=this.posts;
       }
+      else{
+        for (let i in this.posts) {
+          if (this.posts[i].service && this.posts[i].service.toUpperCase() === this.service.toUpperCase()) {
+            temPosts.push(this.posts[i])
+          }
+        }
+      }
+
+        this.displayedPosts = temPosts
+
+    },
+    getPictures (id){
+      const options = {
+        method: 'GET'
+      };
+      return fetch(this.backendurl + `pictures/getAllPictures/${id}`, options)
+          .then((response) => response.json())
+          .catch(error => {
+            console.log(error)
+          });
+    }
+
   }
 }
 </script>
 
 <style scoped>
-.post-grid-item{
-  margin: 5px;
-  border: 4px solid black;
-  border-radius: 10px;
-  padding: 3px;
-}
-.post-title{
-  font-size: 30px;
-}
-.post-grid-item-content{
-  margin: 5px;
-}
-.post-service{
-  text-decoration: underline;
-}
+
 </style>

@@ -1,10 +1,12 @@
 <template>
+  <div id="wrapper">
   <div v-if="post" class="post">
     <div class="service">{{this.post.service}}</div>
     <h1>{{this.post.title}}</h1>
     <div  v-if="this.post.event_on">Termin: {{this.post.event_on}}</div>
     <div class="short_description">{{this.post.short_description}}</div>
     <div v-if="this.post.long_description" class="long_description">{{this.post.long_description}}</div>
+  </div>
   </div>
 </template>
 
@@ -58,5 +60,10 @@ export default {
 .short_description{
   font-weight: bold;
   margin-bottom: 30px;
+}
+
+#wrapper{
+  margin:auto;
+  max-width:80rem;
 }
 </style>

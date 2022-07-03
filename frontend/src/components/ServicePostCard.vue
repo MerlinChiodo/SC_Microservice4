@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div >
     <Card style="width: 25em" class="card">
       <template #header>
-        <div style="width:80%; margin:auto; margin-top:0.5em">
-          <div v-if="this.pictures[0] && this.pictures[0].path.substring(0,4) ==='http'">
-            <img :src="this.pictures[0].path" alt="https://www.primefaces.org/wp-content/uploads/2020/02/primefacesorg-primevue-2020.png"  />
+        <div v-if="post.pictures" style="width:80%; margin:auto; margin-top:0.5em">
+          <div v-if="post.pictures[0] && post.pictures[0].path.substring(0,4) ==='http'">
+            <Image :src="post.pictures[0].path" :alt="post.pictures[0].path"  />
           </div>
           <div v-else>
             <Image src="https://www.primefaces.org/wp-content/uploads/2020/02/primefacesorg-primevue-2020.png" alt="Image"  />
@@ -47,12 +47,10 @@ export default {
     emits: ["notify"],
     data(){
       return{
-        currentUser: useCurrentUserStore(),
-        pictures: []
+        currentUser: useCurrentUserStore()
       }
     },
     mounted: function(){
-      this.getPictures()
     },
 
     methods: {
@@ -71,21 +69,6 @@ export default {
             .then((response) => response.json())
             .then((data) => {
               this.$emit('notify', true)
-            })
-            .catch(error => {
-              console.log(error)
-            });
-      },
-      getPictures (){
-        const options = {
-          method: 'GET'
-        };
-        fetch(this.backendurl + `pictures/getAllPictures/${this.post.id}`, options)
-            .then((response) => response.json())
-            .then((data) => {
-              this.pictures = data
-
-
             })
             .catch(error => {
               console.log(error)

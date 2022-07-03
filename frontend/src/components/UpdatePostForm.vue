@@ -1,5 +1,5 @@
 <template>
-  <div id="wrapper">
+
     <div v-if="this.pictures[0]">
       <Image :src="this.pictures[0].path" alt="Image" width="800" />
     </div>
@@ -43,7 +43,6 @@
     </div>
 
   <Button label="Post ändern" @click="updatePost (postId, title, shortDescription,longDescription, event_on, category, category_subject)"/>
-  </div>
 </template>
 
 <script>
@@ -147,10 +146,7 @@ export default {
 </script>
 
 <style scoped>
-#wrapper{
-  margin:auto;
-  max-width:80rem;
-}
+
 
 
 </style>

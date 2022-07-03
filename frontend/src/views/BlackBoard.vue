@@ -1,5 +1,6 @@
 
 <template>
+  <div id="wrapper">
   <h1>Neues von den Smart-Bewohnern!</h1>
   <div class="card">
     <DataView :value="displayedPosts" :layout="layout" :paginator="true" :rows="9" >
@@ -20,6 +21,7 @@
           </div>
       </template>
     </DataView>
+  </div>
   </div>
 </template>
 
@@ -141,8 +143,10 @@ export default {
 
 <style scoped>
 
-.postCard{
-  margin : 10px;
+
+#wrapper{
+  margin:auto;
+  max-width:100rem;
 }
 
 

@@ -1,16 +1,23 @@
 <template>
+  <div id="wrapper">
   <h1>Bekanntes aus der Smart-City!</h1>
   <div v-if="currentUser.id" class="card">
     <DataView  :value="displayedPosts" :layout="layout" :paginator="true" :rows="9" >
       <template #header>
-        <div class="col-6" style="text-align: left">
+        <div class="flex">
+        <div >
           <label for="category">Kategorie</label><br>
-          <Dropdown id="category" v-model="category" :options="categories" optionLabel="label" optionValue="value" @change="filterPosts()"/>
+          <Dropdown id="category" v-model="category" :options="categories" optionLabel="label" optionValue="value" @change="filterPostsCategory()"/>
           <div v-if="category=='SUCHE'||category=='BIETE'">
             <label for="category_subject">Um was geht es genau?</label><br>
-            <Dropdown id="category_subject" v-model="category_subject" :options="categories_Subjects" optionLabel="label" optionValue="value"  @change="filterPosts()" />
+            <Dropdown id="category_subject" v-model="category_subject" :options="categories_Subjects" optionLabel="label" optionValue="value"  @change="filterPostsCategory()" />
           </div>
         </div>
+          <div>
+            <label for="service">Service</label><br>
+            <Dropdown id="service" v-model="service" :options="services" optionLabel="label" optionValue="value" @change="filterPostsService()"/>
+          </div>
+          </div>
       </template>
       <template #grid="slotProps">
         <div v-if="slotProps.data.service" class="col-12 md:col-4">
@@ -28,6 +35,7 @@
 
   <div v-else>
     <h2>Aber wer bist du? Log dich ein!</h2>
+  </div>
   </div>
 </template>
 
@@ -67,6 +75,17 @@ export default {
         {label: "TIER",value: "TIER"},
         {label: "KLEIDUNG",value: "KLEIDUNG"},
         {label: "HAUSHALT",value: "HAUSHALT"}
+      ],
+      service: "",
+      services: [
+        {label: "", value: ""},
+        {label: "STADTBUS", value: "STADTBUS"},
+        {label: "KITA",value: "KITA"}  ,
+        {label: "FINANZAMT",value: "FINANZAMT"},
+        {label: "BÜRGERBÜRO",value: "BÜRGERBÜRO"},
+        {label: "FITNESSSTUDIO",value: "FITNESSSTUDIO"},
+        {label: "SMARTAUTH",value: "SMARTAUTH"},
+        {label: "INTEGRATION",value: "INTEGRATION"},
       ]
     }
   },
@@ -91,7 +110,8 @@ export default {
             console.log(error)
           });
     },
-    filterPosts(){
+    filterPostsCategory(){
+      this.service=""
       let temPosts = []
       if(this.category ===""){
         temPosts=this.posts;
@@ -121,6 +141,24 @@ export default {
       }else{
         this.displayedPosts = temPosts
       }
+    },
+    filterPostsService(){
+      this.category =""
+      this.category_subject =""
+      let temPosts = []
+      if(this.service ===""){
+        temPosts=this.posts;
+      }
+      else{
+        for (let i in this.posts) {
+          if (this.posts[i].service && this.posts[i].service.toUpperCase() === this.service.toUpperCase()) {
+            temPosts.push(this.posts[i])
+          }
+        }
+      }
+
+      this.displayedPosts = temPosts
+
     }
   }
 }
@@ -129,5 +167,10 @@ export default {
 <style scoped>
 .postCard{
   margin : 10px;
+}
+
+#wrapper{
+  margin:auto;
+  max-width:100rem;
 }
 </style>

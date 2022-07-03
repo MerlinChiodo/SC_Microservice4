@@ -18,7 +18,7 @@
   <Textarea v-model="longDescription" rows="5" cols="30" :autoResize="true" id="longDescription"/>
   </span>
   </div>
-  <div class="field col-12 md:col-4">
+  <div>
     <label for="event_on">Termin</label><br>
     <Calendar id="event_on" v-model="event_on" autocomplete="off" />
   </div>
