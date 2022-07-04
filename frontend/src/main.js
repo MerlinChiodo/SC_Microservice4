@@ -43,8 +43,8 @@ app.provide("frontendurl", "http://vps2290194.fastwebserver.de:9740/");
 app.provide("backendurl", "http://" + location.host + "/");
 app.provide("smartAuthUrl", "http://vps2290194.fastwebserver.de:9760/");
 
-app.provide("defaultPicture", "http://localhost:3001/pictures/53")
-//app.provide("defaultPicture", "http://vps2290194.fastwebserver.de:9740/pictures/53")
+//app.provide("defaultPicture", "http://localhost:3001/pictures/53")
+app.provide("defaultPicture", "http://vps2290194.fastwebserver.de:9740/pictures/53")
 
 app.component('TabMenu', navBar)
 app.component('InputText', inputText)
