@@ -21,8 +21,10 @@ export default {
   <TabMenu />
   <RouterView />
   <footer class="footer">
+    <a href="http://supersmartcity.de/">Landingpage</a>
       <a href="impressum">Impressum</a>
       <a href="datenschutz">Datenschutzerklärung</a>
+
   </footer>
 </template>
 
