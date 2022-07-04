@@ -37,10 +37,10 @@ app.use(VueCookies);
 
 
 
-app.provide("backendurl", "http://localhost:3001/");
-app.provide("frontendurl", "http://localhost:3000/");
-//app.provide("frontendurl", "http://vps2290194.fastwebserver.de:9740/");
-//app.provide("backendurl", "http://" + location.host + "/");
+//app.provide("backendurl", "http://localhost:3001/");
+//app.provide("frontendurl", "http://localhost:3000/");
+app.provide("frontendurl", "http://vps2290194.fastwebserver.de:9740/");
+app.provide("backendurl", "http://" + location.host + "/");
 app.provide("smartAuthUrl", "http://vps2290194.fastwebserver.de:9760/");
 
 app.provide("defaultPicture", "http://localhost:3001/pictures/53")
