@@ -13,7 +13,7 @@
             <h3>{{this.post.title}}</h3>
             <div class="text-color-secondary text-xl">{{ this.post.category }}</div>
             <div class="text-color-secondary text-xl">{{ this.post.category_subject }}</div>
-            <div class="text-color-secondary text-xl" v-if="this.post.event_on">Wann?: {{this.post.event_on.slice(0,this.post.event_on.search("T"))}}</div>
+            <div class="text-color-secondary text-xl" v-if="this.post.event_on">Wann: {{this.post.event_on.slice(0,this.post.event_on.search("T"))}}</div>
             <div class="m-4 text-base font-bold">{{post.short_description}}</div>
           </div>
           <div v-if="this.pictures">
