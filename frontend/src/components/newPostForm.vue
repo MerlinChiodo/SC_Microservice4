@@ -1,36 +1,56 @@
 <template>
-  <div>
-    <span >
-      <label for="title">Überschrift</label><br>
-      <InputText id="title" type="text" v-model="title" />
+  <Card id="wrapper" class="shadow-3">
+    <template #header>
+    </template>
+    <template #title>
+      <div >
+        <div >
+          <div class="mb-3" >
+            <span >
+              <div >
+              <label for="title" class=" text-xl">Überschrift</label><br>
+              </div>
+              <InputText id="title" type="text" v-model="title" />
+            </span>
+          </div>
+          <div class="mb-3 ">
+            <div>
+              <div >
+                <label for="category" class=" text-xl">Kategorie</label><br>
+              <Dropdown id="category" v-model="category" :options="categories" optionLabel="label" optionValue="value"  />
+              </div>
+            </div>
+            <div v-if="checkShowCategorySubject(category)">
+              <label for="category_subject" class=" text-xl">Was</label><br>
+              <Dropdown id="category_subject" v-model="category_subject" :options="categories_Subjects" optionLabel="label" optionValue="value"  />
+            </div>
+          </div>
+          <div >
+            <label for="event_on" class=" text-xl">Termin</label><br>
+          </div>
+          <div >
 
-  </span>
-  </div>
-  <div>
-  <span>
-  <label for="shortDescription">Kurzbeschreibung</label><br>
-  <Textarea v-model="shortDescription" rows="5" cols="30" :autoResize="true" id="shortDescription"/>
-    </span>
-  </div>
-  <div>
-  <span>
-  <label for="longDescription">Langbeschreibung</label><br>
-  <Textarea v-model="longDescription" rows="5" cols="30" :autoResize="true" id="longDescription"/>
-  </span>
-  </div>
-  <div>
-    <label for="event_on">Termin</label><br>
-    <Calendar id="event_on" v-model="event_on" autocomplete="off" />
-  </div>
-  <div>
-    <label for="category">Kategorie</label><br>
-    <Dropdown id="category" v-model="category" :options="categories" optionLabel="label" optionValue="value"  />
-  </div>
-  <div v-if="category=='SUCHE'||category=='BIETE'">
-    <label for="category_subject">Um was geht es genau?</label><br>
-    <Dropdown id="category_subject" v-model="category_subject" :options="categories_Subjects" optionLabel="label" optionValue="value"  />
-  </div>
-  <Button label="Post erstellen" @click="finishPostCreation (currentUser.id, title, shortDescription,longDescription, event_on, category, category_subject)"/>
+            <Calendar id="event_on" v-model="event_on" autocomplete="off" />
+          </div>
+        </div>
+      </div>
+    </template>
+    <template #content>
+      <div class="mb-3">
+        <span>
+          <label for="shortDescription" class=" text-xl">Kurzbeschreibung</label><br>
+          <Textarea v-model="shortDescription" rows="4" cols="80" :autoResize="true" id="shortDescription"/>
+        </span>
+      </div>
+      <div class="mb-3">
+        <span>
+          <label for="longDescription" class=" text-xl">Langbeschreibung</label><br>
+          <Textarea v-model="longDescription" rows="5" cols="80" :autoResize="true" id="longDescription"/>
+        </span>
+      </div>
+      <Button label="Post erstellen" @click="finishPostCreation(this.currentUser.id, title, shortDescription,longDescription, event_on, category, category_subject)"/>
+    </template>
+  </Card>
 </template>
 
 <script>
@@ -72,24 +92,25 @@ export default {
   },
   methods: {
     createPost,
-    finishPostCreation : function (user_id, title, short_description, long_description, event_on, category, category_subject){
-      createPost(user_id, title, short_description, long_description, event_on, category, category_subject).then(data =>{
+    finishPostCreation: function (user_id, title, short_description, long_description, event_on, category, category_subject) {
+      createPost(user_id, title, short_description, long_description, event_on, category, category_subject).then(data => {
         this.$router.push(`/meinePosts`)
       })
-
-
-}
-  },
+    },
+    checkShowCategorySubject: function (value) {
+      if (value === 'SUCHE' || value === 'BIETE') {
+        return true;
+      }
+      return false;
+    },
+  }
 }
 </script>
 
 <style scoped>
-div{
-  margin-top:10px;
-  margin-bottom:10px
-}
-span{
-  margin-top:10px;
-  margin-bottom:10px
+
+#wrapper{
+  margin:auto;
+  max-width:80%;
 }
 </style>

@@ -1,5 +1,5 @@
-//const backendurl = "http://localhost:3001/";
-const backendurl = "http://" + location.host + "/" ;
+const backendurl = "http://localhost:3001/";
+//const backendurl = "http://" + location.host + "/" ;
 
 
 export async function createPost(user_id, title, short_description, long_description, event_on, category, category_subject) {
@@ -30,12 +30,10 @@ export async function createPost(user_id, title, short_description, long_descrip
         }
     }
     requestOptions.body=JSON.stringify(requestOptions.body)
-
     const response = await fetch(
         backendurl + "posts",
         requestOptions
     );
-    const data = await response.json();
 }
 
 export async function updatePost(post_id, title, short_description, long_description, event_on, category, category_subject) {
