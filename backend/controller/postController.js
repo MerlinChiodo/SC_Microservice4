@@ -11,26 +11,31 @@ const validate_createPost = ajv.compile(createPost_schema)
 
 exports.createPost= async(request, response) => {
     //console.log(request.body)
-    if(validate_createPost(request.body)){
-        let {event_on} = request.body
-        event_on = new Date(event_on)
-        const {title, short_description, long_description, user_id, category, category_subject} = request.body
+    try {
+        if (validate_createPost(request.body)) {
+            let {event_on} = request.body
+            event_on = new Date(event_on)
+            const {title, short_description, long_description, user_id, category, category_subject} = request.body
 
-        const Post = await prisma.Post.create({
-            data: {
-                title,
-                short_description,
-                long_description,
-                user_id,
-                category,
-                category_subject,
-                event_on
-            },
+            const Post = await prisma.Post.create({
+                data: {
+                    title,
+                    short_description,
+                    long_description,
+                    user_id,
+                    category,
+                    category_subject,
+                    event_on
+                },
 
-        })
-        return response.status(200).send(Post);
+            })
+            return response.status(200).send(Post);
+        }
+        return response.status(400).send({message: 'missing data'})
+    }catch (error) {
+        console.log(error)
+        response.status(500).send(error.message)
     }
-    return response.status(400).send({message: 'missing data'})
 }
 
 exports.getPostOverview = (request, response) => {
@@ -134,6 +139,7 @@ exports.getAllUserPosts = async(request, response) => {
 
 
 exports.updatePost = async(request, response) => {
+
     console.log(request.body.id)
     const postId = request.body.id
     let savedCategory

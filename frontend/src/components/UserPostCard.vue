@@ -2,6 +2,14 @@
 <div>
   <Card style="width: 25em" class="card">
     <template #header>
+      <div v-if="post.pictures" style="width:80%; margin:auto; margin-top:0.5em">
+        <div v-if="post.pictures[post.pictures.length-1] && post.pictures[post.pictures.length-1].path.substring(0,4) ==='http'">
+        <Image :src="post.pictures[post.pictures.length-1].path" alt=""  />
+      </div>
+        <div v-else>
+          <Image :src="this.defaultPicture" alt=""  />
+        </div>
+      </div>
       <!--<img src="post.picture" style="height: 15rem" alt="kein Bild"/>-->
     </template>
     <template #title>
@@ -30,20 +38,21 @@
 import {useCurrentUserStore} from "../stores/currentUser";
 
 export default {
-  inject: ["backendurl"],
+  inject: ["backendurl", "defaultPicture"],
 
   props: {
     post: Object,
     User: Object,
     saved: Boolean
   },
+  emits: ["notify"],
   data(){
     return{
-      currentUser: useCurrentUserStore()
+      currentUser: useCurrentUserStore(),
+      pictures: []
     }
   },
   mounted: function(){
-
   },
 
   methods: {
@@ -61,12 +70,12 @@ export default {
         fetch( `${this.backendurl}users/savePost/${userId}/${postId}`, options)
             .then((response) => response.json())
             .then((data) => {
+              this.$emit('notify', true)
             })
             .catch(error => {
               console.log(error)
             });
       },
-
     unsavePost: function(postId, userId){
       const options = {
         method: 'PUT'
@@ -74,7 +83,7 @@ export default {
       fetch( `${this.backendurl}users/unsavePost/${userId}/${postId}`, options)
           .then((response) => response.json())
           .then((data) => {
-
+            this.$emit('notify', true)
           })
           .catch(error => {
             console.log(error)
@@ -83,7 +92,8 @@ export default {
     },
     routeToPostView(id) { // this pushes it to the component that has the display view details i.e DisplayDetailView.vue
       this.$router.push(`/UserPostView${id}`)
-    }
+    },
+
   },
 
 }
@@ -101,7 +111,6 @@ export default {
 }
 
 .card{
-  text-align: center;
 }
 
 </style>

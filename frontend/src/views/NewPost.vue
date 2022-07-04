@@ -1,6 +1,8 @@
 <template>
+  <div id="wrapper">
   <h1>Erstelle einen neuen Post!</h1>
   <new-post-form/>
+  </div>
 </template>
 
 <script>
@@ -14,5 +16,8 @@ export default {
 </script>
 
 <style scoped>
-
+#wrapper{
+  margin:auto;
+  max-width:90%;
+}
 </style>

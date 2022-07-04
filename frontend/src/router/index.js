@@ -9,6 +9,8 @@ import OwnPosts from "../views/OwnPosts.vue"
 import savedPosts from "../views/savedPosts.vue"
 import NewPost from "../views/NewPost.vue"
 import UpdatePostView from "../views/UpdatePostView.vue"
+import Impressum from "../components/Impressum.vue";
+import Datenschutz from "../components/Datenschutz.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -62,6 +64,16 @@ const router = createRouter({
       path: "/PostBearbeiten:postid(.*)",
       name: "UpdatePost",
       component: UpdatePostView
+    },
+    {
+      path: "/Impressum",
+      name: "Impressum",
+      component: Impressum
+    },
+    {
+      path: "/Datenschutz",
+      name: "Datenschutz",
+      component: Datenschutz
     },
     {
       path: '/about',

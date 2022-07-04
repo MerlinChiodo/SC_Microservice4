@@ -100,6 +100,7 @@ exports.getAllSavedPosts = async(request, response) => {
                 category_subject: true,
                 user_id: true,
                 pictures: true,
+                service: true
 
             },
             orderBy: {

@@ -1,6 +1,8 @@
 <template>
+  <div id="wrapper">
   <h1>Neues aus der Smart-City!</h1>
   <post-data-view></post-data-view>
+  </div>
 </template>
 
 <script>
@@ -90,5 +92,8 @@ export default {
 </script>
 
 <style scoped>
-
+#wrapper{
+  margin:auto;
+  max-width:90%;
+}
 </style>

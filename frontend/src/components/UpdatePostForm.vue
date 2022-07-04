@@ -1,36 +1,69 @@
 <template>
-  <div>
-    <span >
-      <label for="title">Überschrift</label><br>
-      <InputText id="title" type="text" v-model="title" />
+  <Card id="wrapper" class="shadow-3">
+    <template #header>
 
-  </span>
-  </div>
-  <div>
-  <span>
-  <label for="shortDescription">Kurzbeschreibung</label><br>
-  <Textarea v-model="shortDescription" rows="5" cols="30" :autoResize="true" id="shortDescription"/>
-    </span>
-  </div>
-  <div>
-  <span>
-  <label for="longDescription">Langbeschreibung</label><br>
-  <Textarea v-model="longDescription" rows="5" cols="30" :autoResize="true" id="longDescription"/>
-  </span>
-  </div>
-  <div class="field col-12 md:col-4">
-    <label for="event_on">Termin</label><br>
-    <Calendar id="event_on" v-model="event_on" autocomplete="off" />
-  </div>
-  <div>
-    <label for="category">Kategorie</label><br>
-    <Dropdown id="category" v-model="category" :options="categories" optionLabel="label" optionValue="value"  />
-  </div>
-  <div v-if="checkShowCategorySubject(category)">
-    <label for="category_subject">Um was gehts genau?</label><br>
-    <Dropdown id="category_subject" v-model="category_subject" :options="categories_Subjects" optionLabel="label" optionValue="value"  />
-  </div>
-  <Button label="Post ändern" @click="updatePost (postId, title, shortDescription,longDescription, event_on, category, category_subject)"/>
+    </template>
+
+    <template #title>
+      <div class="flex justify-content-around flex-wrap align-items-center justify-content-start">
+        <div class="align-items-start ">
+          <div class="mb-3 flex flex-wrap align-items-start justify-content-start">
+            <span >
+              <div class="flex align-items-start align-content-start">
+              <label for="title" class=" text-xl">Überschrift</label><br>
+              </div>
+              <InputText id="title" type="text" v-model="title" />
+            </span>
+          </div>
+          <div class="mb-3 flex flex-wrap align-items-start justify-content-start">
+            <div>
+              <div class="flex align-items-start align-content-start">
+                <label for="category" class=" text-xl">Kategorie</label><br>
+              </div>
+              <Dropdown id="category" v-model="category" :options="categories" optionLabel="label" optionValue="value"  />
+            </div>
+            <div v-if="checkShowCategorySubject(category)">
+              <label for="category_subject" class=" text-xl">Was</label><br>
+              <Dropdown id="category_subject" v-model="category_subject" :options="categories_Subjects" optionLabel="label" optionValue="value"  />
+            </div>
+          </div>
+          <div class="flex align-items-start align-content-start">
+            <label for="event_on" class=" text-xl">Termin</label><br>
+          </div>
+          <div class="flex align-items-start align-content-start">
+
+            <Calendar id="event_on" v-model="event_on" autocomplete="off" />
+          </div>
+        </div>
+        <div v-if="this.pictures[this.pictures.length-1]">
+          <Image :src="this.pictures[this.pictures.length-1].path" alt=""  height="250" preview/>
+        </div>
+      </div>
+    </template>
+    <template #content>
+      <div class="mb-3">
+        <span>
+          <label for="shortDescription" class=" text-xl">Kurzbeschreibung</label><br>
+          <Textarea v-model="shortDescription" rows="4" cols="80" :autoResize="true" id="shortDescription"/>
+        </span>
+      </div>
+      <div class="mb-3">
+        <span>
+          <label for="longDescription" class=" text-xl">Langbeschreibung</label><br>
+          <Textarea v-model="longDescription" rows="5" cols="80" :autoResize="true" id="longDescription"/>
+        </span>
+      </div>
+        <div class="mb-3">
+          <label for="pictureUpload" class=" text-xl">Füge deinem Post Bilder hinzu</label><br>
+          <FileUpload id="pictureUpload" name="pictures" :url="this.backendurl + 'pictures/createPictures/' +this.postId"  :multiple="true" accept="image/*" >
+            <template #empty>
+              <p>Drag and drop files to here to upload.</p>
+            </template>
+          </FileUpload>
+        </div>
+    <Button label="Post ändern" @click="updatePost (postId, title, shortDescription,longDescription, event_on, category, category_subject)"/>
+    </template>
+  </Card>
 </template>
 
 <script>
@@ -41,6 +74,7 @@ export default {
   inject: ["backendurl"],
   data() {
     return {
+      test: "test",
       currentUser: useCurrentUserStore(),
       postId: null,
       title: "",
@@ -49,6 +83,7 @@ export default {
       event_on: "",
       category: "",
       category_subject: "",
+      pictures: [],
       categories: [
         {label: "", value: ""},
         {label: "SUCHE", value: "SUCHE"},
@@ -71,8 +106,10 @@ export default {
       ]
     };
   },
-  beforeMount() {
-    this.getData();
+  async beforeMount() {
+    await this.getData();
+    await this.getPictures();
+    console.log("hi" ,this.pictures)
 
   },
   methods: {
@@ -96,8 +133,31 @@ export default {
             console.log(error)
           });
     },
+    getPictures (){
+      const options = {
+        method: 'GET'
+      };
+      fetch(this.backendurl + `pictures/getAllPictures/${this.$route.params.postid}`, options)
+      .then((response) => response.json())
+    .then((data) => {
+
+      for(let i in data){
+        this.pictures.push({
+              "path": this.backendurl + `pictures/${data[i].id}`
+            }
+          )
+
+      }
+      console.log(this.pictures)
+
+
+    })
+    .catch(error => {
+      console.log(error)
+    });
+    },
     checkShowCategorySubject: function (value) {
-      if (value === 'SUCHE' || value == 'BIETE') {
+      if (value === 'SUCHE' || value === 'BIETE') {
         return true;
       }
       return false;
@@ -107,12 +167,10 @@ export default {
 </script>
 
 <style scoped>
-div{
-  margin-top:10px;
-  margin-bottom:10px
+#wrapper{
+  margin:auto;
+  max-width:80%;
 }
-span{
-  margin-top:10px;
-  margin-bottom:10px
-}
+
+
 </style>
